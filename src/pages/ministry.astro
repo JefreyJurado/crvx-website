@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import { OCCASIONS } from '../data/site';
+---
+<Base title="Our Ministry" description="Crvx et Cithara sings at the Traditional Latin Mass and the Novus Ordo, and for ordinations, professions, anniversaries, nuptial Masses, feast days and concerts.">
+  <section class="section dark page-head">
+    <div class="container section-head centered">
+      <p class="eyebrow">How we serve</p>
+      <h1 class="title">Our Ministry</h1>
+    </div>
+  </section>
+
+  <section class="section ruled">
+    <div class="container narrow stack">
+      <p class="eyebrow">Cantate Domino</p>
+      <div class="prose">
+        <p>For us, sacred music is not a performance set beside the liturgy. It is part of the liturgy itself: a prayer sung by the Church, offered to God and meant to lift the hearts of the faithful toward Him.</p>
+        <p>Our choir serves in both the Traditional Latin Mass and the Novus Ordo, embracing the richness of the Church's musical heritage and the beauty of its liturgical traditions.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container row">
+      <article class="card">
+        <h2 class="h3">Traditional Latin Mass</h2>
+        <p>Gregorian chant and sacred polyphony sung for the usus antiquior, in continuity with centuries of the Church's liturgical music: the chant Propers of the day and a polyphonic or chant Ordinary.</p>
+        <p class="todo">[ Where and how often the choir sings the Traditional Latin Mass: to be supplied by the choir. ]</p>
+      </article>
+      <article class="card">
+        <h2 class="h3">Novus Ordo</h2>
+        <p>Traditional hymns, chant and liturgical music that elevate the ordinary form of the Mass, in parishes and for special celebrations.</p>
+        <p class="todo">[ Where and how often the choir sings the Novus Ordo: to be supplied by the choir. ]</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section card-bg" aria-labelledby="occ-h">
+    <div class="container stack lg">
+      <div class="section-head centered">
+        <h2 id="occ-h" class="title">Occasions We Sing For</h2>
+      </div>
+      <ul class="occasions">
+        {OCCASIONS.map(o => <li>{o}</li>)}
+      </ul>
+      <p class="repertoire">Our repertoire: Gregorian chant · sacred polyphony · traditional hymns</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow stack centered" style="text-align:center">
+      <h2 class="title">Request the Choir for Your Liturgy</h2>
+      <p class="lead">Tell us the date, the place and the occasion, and we will reply as soon as we can.</p>
+      <a class="btn btn-forest" href="/contact#invite" data-open-invite>Invite Us to Sing</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-head { padding: 56px 0; }
+  .card .h3 { font-family: var(--font-display); font-size: 20px; color: var(--deep-forest); }
+  .todo { color: var(--deep-gold) !important; }
+  .occasions {
+    list-style: none; margin: 0 auto; padding: 0; width: 100%; max-width: 820px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 12px;
+  }
+  .occasions li { background: var(--parchment); border: 1px solid var(--border-strong); padding: 14px 18px; font-size: 16px; }
+  .repertoire { text-align: center; font-family: var(--font-accent); font-style: italic; font-size: 20px; color: var(--deep-gold); }
+</style>

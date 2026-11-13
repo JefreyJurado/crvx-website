@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import InviteForm from '../components/InviteForm.astro';
+import { SITE } from '../data/site';
+---
+<Base title="Contact" description="Invite Crvx et Cithara to sing at your liturgy, or ask about joining the choir.">
+  <section class="section dark page-head">
+    <div class="container section-head centered">
+      <p class="eyebrow">Venite</p>
+      <h1 class="title">Invite Us to Sing</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow stack lg">
+      <div class="section-head centered">
+        <p class="lead">Parishes, priests, event organizers and those who wish to join us: we would be glad to hear from you. Tell us about the occasion and we will respond as soon as we can.</p>
+      </div>
+      <div id="invite" class="anchor">
+        <h2 class="visually-hidden">Invitation form</h2>
+        <InviteForm prefix="c" />
+      </div>
+      <div class="row other">
+        <div class="stack">
+          <h2 class="h3">Other enquiries</h2>
+          <p>Would you like to join the choir, or do you have a general question? Use the same form and choose <em>Other, or joining the choir</em>, or write to us directly.</p>
+        </div>
+        <div class="stack">
+          <h2 class="h3">Write to us</h2>
+          <p class="todo">{SITE.email}</p>
+          {SITE.social.map(s => s.href ? <a href={s.href} rel="noopener">{s.label}</a> : <p class="todo">{s.placeholder}</p>)}
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-head { padding: 56px 0; }
+  .anchor { scroll-margin-top: 16px; }
+  .h3 { font-family: var(--font-display); font-size: 20px; color: var(--deep-forest); }
+  .other p { font-size: 16px; }
+  .other .stack { gap: 10px; }
+  .todo { color: var(--deep-gold); }
+</style>

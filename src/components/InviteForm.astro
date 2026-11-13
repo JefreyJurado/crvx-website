@@ -1,0 +1,83 @@
+---
+// The invitation form (PLAN §4 Contact). Used inline on /contact and inside
+// the "Invite Us to Sing" modal; `prefix` keeps the field ids unique.
+import { FORM_ENDPOINT, FORM_READY, OCCASIONS } from '../data/site';
+interface Props { prefix: string; compact?: boolean; }
+const { prefix, compact = false } = Astro.props;
+const id = (k: string) => `${prefix}-${k}`;
+---
+<form class:list={['invite-form', { compact }]} action={FORM_ENDPOINT} method="POST">
+  <input type="hidden" name="_subject" value="Invitation to sing (website)" />
+  <div class="fields two">
+    <div class="field">
+      <label for={id('name')}>Your name</label>
+      <input id={id('name')} name="name" type="text" autocomplete="name" required />
+    </div>
+    <div class="field">
+      <label for={id('email')}>Your email</label>
+      <input id={id('email')} name="email" type="email" autocomplete="email" required />
+    </div>
+  </div>
+  <div class="fields two">
+    <div class="field">
+      <label for={id('date')}>Date of the Mass or event</label>
+      <input id={id('date')} name="date" type="date" />
+    </div>
+    <div class="field">
+      <label for={id('occasion')}>Occasion</label>
+      <select id={id('occasion')} name="occasion">
+        {OCCASIONS.map(o => <option>{o}</option>)}
+        <option>Other, or joining the choir</option>
+      </select>
+    </div>
+  </div>
+  <div class="fields two">
+    <div class="field">
+      <label for={id('venue')}>Parish or venue, and city</label>
+      <input id={id('venue')} name="venue" type="text" placeholder="e.g. Parish name, City" />
+    </div>
+    <div class="field">
+      <label for={id('form')}>Form of the liturgy</label>
+      <select id={id('form')} name="liturgy">
+        <option>Traditional Latin Mass</option>
+        <option>Novus Ordo</option>
+        <option>Not a Mass</option>
+      </select>
+    </div>
+  </div>
+  <div class="field">
+    <label for={id('msg')}>Your message</label>
+    <textarea id={id('msg')} name="message" rows={compact ? 3 : 4} placeholder="Anything else we should know: schedule, repertoire requests, how to reach you"></textarea>
+  </div>
+  <!-- Spam protection: Formspree's honeypot. People never see or fill it. -->
+  <div class="hp" aria-hidden="true">
+    <label for={id('gotcha')}>Leave this empty</label>
+    <input id={id('gotcha')} name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+  <button class="btn btn-forest" type="submit" disabled={!FORM_READY}>Send Invitation</button>
+  {FORM_READY
+    ? <p class="note">Messages are delivered to the choir's email address.</p>
+    : <p class="note todo">[ This form is not connected yet: the choir's email and form service are still to be set up. ]</p>}
+</form>
+
+<style>
+  .invite-form { display: flex; flex-direction: column; gap: 18px; background: var(--card-parchment); border: 1px solid var(--border-light); padding: 32px; }
+  .invite-form.compact { padding: 0; border: 0; background: none; }
+  .fields.two { display: flex; flex-wrap: wrap; gap: 18px; }
+  .fields.two > .field { flex: 1 1 220px; }
+  .field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  label { font-size: 13px; font-weight: 700; letter-spacing: 0.05em; color: var(--deep-forest); }
+  input, select, textarea {
+    border: 1px solid var(--border-strong); background: var(--parchment); color: var(--charcoal);
+    padding: 11px 12px; font: 16px var(--font-body); min-height: 44px; width: 100%; border-radius: 0;
+  }
+  textarea { resize: vertical; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--deep-gold); outline-offset: 1px; }
+  button { align-self: flex-start; padding-left: 32px; padding-right: 32px; }
+  .compact button { align-self: center; }
+  button:disabled { opacity: 0.6; cursor: not-allowed; }
+  .note { font-size: 13px; color: var(--muted-on-parchment); }
+  .compact .note { text-align: center; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  @media (max-width: 480px) { .invite-form:not(.compact) { padding: 20px; } button { align-self: stretch; } }
+</style>

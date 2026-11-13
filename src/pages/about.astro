@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro';
+import { ABOUT_PARAGRAPHS, MISSION, VISION, FORMATIONS } from '../data/site';
+---
+<Base title="About Us" description="Who Crvx et Cithara is: a choir united by faith and devoted to sacred music, serving the Traditional Latin Mass and the Novus Ordo.">
+  <section class="section dark page-head">
+    <div class="container section-head centered">
+      <p class="eyebrow">Who we are</p>
+      <h1 class="title">About Us</h1>
+    </div>
+  </section>
+
+  <!-- Our Story: facts come from the owner (PLAN §9). Nothing invented. -->
+  <section class="section ruled" aria-labelledby="story-h">
+    <div class="container story">
+      <div class="stack">
+        <h2 id="story-h" class="title">Our Story</h2>
+        <div class="prose">
+          <p>Crvx et Cithara (<em>The Cross and the Lyre</em>) was founded in <span class="todo">[ year ]</span> at <span class="todo">[ home parish, city ]</span>.</p>
+          <p class="todo">[ How the choir began and who started it: to be supplied by the choir. ]</p>
+        </div>
+      </div>
+      <div class="ph r43">[ CHOIR PHOTO, with permission from everyone pictured ]</div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="identity-h">
+    <div class="container stack">
+      <p class="eyebrow">Our identity</p>
+      <h2 id="identity-h" class="title">Sacred Music as Prayer</h2>
+      <div class="prose">
+        {ABOUT_PARAGRAPHS.map(p => <p>{p}</p>)}
+        <p class="accent-quote">Soli Deo Gloria.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark" aria-labelledby="mission-h">
+    <div class="container stack lg">
+      <h2 id="mission-h" class="title" style="text-align:center">MISSION &amp; VISION</h2>
+      <div class="row">
+        <div class="card-outline-dark"><h3>Our Mission</h3><p>{MISSION}</p></div>
+        <div class="card-outline-dark"><h3>Our Vision</h3><p>{VISION}</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section ruled" aria-labelledby="formations-h">
+    <div class="container stack lg">
+      <div class="section-head centered">
+        <p class="eyebrow">Two formations, one purpose</p>
+        <h2 id="formations-h" class="title">Our Formations</h2>
+      </div>
+      <div class="row">
+        <div class="card-dark">
+          <h3>{FORMATIONS[0].name}</h3>
+          <p class="voices">{FORMATIONS[0].voices}</p>
+          <p>Our full mixed choir. With soprano, alto, tenor and bass, it sings the Church's polyphonic repertoire, where independent voices weave around the chant and the text of the liturgy.</p>
+          <p>It sings for ordinations, nuptial Masses and the major feasts of the year.</p>
+        </div>
+        <div class="card-dark">
+          <h3>{FORMATIONS[1].name}</h3>
+          <p class="voices">{FORMATIONS[1].voices}</p>
+          <p>Our all-male ensemble. Its darker, plainer sound suits rites that call for a solemn and austere register.</p>
+          <p>It sings for occasions such as professions of vows and episcopal anniversaries.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="people-h">
+    <div class="container people">
+      <div class="ph r32">[ GROUP PHOTO, with permission from everyone pictured ]</div>
+      <div class="stack">
+        <h2 id="people-h" class="title">The People</h2>
+        <p>The choir is led by its Choir Master, <strong>Br. Angelo Lorenzo Salvacion</strong>. <span class="todo">[ to be confirmed by the choir ]</span></p>
+        <p class="muted">Our members will be introduced on their own page later, each with their consent.</p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-head { padding: 56px 0; }
+  .story, .people { display: flex; flex-wrap: wrap; gap: 48px; align-items: center; }
+  .story > *, .people > * { flex: 1 1 380px; min-width: 0; }
+  @media (max-width: 480px) { .story > *, .people > * { flex-basis: 100%; } }
+  .todo { color: var(--deep-gold); }
+  .muted { color: var(--muted-on-parchment); font-size: 16px; }
+</style>

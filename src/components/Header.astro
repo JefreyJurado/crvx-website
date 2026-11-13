@@ -16,7 +16,7 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/'
     <nav id="main-nav" aria-label="Main">
       <ul>
         {NAV.map(n => (
-          <li><a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a></li>
+          <li><a href={n.href} aria-current={path === n.href.split('#')[0] ? 'page' : undefined}>{n.label}</a></li>
         ))}
       </ul>
     </nav>
@@ -56,9 +56,10 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/'
     font: 700 14px var(--font-body); letter-spacing: 0.06em; cursor: pointer;
   }
   @media (max-width: 860px) {
-    .menu-btn { display: inline-flex; align-items: center; }
-    nav { display: none; flex-basis: 100%; margin-left: 0; }
-    nav.open { display: block; }
+    /* Without JS the menu stays open, so it is always reachable. */
+    :global(.js) .menu-btn { display: inline-flex; align-items: center; }
+    nav { flex-basis: 100%; margin-left: 0; }
+    :global(.js) nav:not(.open) { display: none; }
     nav ul { flex-direction: column; gap: 0; border-top: 1px solid var(--border-on-dark-soft); }
     nav a { display: block; padding: 12px 0; font-size: 16px; }
   }
