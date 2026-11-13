@@ -17,11 +17,11 @@ npm run build    # static output in dist/
 | Shared styles | `src/styles/global.css` |
 | Header, footer, `<head>` / Open Graph tags | `src/components/`, `src/layouts/Base.astro` |
 | Pages | `src/pages/` |
-| Social share image (placeholder) | `public/og-image.png` |
+| Crest (optimised; original stays in the docs folder), icons, share image | `public/crest/`, `public/*.png` |
 
 ## Placeholders still open (owner, PLAN §9)
 
-Search the code for `TODO(owner` and for `[` brackets in the page text: the crest, the photos, the choir's email, the social links, the engagements, the Our Story facts and the Formspree form id. Placeholders are never filled with invented facts.
+Search the code for `TODO(owner` and for `[` brackets in the page text: the photos, the choir's email, the social links, the engagements, the Our Story facts and the Formspree form id. Placeholders are never filled with invented facts.
 
 ## Rules
 

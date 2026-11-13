@@ -5,8 +5,8 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/'
 <header class="site-header dark">
   <div class="container bar">
     <a href="/" class="brand" aria-label={`${SITE.name}, home`}>
-      <!-- TODO(owner, PLAN §9): the official crest replaces this placeholder. -->
-      <span class="logo-ph" aria-hidden="true">LOGO</span>
+      <!-- The official crest (source file kept in the docs folder, not in the repo). -->
+      <img class="crest" src="/crest/crest-48.png" srcset="/crest/crest-48.png 1x, /crest/crest-96.png 2x" width="39" height="48" alt="" />
       <span class="brand-text">
         <span class="wordmark">{SITE.wordmark}</span>
         <span class="subtitle">{SITE.subtitle}</span>
@@ -37,11 +37,7 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/'
   .site-header { background: var(--deep-forest); border-bottom: 1px solid var(--border-on-dark); }
   .bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; padding-top: 14px; padding-bottom: 14px; }
   .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; min-width: 0; }
-  .logo-ph {
-    flex: none; width: 40px; height: 40px; border-radius: 50%;
-    border: 1px dashed var(--antique-gold); color: var(--antique-gold);
-    display: flex; align-items: center; justify-content: center; font-size: 8px; letter-spacing: 0.05em;
-  }
+  .crest { flex: none; width: auto; height: 48px; }
   .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
   .wordmark { font-family: var(--font-display); font-weight: 600; font-size: 19px; letter-spacing: 0.14em; color: var(--parchment); }
   .subtitle { font-family: var(--font-accent); font-style: italic; font-size: 15px; color: var(--muted-on-forest); }
