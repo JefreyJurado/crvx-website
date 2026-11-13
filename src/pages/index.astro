@@ -6,6 +6,7 @@ import { SITE, ENGAGEMENTS, FEATURED, MISSION, VISION, FORMATIONS, OCCASIONS, AB
   <!-- Hero -->
   <section class="hero dark">
     <div class="container hero-inner">
+      <img class="hero-crest" src="/crest/crest-150.png" srcset="/crest/crest-150.png 1x, /crest/crest-300.png 2x" width="121" height="150" alt="The crest of Crvx et Cithara" />
       <p class="motto">{SITE.motto}</p>
       <h1>{SITE.wordmark}</h1>
       <p class="subtitle">{SITE.subtitle}</p>
@@ -16,7 +17,7 @@ import { SITE, ENGAGEMENTS, FEATURED, MISSION, VISION, FORMATIONS, OCCASIONS, AB
         <a class="btn btn-gold" href="/contact#invite" data-open-invite>Invite Us to Sing</a>
         <a class="btn btn-outline-dark" href="/about">Learn About Us</a>
       </div>
-      <p class="ph-note">[ Backdrop: choir or church-interior photo · the choir's crest goes above the title ]</p>
+      <p class="ph-note">[ Backdrop: choir or church-interior photo ]</p>
     </div>
   </section>
 
@@ -145,6 +146,8 @@ import { SITE, ENGAGEMENTS, FEATURED, MISSION, VISION, FORMATIONS, OCCASIONS, AB
 <style>
   .hero { background: radial-gradient(ellipse at 50% 30%, var(--deep-forest) 0%, var(--deep-forest) 55%, var(--darkest-forest) 100%); color: var(--parchment); }
   .hero-inner { padding-top: 96px; padding-bottom: 72px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 22px; }
+  .hero-crest { width: auto; height: 150px; }
+  @media (max-width: 480px) { .hero-crest { height: 120px; } }
   .motto { font-family: var(--font-accent); font-style: italic; font-size: 20px; color: var(--antique-gold); }
   h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(34px, 8vw, 58px); line-height: 1.1; letter-spacing: 0.1em; color: var(--parchment); }
   .subtitle { font-family: var(--font-accent); font-style: italic; font-size: 24px; color: var(--muted-on-forest); }
