@@ -37,10 +37,10 @@ export const CREDITS = [
     modified: 'Resized and cropped to 3:2 (still CC BY-SA 4.0).',
   },
   {
-    n: 12, usedFor: 'Social share card', file: 'Nave_Altar_Candle_2.jpg',
-    credit: 'FatherAdamBrown, CC0, via Wikimedia Commons', license: 'CC0', required: false,
-    page: 'https://commons.wikimedia.org/wiki/File:Nave_Altar_Candle_2.jpg',
-    licenseUrl: 'http://creativecommons.org/publicdomain/zero/1.0/deed.en',
-    modified: 'Cropped to 1200×630, darkened, with the crest and name added.',
+    n: 13, usedFor: 'OG share image', file: 'Interior,_Baclayon_church,_Bohol_03.jpg',
+    credit: 'John Martin PERRY, CC BY-SA 4.0, via Wikimedia Commons', license: 'CC BY-SA 4.0', required: true,
+    page: 'https://commons.wikimedia.org/wiki/File:Interior,_Baclayon_church,_Bohol_03.jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+    modified: 'Cropped to 1200×630, darkened, with the crest and name added (still CC BY-SA 4.0).',
   },
 ];

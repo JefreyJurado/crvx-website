@@ -12,7 +12,7 @@ The same list is shown on the site at `/credits` (source: `src/data/credits.ts`;
 | 7 | Home "About" and About Us "Our Story" | Church_of_Saints_Apostles_Peter_and_Paul,_Župrany_-_choir_loft_and_pipe_organ.jpg | Voctor12 | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) | https://commons.wikimedia.org/wiki/File:Church_of_Saints_Apostles_Peter_and_Paul,_%C5%BDuprany_-_choir_loft_and_pipe_organ.jpg |
 | 10 | Our Ministry, Traditional Latin Mass | Holy_Rosary_Church_Indianapolis_19_July_2024_1.jpg | Maximilian775 | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0) | https://commons.wikimedia.org/wiki/File:Holy_Rosary_Church_Indianapolis_19_July_2024_1.jpg |
 | 11 | Our Ministry, Novus Ordo | All_Hallows_Church_Tottenham_Haringey_England_-_nave_altar.jpg | Acabashi | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) | https://commons.wikimedia.org/wiki/File:All_Hallows_Church_Tottenham_Haringey_England_-_nave_altar.jpg |
-| 12 | Social share card | Nave_Altar_Candle_2.jpg | FatherAdamBrown | CC0 (credit not required) | https://commons.wikimedia.org/wiki/File:Nave_Altar_Candle_2.jpg |
+| 13 | OG share image | Interior,_Baclayon_church,_Bohol_03.jpg | John Martin PERRY | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) | https://commons.wikimedia.org/wiki/File:Interior,_Baclayon_church,_Bohol_03.jpg |
 
 Credit lines as displayed:
 
@@ -21,7 +21,7 @@ Credit lines as displayed:
 - #7: "Voctor12, CC BY-SA 4.0, via Wikimedia Commons" (required; linked to the file page and the license)
 - #10: "Maximilian775, CC BY 4.0, via Wikimedia Commons" (required; linked to the file page and the license)
 - #11: "Acabashi, CC BY-SA 4.0, via Wikimedia Commons" (required; linked to the file page and the license)
-- #12: "FatherAdamBrown, CC0, via Wikimedia Commons" (courtesy)
+- #13: "John Martin PERRY, CC BY-SA 4.0, via Wikimedia Commons" (required; linked to the file page and the license). The share card itself carries no credit text; this entry and /credits are the attribution.
 
 Modified:
 
@@ -30,7 +30,7 @@ Modified:
 - #7: resized and cropped to 4:3 (still CC BY-SA 4.0).
 - #10: resized and cropped to 3:2.
 - #11: resized and cropped to 3:2 (still CC BY-SA 4.0).
-- #12: cropped to 1200×630, darkened, with the crest and name added.
+- #13: cropped to 1200×630, darkened, with the crest and name added (still CC BY-SA 4.0).
 
 Every image is also stripped of embedded metadata (EXIF, including GPS).
 
