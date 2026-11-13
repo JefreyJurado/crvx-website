@@ -23,7 +23,7 @@ const year = new Date().getFullYear();
         <span class="ph-text">{SITE.email}</span>
       </div>
     </div>
-    <p class="legal">© {year} {SITE.name} · {SITE.motto}</p>
+    <p class="legal">© {year} {SITE.name} · {SITE.motto} · <a href="/credits">Image credits</a></p>
   </div>
 </footer>
 
@@ -42,6 +42,8 @@ const year = new Date().getFullYear();
   .follow { flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
   .follow .h { font-weight: 700; color: var(--parchment); }
   .ph-text { color: var(--caption-dark); }
+  .legal a { color: var(--caption-dark); }
+  .legal a:hover { color: var(--antique-gold); }
   .legal { border-top: 1px solid var(--border-on-dark-soft); padding-top: 20px; font-size: 12px; color: var(--caption-dark); }
   a:focus-visible { outline-color: var(--antique-gold); }
 </style>

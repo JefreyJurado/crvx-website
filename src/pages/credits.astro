@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import { CREDITS } from '../data/credits';
+---
+<Base title="Image Credits" description="Credits and licences for the images used on the Crvx et Cithara website.">
+  <section class="section dark page-head">
+    <div class="container section-head centered">
+      <h1 class="title">Image Credits</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow stack">
+      <div class="prose">
+        <p>All images are from Wikimedia Commons unless stated otherwise. CC BY and CC BY-SA images are credited as their licences require. CC0 images are credited as a courtesy. The choir's crest belongs to Crvx et Cithara.</p>
+      </div>
+      <ul class="credits">
+        {CREDITS.map(c => (
+          <li>
+            <p class="used">{c.usedFor}</p>
+            <p><a href={c.page} rel="noopener">{c.credit.replace(/, (CC[^,]*), via Wikimedia Commons$/, '')}</a>, <a href={c.licenseUrl} rel="noopener license">{c.license}</a>, via Wikimedia Commons</p>
+            <p class="mod">{c.modified}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="checked">Licences checked 2026-11-13.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-head { padding: 56px 0; }
+  .credits { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  .credits li { background: var(--card-parchment); border: 1px solid var(--border-light); padding: 16px 20px; display: flex; flex-direction: column; gap: 4px; font-size: 16px; }
+  .used { font-weight: 700; color: var(--deep-forest); }
+  .mod, .checked { font-size: 14px; color: var(--muted-on-parchment); }
+  a { overflow-wrap: anywhere; }
+</style>
