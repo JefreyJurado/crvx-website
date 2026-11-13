@@ -1,10 +1,17 @@
 ---
 import Base from '../layouts/Base.astro';
+import { Image, getImage } from 'astro:assets';
+import heroImg from '../assets/images/hero-baclayon.jpg';
+import aboutImg from '../assets/images/about-organ-lyre.jpg';
+import manuscriptImg from '../assets/images/manuscript-gradual.jpg';
 import { SITE, ENGAGEMENTS, FEATURED, MISSION, VISION, FORMATIONS, OCCASIONS, ABOUT_PARAGRAPHS } from '../data/site';
+// Faint chant-manuscript texture behind "Our Voices" (PLAN §5 visual elements).
+const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'webp', quality: 60 });
 ---
 <Base description={SITE.description}>
   <!-- Hero -->
   <section class="hero dark">
+    <Image class="hero-bg" src={heroImg} alt="" widths={[640, 960, 1400, 1920, 2400]} sizes="100vw" loading="eager" fetchpriority="high" format="webp" quality={70} />
     <div class="container hero-inner">
       <img class="hero-crest" src="/crest/crest-150.png" srcset="/crest/crest-150.png 1x, /crest/crest-300.png 2x" width="121" height="150" alt="The crest of Crvx et Cithara" />
       <p class="motto">{SITE.motto}</p>
@@ -17,7 +24,6 @@ import { SITE, ENGAGEMENTS, FEATURED, MISSION, VISION, FORMATIONS, OCCASIONS, AB
         <a class="btn btn-gold" href="/contact#invite" data-open-invite>Invite Us to Sing</a>
         <a class="btn btn-outline-dark" href="/about">Learn About Us</a>
       </div>
-      <p class="ph-note">[ Backdrop: choir or church-interior photo ]</p>
     </div>
   </section>
 
@@ -46,7 +52,7 @@ import { SITE, ENGAGEMENTS, FEATURED, MISSION, VISION, FORMATIONS, OCCASIONS, AB
         <p>{ABOUT_PARAGRAPHS[2]}</p>
         <a class="more" href="/about">Read our story →</a>
       </div>
-      <div class="ph r43">[ CHOIR PHOTO, with permission from everyone pictured ]</div>
+      <Image class="about-img" src={aboutImg} alt="A choir-loft pipe organ crowned with a gilded lyre" widths={[480, 800, 1200]} sizes="(max-width: 860px) 100vw, 480px" format="webp" quality={72} />
     </div>
   </section>
 
@@ -62,7 +68,7 @@ import { SITE, ENGAGEMENTS, FEATURED, MISSION, VISION, FORMATIONS, OCCASIONS, AB
   </section>
 
   <!-- Formations -->
-  <section class="section ruled">
+  <section class="section ruled textured" style={`--manuscript: url(${manuscript.src})`}>
     <div class="container stack lg">
       <div class="section-head centered">
         <p class="eyebrow">Two formations, one purpose</p>
@@ -144,8 +150,14 @@ import { SITE, ENGAGEMENTS, FEATURED, MISSION, VISION, FORMATIONS, OCCASIONS, AB
 </Base>
 
 <style>
-  .hero { background: radial-gradient(ellipse at 50% 30%, var(--deep-forest) 0%, var(--deep-forest) 55%, var(--darkest-forest) 100%); color: var(--parchment); }
-  .hero-inner { padding-top: 96px; padding-bottom: 72px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 22px; }
+  .hero { position: relative; overflow: hidden; background: var(--darkest-forest); color: var(--parchment); }
+  /* Photo backdrop under a Darkest Forest scrim so parchment text stays readable. */
+  .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero::after {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 40%, rgb(24 29 25 / 0.72) 0%, rgb(24 29 25 / 0.86) 60%, rgb(24 29 25 / 0.94) 100%);
+  }
+  .hero-inner { position: relative; z-index: 1; padding-top: 96px; padding-bottom: 72px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 22px; }
   .hero-crest { width: auto; height: 150px; }
   @media (max-width: 480px) { .hero-crest { height: 120px; } }
   .motto { font-family: var(--font-accent); font-style: italic; font-size: 20px; color: var(--antique-gold); }
@@ -154,7 +166,6 @@ import { SITE, ENGAGEMENTS, FEATURED, MISSION, VISION, FORMATIONS, OCCASIONS, AB
   .headline { font-family: var(--font-accent); font-size: clamp(24px, 5vw, 30px); font-weight: 500; line-height: 1.3; max-width: 640px; }
   .positioning { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.9; max-width: 640px; color: var(--muted-on-forest); }
   .ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 10px; }
-  .ph-note { margin-top: 18px; font-size: 12px; color: var(--caption-dark); }
   @media (max-width: 720px) { .hero-inner { padding-top: 64px; padding-bottom: 52px; } }
   @media (max-width: 480px) { .ctas .btn { flex: 1 1 100%; } }
 
@@ -170,8 +181,14 @@ import { SITE, ENGAGEMENTS, FEATURED, MISSION, VISION, FORMATIONS, OCCASIONS, AB
   .about-row { display: flex; flex-wrap: wrap; gap: 48px; align-items: center; }
   .about-text { flex: 1 1 480px; min-width: 0; }
   .about-text p:not(.eyebrow) { font-size: 16px; line-height: 1.8; }
-  .about-row > .ph { flex: 1 1 380px; }
-  @media (max-width: 480px) { .about-text, .about-row > .ph { flex-basis: 100%; } }
+  .about-row > :global(.about-img) { flex: 1 1 380px; min-width: 0; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--border-strong); }
+  @media (max-width: 480px) { .about-text, .about-row > :global(.about-img) { flex-basis: 100%; } }
+
+  .textured { position: relative; isolation: isolate; }
+  .textured::before {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background: var(--manuscript) center / 520px auto repeat; opacity: 0.08;
+  }
 
   .repertoire { text-align: center; font-family: var(--font-accent); font-style: italic; font-size: 20px; color: var(--deep-gold); }
 

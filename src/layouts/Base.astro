@@ -10,7 +10,7 @@ const { title, description = SITE.description } = Astro.props;
 const fullTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · ${SITE.subtitle}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // Crest + name on Deep Forest. A choir photo may replace it later (PLAN §4).
-const ogImage = new URL('/og-image.png', Astro.site);
+const ogImage = new URL('/og-image.jpg', Astro.site);
 ---
 <!doctype html>
 <html lang="en">
