@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { SITE, ENGAGEMENTS, MISSION, VISION, FORMATIONS, OCCASIONS, ABOUT_PARAGRAPHS } from '../data/site';
+import { SITE, ENGAGEMENTS, FEATURED, MISSION, VISION, FORMATIONS, OCCASIONS, ABOUT_PARAGRAPHS } from '../data/site';
 ---
 <Base description={SITE.description}>
   <!-- Hero -->
@@ -101,6 +101,24 @@ import { SITE, ENGAGEMENTS, MISSION, VISION, FORMATIONS, OCCASIONS, ABOUT_PARAGR
     </div>
   </section>
 
+  <!-- Featured activities (PLAN §4) -->
+  <section class="section ruled" aria-labelledby="featured-h">
+    <div class="container stack lg">
+      <div class="section-head centered">
+        <p class="eyebrow">Recent and upcoming</p>
+        <h2 id="featured-h" class="title">Featured Activities</h2>
+      </div>
+      <ul class="featured">
+        {FEATURED.map(f => (
+          <li>
+            <div class="ph r32">[ EVENT PHOTO ]</div>
+            <div class="f-text"><h3>{f.name}</h3><p>{f.when}</p></div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
   <!-- Gallery preview -->
   <section class="section card-bg">
     <div class="container stack">
@@ -153,6 +171,13 @@ import { SITE, ENGAGEMENTS, MISSION, VISION, FORMATIONS, OCCASIONS, ABOUT_PARAGR
   @media (max-width: 480px) { .about-text, .about-row > .ph { flex-basis: 100%; } }
 
   .repertoire { text-align: center; font-family: var(--font-accent); font-style: italic; font-size: 20px; color: var(--deep-gold); }
+
+  .featured { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 28px; }
+  .featured li { background: var(--card-parchment); border: 1px solid var(--border-light); display: flex; flex-direction: column; }
+  .featured .ph { border: 0; border-bottom: 1px solid var(--border-strong); }
+  .f-text { padding: 18px 20px; display: flex; flex-direction: column; gap: 4px; }
+  .f-text h3 { font-family: var(--font-display); font-size: 18px; color: var(--deep-forest); }
+  .f-text p { font-size: 14px; color: var(--muted-on-parchment); }
 
   .gallery-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 16px; }
   .gallery-head .more { margin-left: auto; }

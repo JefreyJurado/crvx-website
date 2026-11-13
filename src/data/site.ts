@@ -50,9 +50,17 @@ export const OCCASIONS = [
 
 // "Where we sing next" (PLAN §4 Home). TODO(owner): 2–3 real engagements.
 export const ENGAGEMENTS = [
-  { day: '00', month: '[MON]', occasion: '[Occasion, e.g. Sunday TLM]', venue: '[Parish, City]' },
-  { day: '00', month: '[MON]', occasion: '[Occasion, e.g. Novus Ordo Mass]', venue: '[Parish, City]' },
-  { day: '00', month: '[MON]', occasion: '[Occasion, e.g. Feast day]', venue: '[Parish, City]' },
+  { day: '[DAY]', month: '[MON]', occasion: '[Occasion, e.g. Sunday TLM]', venue: '[Parish, City]' },
+  { day: '[DAY]', month: '[MON]', occasion: '[Occasion, e.g. Novus Ordo Mass]', venue: '[Parish, City]' },
+  { day: '[DAY]', month: '[MON]', occasion: '[Occasion, e.g. Feast day]', venue: '[Parish, City]' },
+];
+
+// "Featured activities" (PLAN §4 Home). TODO(owner): 3 recent or upcoming
+// services, each with a photo.
+export const FEATURED = [
+  { name: '[Event name]', when: '[Month Year]' },
+  { name: '[Event name]', when: '[Month Year]' },
+  { name: '[Event name]', when: '[Month Year]' },
 ];
 
 export const MISSION =
@@ -77,6 +85,6 @@ export const FORMATIONS = [
   {
     name: 'TTBB Choir',
     voices: 'TENOR I & II · BARITONE · BASS',
-    short: 'An all-male formation for rites and traditions that call for a solemn, austere register, from monastic professions to episcopal anniversaries.',
+    short: 'An all-male formation for rites and traditions that call for a solemn, austere register, from professions of vows to episcopal anniversaries.',
   },
 ];
