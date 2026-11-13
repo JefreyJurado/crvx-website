@@ -1,12 +1,13 @@
 // Image credits. Keep in step with CREDITS.md. Credit lines and licences are
-// taken exactly from the owner-approved candidates sheet (checked 2026-11-13).
+// taken exactly from the owner-approved candidates sheet (rounds 1 and 3).
+// Unsplash License: no credit required; credited as a courtesy.
 export const CREDITS = [
   {
-    n: 2, usedFor: 'Home hero backdrop', file: 'Interior_of_Baclayon_Church.jpg',
-    credit: 'Deepak-nsk, CC0, via Wikimedia Commons', license: 'CC0', required: false,
-    page: 'https://commons.wikimedia.org/wiki/File:Interior_of_Baclayon_Church.jpg',
-    licenseUrl: 'http://creativecommons.org/publicdomain/zero/1.0/deed.en',
-    modified: 'Resized; shown under a dark overlay.',
+    n: 17, usedFor: 'Home hero backdrop', file: 'st-peters-basilica-dome-interior-eSrV4kmi0NA',
+    credit: 'Photo by Laputa Z on Unsplash', license: 'Unsplash License', required: false,
+    page: 'https://unsplash.com/photos/st-peters-basilica-dome-interior-eSrV4kmi0NA',
+    licenseUrl: 'https://unsplash.com/license',
+    modified: 'Resized; shown under a dark overlay with the crest centred in the lantern.',
   },
   {
     n: 4, usedFor: 'Section texture (Home, Our Voices)', file: 'Manuscript_Leaf,_from_a_Gradual_MET_sf31-134-7bs1.jpg',
@@ -16,31 +17,31 @@ export const CREDITS = [
     modified: 'Resized; tiled as a faint background.',
   },
   {
-    n: 7, usedFor: 'Home "About" and About Us "Our Story"', file: 'Church_of_Saints_Apostles_Peter_and_Paul,_Župrany_-_choir_loft_and_pipe_organ.jpg',
-    credit: 'Voctor12, CC BY-SA 4.0, via Wikimedia Commons', license: 'CC BY-SA 4.0', required: true,
-    page: 'https://commons.wikimedia.org/wiki/File:Church_of_Saints_Apostles_Peter_and_Paul,_%C5%BDuprany_-_choir_loft_and_pipe_organ.jpg',
-    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
-    modified: 'Resized and cropped to 4:3 (still CC BY-SA 4.0).',
+    n: 23, usedFor: 'Home "About" and About Us "Our Story"', file: 'interior-view-of-a-large-ornate-dome-with-windows-uaLYhdeLROY',
+    credit: 'Photo by Sui Xu on Unsplash', license: 'Unsplash License', required: false,
+    page: 'https://unsplash.com/photos/interior-view-of-a-large-ornate-dome-with-windows-uaLYhdeLROY',
+    licenseUrl: 'https://unsplash.com/license',
+    modified: 'Resized and cropped to 4:3.',
   },
   {
-    n: 10, usedFor: 'Our Ministry, Traditional Latin Mass', file: 'Holy_Rosary_Church_Indianapolis_19_July_2024_1.jpg',
-    credit: 'Maximilian775, CC BY 4.0, via Wikimedia Commons', license: 'CC BY 4.0', required: true,
-    page: 'https://commons.wikimedia.org/wiki/File:Holy_Rosary_Church_Indianapolis_19_July_2024_1.jpg',
-    licenseUrl: 'https://creativecommons.org/licenses/by/4.0',
+    n: 25, usedFor: 'Our Ministry, Traditional Latin Mass', file: 'interior-of-dome-building-VH5T-OGbNDQ',
+    credit: 'Photo by Clay Banks on Unsplash', license: 'Unsplash License', required: false,
+    page: 'https://unsplash.com/photos/interior-of-dome-building-VH5T-OGbNDQ',
+    licenseUrl: 'https://unsplash.com/license',
     modified: 'Resized and cropped to 3:2.',
   },
   {
-    n: 11, usedFor: 'Our Ministry, Novus Ordo', file: 'All_Hallows_Church_Tottenham_Haringey_England_-_nave_altar.jpg',
-    credit: 'Acabashi, CC BY-SA 4.0, via Wikimedia Commons', license: 'CC BY-SA 4.0', required: true,
-    page: 'https://commons.wikimedia.org/wiki/File:All_Hallows_Church_Tottenham_Haringey_England_-_nave_altar.jpg',
-    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
-    modified: 'Resized and cropped to 3:2 (still CC BY-SA 4.0).',
+    n: 26, usedFor: 'Our Ministry, Novus Ordo', file: 'interior-of-a-grand-cathedral-with-ornate-dome-and-altar-_SHp6mb1ai4',
+    credit: 'Photo by Chris Ciapala on Unsplash', license: 'Unsplash License', required: false,
+    page: 'https://unsplash.com/photos/interior-of-a-grand-cathedral-with-ornate-dome-and-altar-_SHp6mb1ai4',
+    licenseUrl: 'https://unsplash.com/license',
+    modified: 'Resized and cropped to 3:2.',
   },
   {
-    n: 13, usedFor: 'OG share image', file: 'Interior,_Baclayon_church,_Bohol_03.jpg',
-    credit: 'John Martin PERRY, CC BY-SA 4.0, via Wikimedia Commons', license: 'CC BY-SA 4.0', required: true,
-    page: 'https://commons.wikimedia.org/wiki/File:Interior,_Baclayon_church,_Bohol_03.jpg',
-    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
-    modified: 'Cropped to 1200×630, darkened, with the crest and name added (still CC BY-SA 4.0).',
+    n: 21, usedFor: 'OG share image', file: 'intricate-dome-interior-of-a-grand-cathedral-imDD-bDpWBE',
+    credit: 'Photo by The Quiet Atlas on Unsplash', license: 'Unsplash License', required: false,
+    page: 'https://unsplash.com/photos/intricate-dome-interior-of-a-grand-cathedral-imDD-bDpWBE',
+    licenseUrl: 'https://unsplash.com/license',
+    modified: 'Cropped to 1200×630, darkened, with the crest and name added.',
   },
 ];
