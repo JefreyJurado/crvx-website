@@ -1,0 +1,38 @@
+/* Design tokens: PLAN.md §5. These are the ONLY colours allowed on the site:
+   the five palette colours and the derived shades (amendment 2026-11-13b).
+   Any new hue needs an owner-logged amendment in PLAN.md §12. */
+:root {
+  /* Palette */
+  --deep-forest: #202723;   /* dark sections, header; headings on light */
+  --antique-gold: #B49A68;  /* accents, rules; TEXT ONLY ON DARK */
+  --parchment: #E9E1D2;     /* page background */
+  --charcoal: #292929;      /* body text on light */
+  --deep-gold: #735E34;     /* gold-toned links and labels on light */
+
+  /* Derived shades */
+  --card-parchment: #F2ECDF;
+  --border-light: #D6CBB4;
+  --border-strong: #C4B694;
+  --muted-on-forest: #CFC8B6;
+  --muted-on-parchment: #5A5347;
+  --darkest-forest: #181D19;
+  --caption-light: #8A8171;  /* large / non-essential text on Card Parchment only */
+  --caption-dark: #8D9489;
+
+  /* Borders on dark = Antique Gold at 25–40% opacity, never a new colour */
+  --border-on-dark: rgb(180 154 104 / 0.35);
+  --border-on-dark-soft: rgb(180 154 104 / 0.25);
+  /* Modal backdrop: Darkest Forest with opacity */
+  --scrim: rgb(24 29 25 / 0.82);
+
+  /* Type */
+  --font-display: 'Cinzel', 'Times New Roman', serif;
+  --font-accent: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Lato', system-ui, sans-serif;
+  --body-size: 17px;
+
+  --max-width: 1120px;
+  --gutter: 24px;
+}
+@media (min-width: 720px) { :root { --body-size: 18px; } }
+@media (max-width: 480px) { :root { --gutter: 16px; } }

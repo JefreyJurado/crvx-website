@@ -1,0 +1,47 @@
+---
+import { NAV, SITE } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container inner">
+    <div class="cols">
+      <div class="about">
+        <span class="wordmark">{SITE.wordmark}</span>
+        <p class="soli">Soli Deo Gloria.</p>
+        <p class="blurb">Through our voices and dedication, we aspire to preserve, promote, and share the beauty of sacred music, giving glory to God in every service.</p>
+      </div>
+      <nav aria-label="Footer">
+        <ul>
+          {NAV.filter(n => n.href !== '/').map(n => <li><a href={n.href}>{n.label}</a></li>)}
+        </ul>
+      </nav>
+      <div class="follow">
+        <span class="h">Follow the choir</span>
+        {SITE.social.map(s => s.href
+          ? <a href={s.href} rel="noopener">{s.label}</a>
+          : <span class="ph-text">{s.placeholder}</span>)}
+        <span class="ph-text">{SITE.email}</span>
+      </div>
+    </div>
+    <p class="legal">© {year} {SITE.name} · {SITE.motto}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--darkest-forest); color: var(--muted-on-forest); }
+  .inner { padding-top: 48px; padding-bottom: 36px; display: flex; flex-direction: column; gap: 28px; }
+  .cols { display: flex; flex-wrap: wrap; gap: 28px 48px; align-items: flex-start; }
+  .about { flex: 2 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+  .wordmark { font-family: var(--font-display); font-weight: 600; font-size: 17px; letter-spacing: 0.12em; color: var(--parchment); }
+  .soli { font-family: var(--font-accent); font-style: italic; font-size: 17px; color: var(--antique-gold); }
+  .blurb { font-size: 14px; font-weight: 300; line-height: 1.7; max-width: 420px; }
+  nav { flex: 1 1 160px; min-width: 0; }
+  nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+  nav a, .follow a { color: var(--muted-on-forest); text-decoration: none; font-size: 14px; display: inline-block; padding: 6px 0; }
+  nav a:hover, .follow a:hover { color: var(--antique-gold); }
+  .follow { flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+  .follow .h { font-weight: 700; color: var(--parchment); }
+  .ph-text { color: var(--caption-dark); }
+  .legal { border-top: 1px solid var(--border-on-dark-soft); padding-top: 20px; font-size: 12px; color: var(--caption-dark); }
+  a:focus-visible { outline-color: var(--antique-gold); }
+</style>

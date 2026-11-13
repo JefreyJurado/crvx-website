@@ -1,0 +1,66 @@
+---
+import { NAV, SITE } from '../data/site';
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+---
+<header class="site-header dark">
+  <div class="container bar">
+    <a href="/" class="brand" aria-label={`${SITE.name}, home`}>
+      <!-- TODO(owner, PLAN §9): the official crest replaces this placeholder. -->
+      <span class="logo-ph" aria-hidden="true">LOGO</span>
+      <span class="brand-text">
+        <span class="wordmark">{SITE.wordmark}</span>
+        <span class="subtitle">{SITE.subtitle}</span>
+      </span>
+    </a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <nav id="main-nav" aria-label="Main">
+      <ul>
+        {NAV.map(n => (
+          <li><a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.menu-btn');
+  const nav = document.getElementById('main-nav');
+  btn?.addEventListener('click', () => {
+    const open = btn.getAttribute('aria-expanded') !== 'true';
+    btn.setAttribute('aria-expanded', String(open));
+    nav?.classList.toggle('open', open);
+  });
+</script>
+
+<style>
+  .site-header { background: var(--deep-forest); border-bottom: 1px solid var(--border-on-dark); }
+  .bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; padding-top: 14px; padding-bottom: 14px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; min-width: 0; }
+  .logo-ph {
+    flex: none; width: 40px; height: 40px; border-radius: 50%;
+    border: 1px dashed var(--antique-gold); color: var(--antique-gold);
+    display: flex; align-items: center; justify-content: center; font-size: 8px; letter-spacing: 0.05em;
+  }
+  .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
+  .wordmark { font-family: var(--font-display); font-weight: 600; font-size: 19px; letter-spacing: 0.14em; color: var(--parchment); }
+  .subtitle { font-family: var(--font-accent); font-style: italic; font-size: 15px; color: var(--muted-on-forest); }
+  nav { margin-left: auto; }
+  nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 26px; }
+  nav a { color: var(--muted-on-forest); text-decoration: none; font-size: 14px; letter-spacing: 0.06em; padding: 10px 0; display: inline-block; }
+  nav a:hover, nav a[aria-current="page"] { color: var(--parchment); }
+  nav a[aria-current="page"] { font-weight: 700; }
+  .menu-btn {
+    display: none; margin-left: auto; min-height: 44px; padding: 0 16px;
+    background: transparent; color: var(--parchment); border: 1px solid var(--border-on-dark);
+    font: 700 14px var(--font-body); letter-spacing: 0.06em; cursor: pointer;
+  }
+  @media (max-width: 860px) {
+    .menu-btn { display: inline-flex; align-items: center; }
+    nav { display: none; flex-basis: 100%; margin-left: 0; }
+    nav.open { display: block; }
+    nav ul { flex-direction: column; gap: 0; border-top: 1px solid var(--border-on-dark-soft); }
+    nav a { display: block; padding: 12px 0; font-size: 16px; }
+  }
+  @media (max-width: 400px) { .wordmark { font-size: 16px; letter-spacing: 0.1em; } }
+</style>
