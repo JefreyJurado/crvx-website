@@ -16,7 +16,7 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/'
     <nav id="main-nav" aria-label="Main">
       <ul>
         {NAV.map(n => (
-          <li><a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a></li>
+          <li><a href={n.href} aria-current={path === n.href.split('#')[0] ? 'page' : undefined}>{n.label}</a></li>
         ))}
       </ul>
     </nav>

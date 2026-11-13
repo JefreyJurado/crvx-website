@@ -33,7 +33,7 @@ export const NAV = [
   { href: '/about', label: 'About Us' },
   { href: '/ministry', label: 'Our Ministry' },
   { href: '/gallery', label: 'Gallery' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/contact#invite', label: 'Contact' },
 ];
 
 // Our Ministry → "Occasions we sing for" (PLAN §4, old site, amendment 2026-11-13).

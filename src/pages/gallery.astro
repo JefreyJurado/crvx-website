@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+// TODO(owner, PLAN §9): 10–30 photos grouped by occasion, each with a caption.
+// When they arrive: put them in src/assets/gallery/, render them with
+// astro:assets <Image>, and add the lightbox (PLAN §3). Until then these are
+// placeholders; the groups below are examples, not real events.
+const groups = [
+  { title: '[ Occasion, e.g. Christmas, Midnight Mass ]', count: 4 },
+  { title: '[ Occasion, e.g. an ordination ]', count: 4 },
+];
+---
+<Base title="Gallery" description="Photos of Crvx et Cithara singing at the liturgy.">
+  <section class="section dark page-head">
+    <div class="container section-head centered">
+      <p class="eyebrow">Laudate Dominum</p>
+      <h1 class="title">Gallery</h1>
+    </div>
+  </section>
+
+  {groups.map((g, gi) => (
+    <section class:list={['section', { 'card-bg': gi % 2 === 1 }]}>
+      <div class="container stack">
+        <h2 class="group-title">{g.title}</h2>
+        <ul class="grid">
+          {Array.from({ length: g.count }, () => (
+            <li><figure><div class="ph r11">[ PHOTO ]</div><figcaption>[ Caption ]</figcaption></figure></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ))}
+
+  <section class="section ruled">
+    <div class="container narrow stack centered" style="text-align:center">
+      <h2 class="group-title">Videos</h2>
+      <p class="lead">[ A few YouTube or Facebook videos will appear here when the choir sends the links. ]</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-head { padding: 56px 0; }
+  .group-title { font-family: var(--font-display); font-size: 22px; color: var(--deep-forest); }
+  .grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 860px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  figure { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+  figcaption { font-size: 14px; color: var(--muted-on-parchment); }
+</style>
