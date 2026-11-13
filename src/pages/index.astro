@@ -30,7 +30,7 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
   <!-- Where we sing next -->
   <section class="section tight ruled" aria-labelledby="next-h">
     <div class="container stack">
-      <h2 id="next-h" class="label-caps">WHERE WE SING NEXT</h2>
+      <h2 id="next-h" class="label-caps" style="text-align:center">WHERE WE SING NEXT</h2>
       <ul class="engagements">
         {ENGAGEMENTS.map(ev => (
           <li>
@@ -44,15 +44,19 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
 
   <!-- About -->
   <section class="section">
-    <div class="container about-row">
-      <div class="stack about-text">
+    <div class="container stack lg">
+      <div class="section-head centered">
         <p class="eyebrow">Who we are</p>
         <h2 class="title">About Crvx et Cithara</h2>
+      </div>
+      <div class="about-row">
+      <div class="stack about-text">
         <p>{ABOUT_PARAGRAPHS[0]}</p>
         <p>{ABOUT_PARAGRAPHS[2]}</p>
-        <a class="more" href="/about">Read our story →</a>
       </div>
       <Image class="about-img" src={aboutImg} alt="A choir-loft pipe organ crowned with a gilded lyre" widths={[480, 800, 1200]} sizes="(max-width: 860px) 100vw, 480px" format="webp" quality={72} />
+      </div>
+      <a class="more" href="/about" style="align-self:center">Read our story →</a>
     </div>
   </section>
 
@@ -129,13 +133,11 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
   <!-- Gallery preview -->
   <section class="section card-bg">
     <div class="container stack">
-      <div class="gallery-head">
-        <h2 class="title">Gallery</h2>
-        <a class="more" href="/gallery">View all →</a>
-      </div>
+      <h2 class="title" style="text-align:center">Gallery</h2>
       <div class="grid4">
         {[1, 2, 3, 4].map(() => <div class="ph r11">[ PHOTO ]</div>)}
       </div>
+      <a class="more" href="/gallery" style="align-self:center">View all →</a>
     </div>
   </section>
 
@@ -179,7 +181,7 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
   .venue { font-size: 13px; color: var(--muted-on-parchment); }
 
   .about-row { display: flex; flex-wrap: wrap; gap: 48px; align-items: center; }
-  .about-text { flex: 1 1 480px; min-width: 0; }
+  .about-text { flex: 1 1 480px; min-width: 0; max-width: 65ch; text-align: left; }
   .about-text p:not(.eyebrow) { font-size: 16px; line-height: 1.8; }
   .about-row > :global(.about-img) { flex: 1 1 380px; min-width: 0; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--border-strong); }
   @media (max-width: 480px) { .about-text, .about-row > :global(.about-img) { flex-basis: 100%; } }
@@ -199,8 +201,6 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
   .f-text h3 { font-family: var(--font-display); font-size: 18px; color: var(--deep-forest); }
   .f-text p { font-size: 14px; color: var(--muted-on-parchment); }
 
-  .gallery-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 16px; }
-  .gallery-head .more { margin-left: auto; }
   .grid4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
   @media (max-width: 720px) { .grid4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 </style>
