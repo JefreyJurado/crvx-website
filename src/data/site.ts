@@ -35,9 +35,9 @@ export const NAV = [
   { href: '/members', label: 'Members' },
   { href: '/ministry', label: 'Our Ministry' },
   { href: '/gallery', label: 'Gallery' },
-  // 'Support Us' only once a giving method is enabled (see donate.ts).
-  ...(SUPPORT_LIVE ? [{ href: '/support', label: 'Support Us' }] : []),
   { href: '/contact#invite', label: 'Contact' },
+  // 'Support Us' (last, owner) only once a giving method is enabled (see donate.ts).
+  ...(SUPPORT_LIVE ? [{ href: '/support', label: 'Support Us' }] : []),
 ];
 
 // Our Ministry → "Occasions we sing for" (PLAN §4, old site, amendment 2026-11-13).
