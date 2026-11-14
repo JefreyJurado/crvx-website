@@ -36,6 +36,19 @@ export const CHOIR_MASTER = { name: 'Br. Angelo Lorenzo Salvacion' };
 
 export const MEMBERS: Member[] = [];
 
+/** One group photo, shown on /members and About Us.
+ *  It needs permission from EVERYONE pictured before `consented: true`.
+ *  e.g. import groupImg from '../assets/images/members/group.jpg';
+ *       export const GROUP_PHOTO: GroupPhoto | null =
+ *         { image: groupImg, alt: 'The choir in choir dress before the altar', consented: true }; */
+export interface GroupPhoto { image: ImageMetadata; alt: string; consented: boolean; }
+export const GROUP_PHOTO: GroupPhoto | null = null;
+
+/** Demo cards and the sample group photo show only on Vercel PREVIEW builds, or with
+ *  MEMBERS_DEMO=1 locally. Fails closed: production, or a build with VERCEL_ENV unset, never shows them. */
+export const SHOW_DEMO =
+  (import.meta.env.VERCEL_ENV ?? process.env.VERCEL_ENV) === 'preview' || process.env.MEMBERS_DEMO === '1';
+
 // Fake entries so the owner can see filled cards on PREVIEW deployments only.
 // They never render on production (see src/pages/members.astro).
 export const DEMO_MEMBERS: Member[] = [
