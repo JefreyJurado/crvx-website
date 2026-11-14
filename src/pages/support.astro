@@ -1,42 +1,52 @@
 ---
 import Base from '../layouts/Base.astro';
 import { Image } from 'astro:assets';
-import { VISIBLE_METHODS, GIFTS_FUND, SUPPORT_LIVE } from '../data/donate';
+import { VISIBLE_METHODS, SPONSOR_ITEMS, IN_KIND, SUPPORT_LIVE } from '../data/donate';
+import { SITE } from '../data/site';
 
-// Phase 1: static. No payment processing, no forms, no external scripts.
+// Owner-approved order: opening, invite us (primary), give a gift, sponsor,
+// in-kind, other ways, our promise. Booking honoraria and gifts stay separate.
+// Phase 1 is static: no payment processing, no forms, no external scripts.
 const methods = VISIBLE_METHODS;
 const isLink = (href: string) => href.startsWith('https://');
+// Social links appear only once site.ts has real addresses.
+const social = SITE.social.filter(s => isLink(s.href));
 ---
-<Base title="Support Us" description="Help Crvx et Cithara bring sacred music to the liturgy." noindex={!SUPPORT_LIVE}>
+<Base title="Support Us" description="Help Crvx et Cithara continue to bring sacred music to the liturgy." noindex={!SUPPORT_LIVE}>
   <section class="section dark page-head">
     <div class="container section-head centered">
-      <p class="eyebrow">Soli Deo Gloria</p>
+      <p class="eyebrow">Ad Maiorem Dei Gloriam</p>
       <h1 class="title">Support Us</h1>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container stack lg centered">
-      <div class="stack centered appeal">
-        <h2 class="title">Help us bring sacred music to the liturgy</h2>
-        <p>Crvx et Cithara sings for the glory of God at the Traditional Latin Mass and the Novus Ordo. Your gift, however small, helps us offer the Church music worthy of the sacred liturgy.</p>
-      </div>
-
-      <div class="stack centered">
-        <h2 class="sub">What your gift supports</h2>
-        <ul class="chips">
-          {GIFTS_FUND.map(g => <li>{g}</li>)}
-        </ul>
-      </div>
+  <!-- 1. Opening -->
+  <section class="section tight">
+    <div class="container narrow stack centered">
+      <p class="opening">Every Mass we sing is offered <em>Ad Maiorem Dei Gloriam</em>. Here is how you can help us continue.</p>
     </div>
   </section>
 
-  <section class="section card-bg">
+  <!-- 2. Invite us to sing (primary) -->
+  <section class="section card-bg" aria-labelledby="s-invite">
+    <div class="container narrow stack centered">
+      <h2 id="s-invite" class="title">Invite us to sing</h2>
+      <p class="text">The best way to support the choir is to invite us. We sing for ordinations, nuptial Masses, feast days and concerts. Each engagement receives an honorarium that supports our members' time, rehearsals and travel.</p>
+      <p class="small">Honorarium details upon inquiry.</p>
+      <a class="btn btn-forest" href="/contact#invite" data-open-invite>Book Us</a>
+    </div>
+  </section>
+
+  <!-- 3. Give a gift: only enabled methods (all of them on previews) -->
+  <section id="give" class="section" aria-labelledby="s-give">
     <div class="container stack lg centered">
-      <h2 class="title">Ways to give</h2>
+      <div class="stack centered">
+        <h2 id="s-give" class="title">Give a gift</h2>
+        <p class="text">A gift, separate from any booking, helps the choir offer the Church music worthy of the sacred liturgy.</p>
+      </div>
       {methods.length === 0
         ? <p class="soon">Details on how to give will be posted here soon.</p>
-        : <ul class="methods">
+        : <ul class="boxes methods">
             {methods.map(m => (
               <li class="box">
                 <h3>{m.name}</h3>
@@ -61,35 +71,95 @@ const isLink = (href: string) => href.startsWith('https://');
     </div>
   </section>
 
-  <section class="section ruled">
+  <!-- 4. Sponsor something specific -->
+  <section class="section card-bg" aria-labelledby="s-sponsor">
+    <div class="container stack lg centered">
+      <div class="stack centered">
+        <h2 id="s-sponsor" class="title">Sponsor something specific</h2>
+        <p class="text">Would you like your gift to provide one particular thing? Message us and tell us what you have in mind.</p>
+      </div>
+      <ul class="boxes sponsor">
+        {SPONSOR_ITEMS.map(s => (
+          <li class="box">
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </li>
+        ))}
+      </ul>
+      <div class="ctas">
+        <a class="btn btn-forest" href="/contact">Message us</a>
+        <a class="btn btn-outline" href="#give">Give a gift</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. In-kind help -->
+  <section class="section" aria-labelledby="s-inkind">
     <div class="container narrow stack centered">
-      <p class="accent-quote">Thank you, and may God reward your generosity.</p>
-      <p class="thanks">After giving, please <a href="/contact">send the choir a message</a> so we can acknowledge your gift.</p>
+      <h2 id="s-inkind" class="title">In-kind help</h2>
+      <p class="text">Not every gift is money. We gratefully welcome:</p>
+      <ul class="chips">
+        {IN_KIND.map(i => <li>{i}</li>)}
+      </ul>
+      <p class="small"><a href="/contact">Message us</a> if you can offer any of these.</p>
+    </div>
+  </section>
+
+  <!-- 6. Other ways -->
+  <section class="section card-bg" aria-labelledby="s-other">
+    <div class="container narrow stack centered">
+      <h2 id="s-other" class="title">Other ways to help</h2>
+      <ul class="ways">
+        <li>Pray for us and for the members of the choir.</li>
+        <li>Attend the Masses and concerts where we sing.</li>
+        {social.length > 0 && (
+          <li>Follow and share us on {social.map((s, i) => <>{i > 0 && (i === social.length - 1 ? ' and ' : ', ')}<a href={s.href} rel="noopener">{s.label}</a></>)}.</li>
+        )}
+        <li>Recommend us to your parish.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7. Our promise -->
+  <section class="section ruled" aria-labelledby="s-promise">
+    <div class="container narrow stack centered">
+      <h2 id="s-promise" class="title">Our promise</h2>
+      <p class="accent-quote">Our benefactors are remembered in our prayers.</p>
+      <p class="text">A thank-you acknowledgement on request: <a href="/contact">send us a message</a> after giving.</p>
     </div>
   </section>
 </Base>
 
 <style>
   .page-head { padding: 56px 0; }
-  .appeal p, .thanks { max-width: 65ch; text-wrap: pretty; }
-  .appeal .title { text-wrap: balance; }
-  .sub { font-family: var(--font-display); font-size: 22px; color: var(--deep-forest); }
+  .title { text-wrap: balance; }
+  .opening { font-family: var(--font-accent); font-size: 24px; line-height: 1.5; color: var(--deep-forest); max-width: 40ch; text-wrap: balance; }
+  .text { max-width: 65ch; text-wrap: pretty; }
+  .small { font-size: 15px; color: var(--muted-on-parchment); }
   .soon { font-family: var(--font-accent); font-style: italic; font-size: 22px; color: var(--muted-on-parchment); }
+  .ways { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+  .btn-outline { border-color: var(--deep-forest); color: var(--deep-forest); background: transparent; }
+  .btn-outline:hover { background: var(--deep-forest); color: var(--parchment); }
 
-  /* Plain boxes, same as /members frames: one 1px soft-gold border, square corners. */
-  /* 4 / 2 / 1 per row (never a lone box under three), centred when fewer. */
-  .methods {
+  /* Plain boxes, same as /members frames: one 1px soft-gold border, square corners.
+     Columns: 4 (gifts) or 3 (sponsor) / 2 / 1; never a lone box under a full row. */
+  .boxes {
     --cols: 4; --gap: 24px;
     list-style: none; margin: 0; padding: 0; width: 100%;
     display: flex; flex-wrap: wrap; justify-content: center; gap: var(--gap);
   }
+  .sponsor { --cols: 3; }
   @media (max-width: 1100px) { .methods { --cols: 2; max-width: 640px; } }
+  @media (max-width: 820px) { .sponsor { --cols: 1; max-width: 420px; } }
   .box {
     flex: 0 1 calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols)); min-width: 0;
     background: var(--parchment); border: 1px solid var(--antique-gold);
     padding: 28px 24px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center;
   }
+  .card-bg .box { background: var(--parchment); }
   .box h3 { font-family: var(--font-display); font-size: 20px; color: var(--deep-forest); }
+  .box p { font-size: 15px; line-height: 1.7; color: var(--muted-on-parchment); text-wrap: pretty; }
   .qr { width: 180px; max-width: 100%; aspect-ratio: 1; height: auto; }
   /* Neutral QR-shaped placeholder: three finder squares, a label in the middle. */
   .qr-ph { position: relative; background: var(--card-parchment); border: 1px solid var(--border-strong); display: flex; align-items: center; justify-content: center; }
