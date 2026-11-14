@@ -13,7 +13,7 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
   <section class="hero dark">
     <Image class="hero-bg" src={heroImg} alt="" widths={[1100, 1600, 2200, 3000]} sizes="max(104vw, 1100px)" loading="eager" fetchpriority="high" format="webp" quality={70} />
     <div class="container hero-inner">
-      <img class="hero-crest" src="/crest/crest-150.png" srcset="/crest/crest-150.png 1x, /crest/crest-300.png 2x" width="121" height="150" alt="The crest of Crvx et Cithara" />
+      <span class="crest-wrap"><img class="hero-crest" src="/crest/crest-150.png" srcset="/crest/crest-150.png 1x, /crest/crest-300.png 2x, /crest/crest-380.png 2.5x" width="121" height="150" alt="The crest of Crvx et Cithara" /></span>
       <p class="motto">{SITE.motto}</p>
       <h1>{SITE.wordmark}</h1>
       <p class="subtitle">{SITE.subtitle}</p>
@@ -65,8 +65,8 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
     <div class="container stack lg">
       <h2 class="title" style="text-align:center">MISSION &amp; VISION</h2>
       <div class="row">
-        <div class="card-outline-dark"><h3>Our Mission</h3><p>{MISSION}</p></div>
-        <div class="card-outline-dark"><h3>Our Vision</h3><p>{VISION}</p></div>
+        <div class="card-outline-dark card--centered"><h3>Our Mission</h3><p>{MISSION}</p></div>
+        <div class="card-outline-dark card--centered"><h3>Our Vision</h3><p>{VISION}</p></div>
       </div>
     </div>
   </section>
@@ -80,7 +80,7 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
       </div>
       <div class="row">
         {FORMATIONS.map(f => (
-          <div class="card-dark"><h3>{f.name}</h3><p class="voices">{f.voices}</p><p>{f.short}</p></div>
+          <div class="card-dark card--centered"><h3>{f.name}</h3><p class="voices">{f.voices}</p><p>{f.short}</p></div>
         ))}
       </div>
     </div>
@@ -158,7 +158,8 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
      photo; translate pins that point to the crest's centre (--crest-y below
      the hero top) at every width. The photo fades out at the bottom into the
      Darkest Forest background. */
-  .hero { --crest-y: 171px; }  /* padding-top 96 + crest 150 / 2 */
+  /* --crest-y = hero padding-top + half the crest height. */
+  .hero { --pad-top: 96px; --crest-h: 184px; --crest-y: calc(var(--pad-top) + var(--crest-h) / 2); }
   .hero-bg {
     position: absolute; left: 50%; top: var(--crest-y);
     width: max(104%, 1100px); max-width: none; height: auto;
@@ -170,8 +171,19 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
     content: ''; position: absolute; inset: 0;
     background: radial-gradient(ellipse at 50% 40%, rgb(24 29 25 / 0.72) 0%, rgb(24 29 25 / 0.86) 60%, rgb(24 29 25 / 0.94) 100%);
   }
-  .hero-inner { position: relative; z-index: 1; padding-top: 96px; padding-bottom: 72px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 22px; }
-  .hero-crest { width: auto; height: 150px; }
+  .hero-inner { position: relative; z-index: 1; padding-top: var(--pad-top); padding-bottom: 72px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 22px; }
+  /* Crest stands out from the bright dome: a feathered Darkest Forest halo
+     behind it (the dome stays luminous around it) and a warm gold glow. */
+  .crest-wrap { position: relative; display: inline-flex; }
+  .crest-wrap::before {
+    content: ''; position: absolute; left: 50%; top: 50%; z-index: -1;
+    width: 200%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%;
+    background: radial-gradient(closest-side, rgb(24 29 25 / 0.88), rgb(24 29 25 / 0.6) 50%, rgb(24 29 25 / 0));
+  }
+  .hero-crest {
+    width: auto; height: var(--crest-h);
+    filter: drop-shadow(0 0 6px rgb(180 154 104 / 0.6)) drop-shadow(0 0 22px rgb(180 154 104 / 0.5));
+  }
   /* The motto sits on the bright lantern ring: a Darkest Forest halo keeps
      the gold at AA contrast (Jomar, PR #4). */
   .motto {
@@ -186,9 +198,9 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
   .headline { font-family: var(--font-accent); font-size: clamp(24px, 5vw, 30px); font-weight: 500; line-height: 1.3; max-width: 640px; }
   .positioning { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.9; max-width: 640px; color: var(--muted-on-forest); }
   .ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 10px; }
-  @media (max-width: 720px) { .hero-inner { padding-top: 64px; padding-bottom: 52px; } .hero { --crest-y: 139px; } }
+  @media (max-width: 720px) { .hero-inner { padding-bottom: 52px; } .hero { --pad-top: 64px; } }
   /* Must come after the 720px rule, or it would override --crest-y on phones. */
-  @media (max-width: 480px) { .hero-crest { height: 120px; } .hero { --crest-y: 124px; } }
+  @media (max-width: 480px) { .hero { --crest-h: 146px; } }
   @media (max-width: 480px) { .ctas .btn { flex: 1 1 100%; } }
 
   .engagements { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 20px; }
@@ -205,6 +217,12 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
   .about-text p:not(.eyebrow) { font-size: 16px; line-height: 1.8; }
   .about-row > :global(.about-img) { flex: 1 1 380px; min-width: 0; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--border-strong); }
   @media (max-width: 480px) { .about-text, .about-row > :global(.about-img) { flex-basis: 100%; } }
+
+  /* Home only (owner): Mission & Vision and Our Voices cards centred, with the
+     body text capped so centred lines stay readable. The same card classes on
+     About stay left-aligned. */
+  .card--centered { text-align: center; align-items: center; }
+  .card--centered p { max-width: 50ch; }
 
   .textured { position: relative; isolation: isolate; }
   .textured::before {

@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { Image } from 'astro:assets';
 import aboutImg from '../assets/images/about-dome.jpg';
+import prayerImg from '../assets/images/about-sunbeam.jpg';
 import { ABOUT_PARAGRAPHS, MISSION, VISION, FORMATIONS } from '../data/site';
 ---
 <Base title="About Us" description="Who Crvx et Cithara is: a choir united by faith and devoted to sacred music, serving the Traditional Latin Mass and the Novus Ordo.">
@@ -27,13 +28,17 @@ import { ABOUT_PARAGRAPHS, MISSION, VISION, FORMATIONS } from '../data/site';
   </section>
 
   <section class="section" aria-labelledby="identity-h">
-    <div class="container stack">
-      <p class="eyebrow">Our identity</p>
-      <h2 id="identity-h" class="title">Sacred Music as Prayer</h2>
-      <div class="prose">
-        {ABOUT_PARAGRAPHS.map(p => <p>{p}</p>)}
-        <p class="accent-quote">Soli Deo Gloria.</p>
+    <!-- Mirrors Our Story: image left, text right on desktop; same stacking on phones. -->
+    <div class="container story story--reverse">
+      <div class="stack">
+        <p class="eyebrow">Our identity</p>
+        <h2 id="identity-h" class="title">Sacred Music as Prayer</h2>
+        <div class="prose">
+          {ABOUT_PARAGRAPHS.map(p => <p>{p}</p>)}
+          <p class="accent-quote">Soli Deo Gloria.</p>
+        </div>
       </div>
+      <Image class="story-img" src={prayerImg} alt="Looking up into the dome of St. Peter's Basilica as a shaft of sunlight falls from the drum windows towards Bernini's baldachin" widths={[480, 800, 1200]} sizes="(max-width: 860px) 100vw, 520px" format="webp" quality={72} />
     </div>
   </section>
 
@@ -87,7 +92,9 @@ import { ABOUT_PARAGRAPHS, MISSION, VISION, FORMATIONS } from '../data/site';
   .story, .people { display: flex; flex-wrap: wrap; gap: 48px; align-items: center; }
   .story > *, .people > * { flex: 1 1 380px; min-width: 0; }
   @media (max-width: 480px) { .story > *, .people > * { flex-basis: 100%; } }
-  .story > :global(.story-img) { aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--border-strong); }
+  .story--reverse { flex-direction: row-reverse; }
+  @media (max-width: 860px) { .story--reverse { flex-direction: row; } }
+  .story > :global(.story-img) { height: auto; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--border-strong); }
   .todo { color: var(--deep-gold); }
   .muted { color: var(--muted-on-parchment); font-size: 16px; }
 </style>

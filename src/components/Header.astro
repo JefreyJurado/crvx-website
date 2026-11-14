@@ -42,10 +42,19 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/'
   .wordmark { font-family: var(--font-display); font-weight: 600; font-size: 19px; letter-spacing: 0.14em; color: var(--parchment); }
   .subtitle { font-family: var(--font-accent); font-style: italic; font-size: 15px; color: var(--muted-on-forest); }
   nav { margin-left: auto; }
-  nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 26px; }
-  nav a { color: var(--muted-on-forest); text-decoration: none; font-size: 14px; letter-spacing: 0.06em; padding: 10px 0; display: inline-block; }
-  nav a:hover, nav a[aria-current="page"] { color: var(--parchment); }
-  nav a[aria-current="page"] { font-weight: 700; }
+  nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 8px; }
+  /* Menu items: padding is reserved at rest so the box never shifts layout.
+     Hover / keyboard focus = filled Antique Gold box, Darkest Forest text
+     (6.32:1). Current page = subtle gold outline box, parchment text. */
+  nav a {
+    display: inline-block; padding: 0.4em 0.9em; border-radius: 6px; border: 1px solid transparent;
+    color: var(--muted-on-forest); text-decoration: none; font-size: 14px; letter-spacing: 0.06em;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  nav a[aria-current="page"] { color: var(--parchment); font-weight: 700; border-color: var(--antique-gold); background: rgb(180 154 104 / 0.12); }
+  nav a:hover, nav a:focus-visible { background: var(--antique-gold); border-color: var(--antique-gold); color: var(--darkest-forest); }
+  nav a:focus-visible { outline: 2px solid var(--antique-gold); outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) { nav a { transition: none; } }
   .menu-btn {
     display: none; margin-left: auto; min-height: 44px; padding: 0 16px;
     background: transparent; color: var(--parchment); border: 1px solid var(--border-on-dark);
@@ -57,7 +66,16 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/'
     nav { flex-basis: 100%; margin-left: 0; }
     :global(.js) nav:not(.open) { display: none; }
     nav ul { flex-direction: column; gap: 0; border-top: 1px solid var(--border-on-dark-soft); }
-    nav a { display: block; padding: 12px 0; font-size: 16px; }
+    nav ul { padding: 8px 0; gap: 4px; }
+    /* full-row tap target on phones */
+    nav a { display: block; padding: 12px 14px; font-size: 16px; }
   }
-  @media (max-width: 400px) { .wordmark { font-size: 16px; letter-spacing: 0.1em; } }
+  @media (max-width: 400px) {
+    .wordmark { font-size: 16px; letter-spacing: 0.1em; }
+    /* keep the Menu button on the brand's row at 360px */
+    .bar { column-gap: 10px; }
+    .brand { gap: 8px; }
+    .crest { height: 42px; }
+    .menu-btn { padding: 0 12px; }
+  }
 </style>
