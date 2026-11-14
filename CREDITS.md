@@ -29,7 +29,7 @@ Modified:
 - #17: resized; shown under a dark overlay, positioned so the crest sits in the dome's lantern.
 - #4: resized; tiled as a faint background texture.
 - #23, #24: resized and cropped to 4:3.
-- #29, #30: resized and cropped to 4:3 (focal points 50% 35% and 50% 42%).
+- #29, #30: resized and cropped to 4:3 (centred; the 3:2 sources are trimmed only at the sides).
 - #21: cropped to 1200×630, darkened, with the crest and name added.
 
 Every image is stripped of embedded metadata (EXIF).
