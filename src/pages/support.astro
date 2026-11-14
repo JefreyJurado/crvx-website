@@ -1,18 +1,22 @@
 ---
 import Base from '../layouts/Base.astro';
 import { Image } from 'astro:assets';
-import { VISIBLE_METHODS, SPONSOR_ITEMS, IN_KIND, SUPPORT_LIVE } from '../data/donate';
+import { VISIBLE_METHODS, SPONSOR_ITEMS, IN_KIND } from '../data/donate';
 import { SITE } from '../data/site';
 
 // Owner-approved order: opening, invite us (primary), give a gift, sponsor,
 // in-kind, other ways, our promise. Booking honoraria and gifts stay separate.
 // Phase 1 is static: no payment processing, no forms, no external scripts.
 const methods = VISIBLE_METHODS;
+// No enabled method = no 'Give a gift' section and no links to it.
+const canGive = methods.length > 0;
+// Sections alternate plain / shaded; without 'Give a gift' the later ones shift by one.
+const shade = (n: number) => (canGive ? n : n + 1) % 2 === 0;
 const isLink = (href: string) => href.startsWith('https://');
 // Social links appear only once site.ts has real addresses.
 const social = SITE.social.filter(s => isLink(s.href));
 ---
-<Base title="Support Us" description="Help Crvx et Cithara continue to bring sacred music to the liturgy." noindex={!SUPPORT_LIVE}>
+<Base title="Support Us" description="Help Crvx et Cithara continue to bring sacred music to the liturgy.">
   <section class="section dark page-head">
     <div class="container section-head centered">
       <p class="eyebrow">Ad Maiorem Dei Gloriam</p>
@@ -37,16 +41,15 @@ const social = SITE.social.filter(s => isLink(s.href));
     </div>
   </section>
 
-  <!-- 3. Give a gift: only enabled methods (all of them on previews) -->
+  <!-- 3. Give a gift: only when a method is enabled (all of them on previews) -->
+  {canGive && (
   <section id="give" class="section" aria-labelledby="s-give">
     <div class="container stack lg centered">
       <div class="stack centered">
         <h2 id="s-give" class="title">Give a gift</h2>
         <p class="text">A gift, separate from any booking, helps the choir offer the Church music worthy of the sacred liturgy.</p>
       </div>
-      {methods.length === 0
-        ? <p class="soon">Details on how to give will be posted here soon.</p>
-        : <ul class="boxes methods">
+      <ul class="boxes methods">
             {methods.map(m => (
               <li class="box">
                 <h3>{m.name}</h3>
@@ -67,12 +70,13 @@ const social = SITE.social.filter(s => isLink(s.href));
                 {m.note && <p class="note">{m.note}</p>}
               </li>
             ))}
-          </ul>}
+      </ul>
     </div>
   </section>
+  )}
 
   <!-- 4. Sponsor something specific -->
-  <section class="section card-bg" aria-labelledby="s-sponsor">
+  <section class:list={["section", { "card-bg": shade(0) }]} aria-labelledby="s-sponsor">
     <div class="container stack lg centered">
       <div class="stack centered">
         <h2 id="s-sponsor" class="title">Sponsor something specific</h2>
@@ -88,13 +92,13 @@ const social = SITE.social.filter(s => isLink(s.href));
       </ul>
       <div class="ctas">
         <a class="btn btn-forest" href="/contact">Message us</a>
-        <a class="btn btn-outline" href="#give">Give a gift</a>
+        {canGive && <a class="btn btn-outline" href="#give">Give a gift</a>}
       </div>
     </div>
   </section>
 
   <!-- 5. In-kind help -->
-  <section class="section" aria-labelledby="s-inkind">
+  <section class:list={["section", { "card-bg": shade(1) }]} aria-labelledby="s-inkind">
     <div class="container narrow stack centered">
       <h2 id="s-inkind" class="title">In-kind help</h2>
       <p class="text">Not every gift is money. We gratefully welcome:</p>
@@ -106,7 +110,7 @@ const social = SITE.social.filter(s => isLink(s.href));
   </section>
 
   <!-- 6. Other ways -->
-  <section class="section card-bg" aria-labelledby="s-other">
+  <section class:list={["section", { "card-bg": shade(2) }]} aria-labelledby="s-other">
     <div class="container narrow stack centered">
       <h2 id="s-other" class="title">Other ways to help</h2>
       <ul class="ways">
@@ -121,11 +125,11 @@ const social = SITE.social.filter(s => isLink(s.href));
   </section>
 
   <!-- 7. Our promise -->
-  <section class="section ruled" aria-labelledby="s-promise">
+  <section class:list={["section ruled", { "card-bg": shade(3) }]} aria-labelledby="s-promise">
     <div class="container narrow stack centered">
       <h2 id="s-promise" class="title">Our promise</h2>
       <p class="accent-quote">Our benefactors are remembered in our prayers.</p>
-      <p class="text">A thank-you acknowledgement on request: <a href="/contact">send us a message</a> after giving.</p>
+      <p class="text">A thank-you acknowledgement on request: just <a href="/contact">send us a message</a>.</p>
     </div>
   </section>
 </Base>
@@ -136,7 +140,6 @@ const social = SITE.social.filter(s => isLink(s.href));
   .opening { font-family: var(--font-accent); font-size: 24px; line-height: 1.5; color: var(--deep-forest); max-width: 40ch; text-wrap: balance; }
   .text { max-width: 65ch; text-wrap: pretty; }
   .small { font-size: 15px; color: var(--muted-on-parchment); }
-  .soon { font-family: var(--font-accent); font-style: italic; font-size: 22px; color: var(--muted-on-parchment); }
   .ways { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
   .ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
   .btn-outline { border-color: var(--deep-forest); color: var(--deep-forest); background: transparent; }

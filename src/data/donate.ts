@@ -6,9 +6,9 @@
 //
 // To publish a method: replace its [ bracketed ] placeholders with the real
 // details and set `enabled: true`. A method with `enabled: false` is not shown.
-// "Support Us" appears in the menu and footer only when at least one method is
-// enabled (fail closed). Vercel PREVIEW builds show every method with its
-// placeholders so the owner can review the layout.
+// The "Give a gift" section appears only when at least one method is enabled
+// (fail closed); the rest of /support is always published. Vercel PREVIEW builds
+// show every method with its placeholders so the owner can review the layout.
 //
 // QR codes: save the PNG/JPG in src/assets/images/support/, import it here, e.g.
 //   import gcashQr from '../assets/images/support/gcash-qr.png';
@@ -85,6 +85,5 @@ if (!SHOW_ALL) {
   }
 }
 
+/** Methods shown under 'Give a gift'; empty = the section is not rendered. */
 export const VISIBLE_METHODS = GIVING_METHODS.filter(m => m.enabled || SHOW_ALL);
-/** Fail closed: the page is linked (menu, footer, sitemap) only when something can be shown. */
-export const SUPPORT_LIVE = VISIBLE_METHODS.length > 0;
