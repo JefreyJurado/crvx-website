@@ -7,7 +7,9 @@
 // reach the HTML, but they would still be readable in this file, so avoid them.
 //
 // To add someone (photo optional; without one, their initials are shown):
-//   1. Put the photo in src/assets/images/members/ (square or 4:3, at least 600px).
+//   1. Put the photo in src/assets/images/members/.
+//      Photos: half-body (waist up), portrait, at least 1000px tall, plain or church background.
+//      They are shown in a 4:5 portrait frame, cropped from the top (heads are never cut).
 //   2. Import it at the top of this file:
 //        import mariaPhoto from '../assets/images/members/maria.jpg';
 //   3. Add an entry to MEMBERS:

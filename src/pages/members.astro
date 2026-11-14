@@ -41,7 +41,7 @@ const initials = (name: string) => {
           {organists.map(m => (
             <li class="card m-card featured">
               {m.photo
-                ? <Image class="m-photo" src={m.photo} alt={`Portrait of ${m.name}`} widths={[300, 600]} sizes="150px" format="webp" quality={75} />
+                ? <Image class="m-photo" src={m.photo} alt={`Portrait of ${m.name}`} widths={[260, 520]} sizes="260px" format="webp" quality={75} />
                 : <div class="monogram" aria-hidden="true">{initials(m.name)}</div>}
               <h3 class="m-name">{m.name}</h3>
               <p class="m-role">{m.role ? `Organist · ${m.role}` : 'Organist'}</p>
@@ -83,18 +83,19 @@ const initials = (name: string) => {
   /* Music Direction: Choir Master alone is centred; organists sit beside him, stacking on phones. */
   .direction { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; }
   .featured { flex: 0 1 420px; min-width: 0; padding: 36px 32px; }
+  /* Half-body portraits (owner): 4:5 frame, cropped from the top; the monogram uses the same box so cards line up. */
   .monogram, .m-card :global(.m-photo) {
-    width: 120px; aspect-ratio: 1; border-radius: 50%; flex: none;
+    width: 100%; max-width: 240px; aspect-ratio: 4 / 5; flex: none;
     border: 1px solid var(--antique-gold);
   }
-  .featured .monogram, .featured :global(.m-photo) { width: 150px; }
-  .featured .monogram { font-size: 44px; }
+  .featured .monogram, .featured :global(.m-photo) { max-width: 260px; }
+  .featured .monogram { font-size: 48px; }
   .monogram {
     display: flex; align-items: center; justify-content: center;
     background: var(--deep-forest); color: var(--antique-gold);
     font-family: var(--font-display); font-weight: 600; font-size: 36px; letter-spacing: 0.08em;
   }
-  .m-card :global(.m-photo) { height: auto; object-fit: cover; }
+  .m-card :global(.m-photo) { height: auto; object-fit: cover; object-position: 50% 20%; }
   .m-name { font-family: var(--font-display); font-size: 20px; color: var(--deep-forest); margin-top: 4px; }
   .featured .m-name { font-size: 22px; }
   .m-role { font-size: 13px !important; letter-spacing: 0.12em; text-transform: uppercase; color: var(--deep-gold) !important; }
