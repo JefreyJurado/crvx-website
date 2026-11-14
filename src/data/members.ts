@@ -6,7 +6,7 @@
 // Entries with `consented: false` are filtered out at build time and never
 // reach the HTML, but they would still be readable in this file, so avoid them.
 //
-// To add someone (photo optional; without one, their initials are shown):
+// To add someone (photo optional; without one, a half-body silhouette is shown):
 //   1. Put the photo in src/assets/images/members/.
 //      Photos: half-body (waist up), portrait, at least 1000px tall, plain or church background.
 //      They are shown in a 4:5 arched frame at object-position 50% 22%, so a tall photo is
