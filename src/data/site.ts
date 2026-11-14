@@ -31,6 +31,7 @@ export const FORM_READY = !FORM_ENDPOINT.includes('TODO');
 export const NAV = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About Us' },
+  { href: '/members', label: 'Members' },
   { href: '/ministry', label: 'Our Ministry' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/contact#invite', label: 'Contact' },

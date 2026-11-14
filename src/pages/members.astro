@@ -1,0 +1,93 @@
+---
+import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import { MEMBERS, DEMO_MEMBERS, VOICES, CHOIR_MASTER } from '../data/members';
+
+// Demo cards only on Vercel PREVIEW builds or with MEMBERS_DEMO=1 locally.
+// Fails closed: production, or a build where VERCEL_ENV is unset, shows real data only.
+const vercelEnv = import.meta.env.VERCEL_ENV ?? process.env.VERCEL_ENV;
+const showDemo = vercelEnv === 'preview' || process.env.MEMBERS_DEMO === '1';
+
+// Consent filter at BUILD time: non-consented entries never reach the HTML.
+const members = [...MEMBERS, ...(showDemo ? DEMO_MEMBERS : [])].filter(m => m.consented === true);
+const sections = VOICES.map(voice => ({ voice, people: members.filter(m => m.voice === voice) }))
+  .filter(s => s.people.length > 0);
+
+const TITLES = /^(br|fr|sr|rev|msgr|mr|mrs|ms|dr)\.?$/i;
+const initials = (name: string) => {
+  const w = name.split(/\s+/).filter(p => !TITLES.test(p));
+  return ((w[0]?.[0] ?? '') + (w.length > 1 ? w[w.length - 1][0] : '')).toUpperCase();
+};
+---
+<Base title="Our Members" description="The singers of Crvx et Cithara, grouped by voice part, introduced with their consent.">
+  <section class="section dark page-head">
+    <div class="container section-head centered">
+      <p class="eyebrow">The people</p>
+      <h1 class="title">Our Members</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container stack lg">
+      <article class="card m-card featured">
+        <div class="monogram" aria-hidden="true">{initials(CHOIR_MASTER.name)}</div>
+        <h2 class="m-name">{CHOIR_MASTER.name}</h2>
+        <p class="m-role">{CHOIR_MASTER.role}</p>
+      </article>
+
+      {sections.length === 0 ? (
+        <p class="empty">Our members will be introduced here soon, each with their consent.</p>
+      ) : sections.map(s => (
+        <section class="voice" aria-labelledby={`v-${s.voice}`}>
+          <h2 id={`v-${s.voice}`} class="title voice-h">{s.voice}</h2>
+          <ul class="grid">
+            {s.people.map(m => (
+              <li class="card m-card">
+                {m.photo
+                  ? <Image class="m-photo" src={m.photo} alt={`Portrait of ${m.name}`} widths={[240, 480]} sizes="240px" format="webp" quality={75} />
+                  : <div class="monogram" aria-hidden="true">{initials(m.name)}</div>}
+                <h3 class="m-name">{m.name}</h3>
+                <p class="m-role">{m.role ? `${m.voice} · ${m.role}` : m.voice}</p>
+                {m.bio && <p class="m-bio">{m.bio}</p>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-head { padding: 56px 0; }
+  .m-card {
+    text-align: center; align-items: center;
+    box-shadow: 0 6px 18px rgb(24 29 25 / 0.08);
+  }
+  .featured { max-width: 420px; width: 100%; margin: 0 auto; padding: 36px 32px; }
+  .monogram, .m-card :global(.m-photo) {
+    width: 120px; aspect-ratio: 1; border-radius: 50%; flex: none;
+    border: 1px solid var(--antique-gold);
+  }
+  .featured .monogram { width: 150px; font-size: 44px; }
+  .monogram {
+    display: flex; align-items: center; justify-content: center;
+    background: var(--deep-forest); color: var(--antique-gold);
+    font-family: var(--font-display); font-weight: 600; font-size: 36px; letter-spacing: 0.08em;
+  }
+  .m-card :global(.m-photo) { height: auto; object-fit: cover; }
+  .m-name { font-family: var(--font-display); font-size: 20px; color: var(--deep-forest); margin-top: 4px; }
+  .featured .m-name { font-size: 22px; }
+  .m-role { font-size: 13px !important; letter-spacing: 0.12em; text-transform: uppercase; color: var(--deep-gold) !important; }
+  .m-bio { max-width: 32ch; }
+  .empty { text-align: center; font-family: var(--font-accent); font-style: italic; font-size: 22px; color: var(--muted-on-parchment); }
+
+  .voice { display: flex; flex-direction: column; gap: 24px; }
+  .voice-h { text-align: center; }
+  /* 4 / 3 / 2 / 1 columns; a short last row stays centred. */
+  .grid { --cols: 4; --gap: 24px; list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--gap); }
+  .grid > li { flex: 0 1 calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols)); min-width: 0; }
+  @media (max-width: 1100px) { .grid { --cols: 3; } }
+  @media (max-width: 820px) { .grid { --cols: 2; } }
+  @media (max-width: 520px) { .grid { --cols: 1; } .grid > li { max-width: 360px; } }
+</style>
