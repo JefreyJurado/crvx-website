@@ -2,7 +2,7 @@
 // Wide group-photo frame in the same gilded-icon design as NicheFrame. 16:9, 3:2 on phones:
 // the overlay stretches (preserveAspectRatio none) but strokes and dots use
 // non-scaling strokes, so lines stay crisp and dots stay round.
-// Without `photo`, it shows a row of half-body silhouettes (preview demo only).
+// Without `photo`, it shows a decorative group of half-body silhouettes ('coming soon' placeholder).
 import { Image } from 'astro:assets';
 import type { GroupPhoto } from '../data/members';
 interface Props { photo?: GroupPhoto; caption?: string; }
@@ -25,7 +25,7 @@ const rosette = (cx: number, cy: number, rx: number, ry: number) =>
         <div class="win">
           {photo
             ? <Image class="g-img" src={photo.image} alt={photo.alt} widths={[640, 1000, 1400, 2000]} sizes="(max-width: 1100px) 100vw, 1000px" format="webp" quality={75} />
-            : <svg class="g-img" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Sample group photo">
+            : <svg class="g-img" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
                 <rect width="160" height="90" fill="var(--darkest-forest)" />
                 {FIGURES.map(([x, y, s], i) => (
                   <g transform={`translate(${x} ${y}) scale(${s})`}>
@@ -54,7 +54,7 @@ const rosette = (cx: number, cy: number, rx: number, ry: number) =>
             </svg>
       </div>
   </div>
-  {caption && <figcaption class="g-plate">{caption}</figcaption>}
+  {caption && <figcaption class:list={["g-plate", { coming: !photo }]}>{caption}</figcaption>}
 </figure>
 
 <style>
@@ -74,5 +74,6 @@ const rosette = (cx: number, cy: number, rx: number, ry: number) =>
     background: var(--card-parchment); border-radius: 2px;
     font-family: var(--font-display); font-size: 14px; letter-spacing: 0.14em; color: var(--deep-forest);
   }
+  .g-plate.coming { color: var(--muted-on-parchment); }
   @media (max-width: 520px) { .g-box { aspect-ratio: 3 / 2; } }
 </style>

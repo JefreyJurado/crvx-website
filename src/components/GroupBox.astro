@@ -1,0 +1,49 @@
+---
+// Group photo on /members, in the same plain box as the member frames (NicheFrame):
+// 16:9, 3:2 on phones. Without `photo`, a decorative group of half-body silhouettes.
+// (About Us still uses GroupFrame.)
+import { Image } from 'astro:assets';
+import type { GroupPhoto } from '../data/members';
+interface Props { photo?: GroupPhoto; caption?: string; }
+const { photo, caption } = Astro.props;
+
+// Back-row torsos continue down behind the front row.
+const FRONT = 'M8 100V84c0-12 9-21 21-23l6-1h10l6 1c12 2 21 11 21 23v16z';
+const BACK = 'M8 220V84c0-12 9-21 21-23l6-1h10l6 1c12 2 21 11 21 23v136z';
+const FIGURES = [[14, 16, 0.42], [50, 14, 0.42], [86, 14, 0.42], [122, 16, 0.42], [-4, 44, 0.5], [32, 42, 0.5], [68, 42, 0.5], [104, 42, 0.5], [140, 44, 0.5]];
+---
+<figure class="group">
+  <div class="g-box">
+    <div class="win">
+      {photo
+        ? <Image class="g-img" src={photo.image} alt={photo.alt} widths={[640, 1000, 1400, 2000]} sizes="(max-width: 1100px) 100vw, 1000px" format="webp" quality={75} />
+        : <svg class="g-img" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+            <rect width="160" height="90" fill="var(--darkest-forest)" />
+            {FIGURES.map(([x, y, s], i) => (
+              <g transform={`translate(${x} ${y}) scale(${s})`}>
+                <g fill="var(--darkest-forest)" stroke="var(--darkest-forest)" stroke-width="5">
+                  <circle cx="40" cy="36" r="14" /><path d={i < 4 ? BACK : FRONT} />
+                </g>
+                <g fill="var(--antique-gold)" fill-opacity={i < 4 ? 0.22 : 0.35}>
+                  <circle cx="40" cy="36" r="14" /><path d={i < 4 ? BACK : FRONT} />
+                </g>
+              </g>
+            ))}
+          </svg>}
+    </div>
+  </div>
+  {caption && <figcaption class:list={["g-cap", { coming: !photo }]}>{caption}</figcaption>}
+</figure>
+
+<style>
+  .group { margin: 0 auto; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .g-box {
+    width: 100%; aspect-ratio: 16 / 9; overflow: hidden;
+    background: var(--parchment); border: 1px solid var(--antique-gold);
+  }
+  .win { width: 100%; height: 100%; }
+  .win > :global(.g-img) { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+  .g-cap { font-family: var(--font-display); font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--deep-forest); text-align: center; }
+  .g-cap.coming { color: var(--muted-on-parchment); }
+  @media (max-width: 520px) { .g-box { aspect-ratio: 3 / 2; } }
+</style>
