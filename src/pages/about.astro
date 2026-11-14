@@ -46,8 +46,8 @@ import { ABOUT_PARAGRAPHS, MISSION, VISION, FORMATIONS } from '../data/site';
     <div class="container stack lg">
       <h2 id="mission-h" class="title" style="text-align:center">MISSION &amp; VISION</h2>
       <div class="row">
-        <div class="card-outline-dark"><h3>Our Mission</h3><p>{MISSION}</p></div>
-        <div class="card-outline-dark"><h3>Our Vision</h3><p>{VISION}</p></div>
+        <div class="card-outline-dark card--centered"><h3>Our Mission</h3><p>{MISSION}</p></div>
+        <div class="card-outline-dark card--centered"><h3>Our Vision</h3><p>{VISION}</p></div>
       </div>
     </div>
   </section>
@@ -59,13 +59,13 @@ import { ABOUT_PARAGRAPHS, MISSION, VISION, FORMATIONS } from '../data/site';
         <h2 id="formations-h" class="title">Our Formations</h2>
       </div>
       <div class="row">
-        <div class="card-dark">
+        <div class="card-dark card--centered">
           <h3>{FORMATIONS[0].name}</h3>
           <p class="voices">{FORMATIONS[0].voices}</p>
           <p>Our full mixed choir. With soprano, alto, tenor and bass, it sings the Church's polyphonic repertoire, where independent voices weave around the chant and the text of the liturgy.</p>
           <p>It sings for ordinations, nuptial Masses and the major feasts of the year.</p>
         </div>
-        <div class="card-dark">
+        <div class="card-dark card--centered">
           <h3>{FORMATIONS[1].name}</h3>
           <p class="voices">{FORMATIONS[1].voices}</p>
           <p>Our all-male ensemble. Its darker, plainer sound suits rites that call for a solemn and austere register.</p>
@@ -92,6 +92,9 @@ import { ABOUT_PARAGRAPHS, MISSION, VISION, FORMATIONS } from '../data/site';
   .story, .people { display: flex; flex-wrap: wrap; gap: 48px; align-items: center; }
   .story > *, .people > * { flex: 1 1 380px; min-width: 0; }
   @media (max-width: 480px) { .story > *, .people > * { flex-basis: 100%; } }
+  /* Owner: Mission & Vision and Formations cards centred (as on Home), paragraphs capped at 55ch. */
+  .card--centered { text-align: center; align-items: center; }
+  .card--centered p { max-width: 55ch; margin-left: auto; margin-right: auto; }
   .story--reverse { flex-direction: row-reverse; }
   @media (max-width: 860px) { .story--reverse { flex-direction: row; } }
   .story > :global(.story-img) { height: auto; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--border-strong); }
