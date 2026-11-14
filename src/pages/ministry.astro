@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { Image } from 'astro:assets';
 import tlmImg from '../assets/images/ministry-tlm-elevation.jpg';
-import noImg from '../assets/images/ministry-no-consecration.jpg';
+import noImg from '../assets/images/ministry-no-concelebration.jpg';
 import { OCCASIONS } from '../data/site';
 
 // Line icons for the occasions (same order as OCCASIONS), 24px grid, 1.5 stroke.
@@ -44,7 +44,7 @@ const ICONS = [
         <p class="todo">[ Where and how often the choir sings the Traditional Latin Mass: to be supplied by the choir. ]</p>
       </article>
       <article class="card">
-        <Image class="card-img" src={noImg} style="object-position: 50% 42%" alt="A priest celebrates Mass facing the congregation from a flower-decked altar as a server kneels before the sanctuary." widths={[400, 700, 1000]} sizes="(max-width: 860px) 100vw, 520px" format="webp" quality={72} />
+        <Image class="card-img" src={noImg} style="object-position: 50% 70%" alt="Priests in white concelebrate Mass facing the people at a freestanding altar in a gilded Baroque church in Rome." widths={[400, 700, 1000]} sizes="(max-width: 860px) 100vw, 520px" format="webp" quality={72} />
         <h2 class="h3">Novus Ordo</h2>
         <p>Traditional hymns, chant and liturgical music that elevate the ordinary form of the Mass, in parishes and for special celebrations.</p>
         <p class="todo">[ Where and how often the choir sings the Novus Ordo: to be supplied by the choir. ]</p>

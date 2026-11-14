@@ -38,9 +38,9 @@ export const CREDITS = [
     modified: 'Resized and cropped to 4:3.',
   },
   {
-    n: 30, usedFor: 'Our Ministry, Novus Ordo', file: 'a-person-kneels-at-an-altar-during-a-church-service-TpkUqTAeP9M',
-    credit: 'Photo by ichida sonny on Unsplash', license: 'Unsplash License', required: false,
-    page: 'https://unsplash.com/photos/a-person-kneels-at-an-altar-during-a-church-service-TpkUqTAeP9M',
+    n: 31, usedFor: 'Our Ministry, Novus Ordo', file: 'five-priest-inside-cathedral-VSm7GcoPMEA',
+    credit: 'Photo by Tomás Robertson on Unsplash', license: 'Unsplash License', required: false,
+    page: 'https://unsplash.com/photos/five-priest-inside-cathedral-VSm7GcoPMEA',
     licenseUrl: 'https://unsplash.com/license',
     modified: 'Resized and cropped to 4:3.',
   },
