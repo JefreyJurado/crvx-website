@@ -1,0 +1,99 @@
+---
+// "Send us a message" popup for sponsorship, in-kind and other inquiries
+// (owner 2026-11-14). Separate from the invite popup; same delivery (Formspree
+// FORM_ENDPOINT from site.ts, no new service). Any element with
+// [data-open-message] opens it; data-inquiry="<type>" preselects the type.
+// Openers are links to /contact#other-inquiries, so without JavaScript they
+// still reach the Other inquiries block. Native <dialog>: showModal() makes the
+// page behind inert (focus stays inside) and Esc closes it.
+import { FORM_ENDPOINT, FORM_READY } from '../data/site';
+const TYPES = ['Sponsorship', 'In-kind gift', 'Donation question', 'Other'];
+---
+<dialog id="message-modal" aria-labelledby="message-modal-title">
+  <div class="panel">
+    <button class="close" type="button" aria-label="Close" data-close-message>×</button>
+    <div class="head">
+      <h2 id="message-modal-title">Send us a message</h2>
+      <p>Write to us about a sponsorship, an in-kind gift or any other question.</p>
+    </div>
+    <form action={FORM_ENDPOINT} method="POST">
+      <input type="hidden" name="_subject" value="Message (website)" />
+      <div class="fields two">
+        <div class="field">
+          <label for="q-name">Your name</label>
+          <input id="q-name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="q-email">Your email</label>
+          <input id="q-email" name="email" type="email" autocomplete="email" required />
+        </div>
+      </div>
+      <div class="field">
+        <label for="q-type">Inquiry type</label>
+        <select id="q-type" name="inquiry">
+          {TYPES.map(t => <option value={t}>{t}</option>)}
+        </select>
+      </div>
+      <div class="field">
+        <label for="q-msg">Your message</label>
+        <textarea id="q-msg" name="message" rows="4" required></textarea>
+      </div>
+      <!-- Spam protection: Formspree's honeypot. People never see or fill it. -->
+      <div class="hp" aria-hidden="true">
+        <label for="q-gotcha">Leave this empty</label>
+        <input id="q-gotcha" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+      <button class="btn btn-forest" type="submit" disabled={!FORM_READY}>Send Message</button>
+      {FORM_READY
+        ? <p class="note">Messages are delivered to the choir's email address.</p>
+        : <p class="note todo">[ This form is not connected yet: the choir's email and form service are still to be set up. ]</p>}
+    </form>
+  </div>
+</dialog>
+
+<script>
+  const dlg = document.getElementById('message-modal') as HTMLDialogElement | null;
+  const type = document.getElementById('q-type') as HTMLSelectElement | null;
+  if (dlg && typeof dlg.showModal === 'function') {
+    document.querySelectorAll<HTMLElement>('[data-open-message]').forEach(el =>
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        if (type) type.value = el.dataset.inquiry || 'Other';
+        dlg.showModal();
+      }));
+    dlg.querySelector('[data-close-message]')?.addEventListener('click', () => dlg.close());
+    dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+  }
+</script>
+
+<style>
+  dialog {
+    padding: 0; border: 1px solid var(--border-strong); background: var(--card-parchment); color: var(--charcoal);
+    width: min(560px, calc(100% - 32px)); max-height: 88vh; overflow-y: auto;
+  }
+  dialog::backdrop { background: var(--scrim); }
+  .panel { position: relative; padding: 32px; display: flex; flex-direction: column; gap: 18px; }
+  .head { display: flex; flex-direction: column; gap: 6px; text-align: center; align-items: center; padding: 0 28px; }
+  h2 { font-family: var(--font-display); font-size: 26px; color: var(--deep-forest); }
+  .head p { font-size: 14px; line-height: 1.6; color: var(--muted-on-parchment); }
+  .close {
+    position: absolute; top: 8px; right: 8px; min-width: 44px; min-height: 44px;
+    background: none; border: 0; cursor: pointer; font-size: 26px; line-height: 1; color: var(--deep-gold);
+  }
+  form { display: flex; flex-direction: column; gap: 18px; }
+  .fields.two { display: flex; flex-wrap: wrap; gap: 18px; }
+  .fields.two > .field { flex: 1 1 200px; }
+  .field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  label { font-size: 13px; font-weight: 700; letter-spacing: 0.05em; color: var(--deep-forest); }
+  input, select, textarea {
+    border: 1px solid var(--border-strong); background: var(--parchment); color: var(--charcoal);
+    padding: 11px 12px; font: 16px var(--font-body); min-height: 44px; width: 100%; border-radius: 0;
+  }
+  textarea { resize: vertical; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--deep-gold); outline-offset: 1px; }
+  button[type="submit"] { align-self: center; padding-left: 32px; padding-right: 32px; }
+  button:disabled { opacity: 0.6; cursor: not-allowed; }
+  .note { font-size: 13px; color: var(--muted-on-parchment); text-align: center; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  @media (max-width: 480px) { .panel { padding: 24px 16px; } h2 { font-size: 22px; } button[type="submit"] { align-self: stretch; } }
+</style>

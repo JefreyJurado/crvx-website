@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import { VISIBLE_METHODS, SPONSOR_ITEMS, IN_KIND } from '../data/donate';
 import { socialLinks } from '../data/site';
 import SocialLinks from '../components/SocialLinks.astro';
+import MessageModal from '../components/MessageModal.astro';
 
 // Owner-approved order: opening, invite us (primary), give a gift, sponsor,
 // in-kind, other ways, our promise. Booking honoraria and gifts stay separate.
@@ -16,7 +17,8 @@ const shade = (n: number) => (canGive ? n : n + 1) % 2 === 0;
 const isLink = (href: string) => href.startsWith('https://');
 // Social links appear only once site.ts has real addresses (shown with '#' on previews).
 const hasSocial = socialLinks().length > 0;
-// Non-booking CTAs go to Contact's 'Other inquiries / Write to us', never the invite form.
+// Non-booking CTAs open the 'Send us a message' popup (MessageModal), never the invite form;
+// without JS they reach Contact's 'Other inquiries / Write to us'.
 const WRITE = '/contact#other-inquiries';
 ---
 <Base title="Support Us" description="Help Crvx et Cithara continue to bring sacred music to the liturgy.">
@@ -94,7 +96,7 @@ const WRITE = '/contact#other-inquiries';
         ))}
       </ul>
       <div class="ctas">
-        <a class="btn btn-forest" href={WRITE}>Message us</a>
+        <a class="btn btn-forest" href={WRITE} data-open-message data-inquiry="Sponsorship">Message us</a>
         {canGive && <a class="btn btn-outline" href="#give">Give a gift</a>}
       </div>
     </div>
@@ -108,7 +110,7 @@ const WRITE = '/contact#other-inquiries';
       <ul class="chips">
         {IN_KIND.map(i => <li>{i}</li>)}
       </ul>
-      <p class="small"><a href={WRITE}>Message us</a> if you can offer any of these.</p>
+      <p class="small"><a href={WRITE} data-open-message data-inquiry="In-kind gift">Message us</a> if you can offer any of these.</p>
     </div>
   </section>
 
@@ -130,9 +132,10 @@ const WRITE = '/contact#other-inquiries';
     <div class="container narrow stack centered">
       <h2 id="s-promise" class="title">Our promise</h2>
       <p class="accent-quote">Our benefactors are remembered in our prayers.</p>
-      <p class="text">A thank-you acknowledgement on request: just <a href={WRITE}>send us a message</a>.</p>
+      <p class="text">A thank-you acknowledgement on request: just <a href={WRITE} data-open-message data-inquiry="Donation question">send us a message</a>.</p>
     </div>
   </section>
+  <MessageModal />
 </Base>
 
 <style>

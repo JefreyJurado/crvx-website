@@ -25,6 +25,12 @@
   /* Modal backdrop: Darkest Forest with opacity */
   --scrim: rgb(24 29 25 / 0.82);
 
+  /* Social brand marks ONLY (owner request 2026-11-14: original brand colours
+     on the Facebook / YouTube logos). Never use these anywhere else. */
+  --brand-facebook: #0866FF;
+  --brand-youtube: #FF0000;
+  --brand-mark-white: #FFFFFF;
+
   /* Type */
   --font-display: 'Cinzel', 'Times New Roman', serif;
   --font-accent: 'Cormorant Garamond', Georgia, serif;
