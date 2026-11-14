@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { Image } from 'astro:assets';
-import Silhouette from '../components/Silhouette.astro';
+import NicheFrame from '../components/NicheFrame.astro';
 import GroupFrame from '../components/GroupFrame.astro';
 import { MEMBERS, DEMO_MEMBERS, VOICES, CHOIR_MASTER, GROUP_PHOTO, SHOW_DEMO } from '../data/members';
 
@@ -17,6 +16,7 @@ const sections = VOICES.map(voice => ({ voice, people: members.filter(m => m.voi
 
 ---
 <Base title="Our Members" description="The singers of Crvx et Cithara, grouped by voice part, introduced with their consent.">
+  <script is:inline>document.documentElement.dataset.frame = new URLSearchParams(location.search).get('frame') === 'b' ? 'b' : 'a';</script>
   <section class="section dark page-head">
     <div class="container section-head centered">
       <p class="eyebrow">The people</p>
@@ -31,15 +31,13 @@ const sections = VOICES.map(voice => ({ voice, people: members.filter(m => m.voi
         <h2 id="v-direction" class="title voice-h">Music Direction</h2>
         <ul class="direction">
           <li class="card m-card featured">
-            <div class="frame"><Silhouette /></div>
+            <NicheFrame sizes="260px" />
             <h3 class="m-name">{CHOIR_MASTER.name}</h3>
             <p class="m-role">Choir Master</p>
           </li>
           {organists.map(m => (
             <li class="card m-card featured">
-              <div class="frame">{m.photo
-                ? <Image class="m-photo" src={m.photo} alt={`Portrait of ${m.name}`} widths={[260, 520]} sizes="260px" format="webp" quality={75} />
-                : <Silhouette />}</div>
+              <NicheFrame photo={m.photo} alt={`Portrait of ${m.name}`} sizes="260px" />
               <h3 class="m-name">{m.name}</h3>
               <p class="m-role">Organist</p>
             </li>
@@ -55,9 +53,7 @@ const sections = VOICES.map(voice => ({ voice, people: members.filter(m => m.voi
           <ul class="grid">
             {s.people.map(m => (
               <li class="card m-card">
-                <div class="frame">{m.photo
-                  ? <Image class="m-photo" src={m.photo} alt={`Portrait of ${m.name}`} widths={[240, 480]} sizes="240px" format="webp" quality={75} />
-                  : <Silhouette />}</div>
+                <NicheFrame photo={m.photo} alt={`Portrait of ${m.name}`} sizes="240px" />
                 <h3 class="m-name">{m.name}</h3>
                 <p class="m-role">{m.voice}</p>
               </li>
@@ -79,25 +75,9 @@ const sections = VOICES.map(voice => ({ voice, people: members.filter(m => m.voi
   /* Music Direction: Choir Master alone is centred; organists sit beside him, stacking on phones. */
   .direction { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; }
   .featured { flex: 0 1 420px; min-width: 0; padding: 36px 32px; }
-  /* Liturgical niche (owner): a 4:5 portrait with a round Romanesque arch, a double
-     Antique Gold border (outer line + inner hairline 4px in, like an icon frame) and a
-     small keystone dot. The photo or silhouette fills the inner arch; faces sit at 50% 22%. */
-  .frame {
-    --arch: 50% 50% 4px 4px / 32% 32% 4px 4px;
-    position: relative; width: 100%; max-width: 240px; aspect-ratio: 4 / 5; flex: none;
-    padding: 4px; border: 1px solid var(--antique-gold); border-radius: var(--arch);
-    background: var(--card-parchment);
-  }
-  .featured .frame { max-width: 260px; }
-  .frame::before {
-    content: ''; position: absolute; top: -4px; left: 50%; transform: translateX(-50%);
-    width: 7px; height: 7px; border-radius: 50%; background: var(--antique-gold);
-  }
-  .frame > :global(.silhouette), .frame > :global(.m-photo) {
-    display: block; width: 100%; height: 100%;
-    border: 1px solid rgb(180 154 104 / 0.7); border-radius: var(--arch); overflow: hidden;
-  }
-  .frame > :global(.m-photo) { object-fit: cover; object-position: 50% 22%; }
+  /* Frame designs live in NicheFrame (owner picks A or B; ?frame=b on the preview). */
+  .m-card :global(.niche) { max-width: 240px; }
+  .featured :global(.niche) { max-width: 260px; }
   .m-name { font-family: var(--font-display); font-size: 20px; color: var(--deep-forest); margin-top: 4px; }
   .featured .m-name { font-size: 22px; }
   .m-role { font-size: 13px !important; letter-spacing: 0.12em; text-transform: uppercase; color: var(--deep-gold) !important; }

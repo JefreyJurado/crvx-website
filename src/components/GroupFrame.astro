@@ -1,62 +1,105 @@
 ---
-// Wide group-photo frame in the same liturgical style as the member niches:
-// a flattened round arch, a double Antique Gold border and a keystone dot,
-// 16:9 (3:2 on phones), with an optional caption plate.
+// Wide group-photo frame in the same two candidate designs as NicheFrame
+// (?frame=a Gothic window, default; ?frame=b gilded icon). 16:9, 3:2 on phones:
+// the overlay stretches (preserveAspectRatio none) but strokes and dots use
+// non-scaling strokes, so lines stay crisp and dots stay round.
 // Without `photo`, it shows a row of half-body silhouettes (preview demo only).
 import { Image } from 'astro:assets';
 import type { GroupPhoto } from '../data/members';
 interface Props { photo?: GroupPhoto; caption?: string; }
 const { photo, caption } = Astro.props;
-// Back row then front row: [x, y, scale] in a 160×90 box (figure art is 80×100).
+
 // Torso: back-row figures continue down behind the front row.
 const FRONT = 'M8 100V84c0-12 9-21 21-23l6-1h10l6 1c12 2 21 11 21 23v16z';
 const BACK = 'M8 220V84c0-12 9-21 21-23l6-1h10l6 1c12 2 21 11 21 23v136z';
 const FIGURES = [[14, 16, 0.42], [50, 14, 0.42], [86, 14, 0.42], [122, 16, 0.42], [-4, 44, 0.5], [32, 42, 0.5], [68, 42, 0.5], [104, 42, 0.5], [140, 44, 0.5]];
+
+const rosette = (cx: number, cy: number, rx: number, ry: number) =>
+  [`M${cx} ${cy}h0`, ...Array.from({ length: 8 }, (_, k) => {
+    const a = (Math.PI / 180) * (22.5 + 45 * k);
+    return `M${(cx + rx * Math.cos(a)).toFixed(2)} ${(cy + ry * Math.sin(a)).toFixed(2)}h0`;
+  })].join('');
 ---
 <figure class="group">
-  <div class="g-frame">
-    {photo
-      ? <Image class="g-img" src={photo.image} alt={photo.alt} widths={[640, 1000, 1400, 2000]} sizes="(max-width: 1100px) 100vw, 1000px" format="webp" quality={75} />
-      : <svg class="g-img" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Sample group photo">
-          <rect width="160" height="90" fill="var(--darkest-forest)" />
-          {FIGURES.map(([x, y, s], i) => (
-            <g transform={`translate(${x} ${y}) scale(${s})`}>
-              {/* An opaque backing (with a thin dark outline) lets the front row cover the back row cleanly. */}
-              <g fill="var(--darkest-forest)" stroke="var(--darkest-forest)" stroke-width="5">
-                <circle cx="40" cy="36" r="14" />
-                <path d={i < 4 ? BACK : FRONT} />
+  <div class="g-box">
+    {['a', 'b'].map(v => (
+      <div class={`v v-${v}`}>
+        <div class={`win win-${v}`}>
+          {photo
+            ? <Image class="g-img" src={photo.image} alt={photo.alt} widths={[640, 1000, 1400, 2000]} sizes="(max-width: 1100px) 100vw, 1000px" format="webp" quality={75} />
+            : <svg class="g-img" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Sample group photo">
+                <rect width="160" height="90" fill="var(--darkest-forest)" />
+                {FIGURES.map(([x, y, s], i) => (
+                  <g transform={`translate(${x} ${y}) scale(${s})`}>
+                    {/* An opaque backing (with a thin dark outline) lets the front row cover the back row cleanly. */}
+                    <g fill="var(--darkest-forest)" stroke="var(--darkest-forest)" stroke-width="5">
+                      <circle cx="40" cy="36" r="14" /><path d={i < 4 ? BACK : FRONT} />
+                    </g>
+                    <g fill="var(--antique-gold)" fill-opacity={i < 4 ? 0.22 : 0.35}>
+                      <circle cx="40" cy="36" r="14" /><path d={i < 4 ? BACK : FRONT} />
+                    </g>
+                  </g>
+                ))}
+              </svg>}
+        </div>
+        {v === 'a'
+          ? <svg class="ovl" viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <g fill="none" stroke="var(--antique-gold)" vector-effect="non-scaling-stroke">
+                <path d="M34 156V76A150 72 0 0 1 160 16A150 72 0 0 1 286 76V156" stroke-width="1.2" vector-effect="non-scaling-stroke" />
+                <path d="M26 160V76A158 78 0 0 1 160 8A158 78 0 0 1 294 76V160" stroke-width="2" vector-effect="non-scaling-stroke" />
               </g>
-              <g fill="var(--antique-gold)" fill-opacity={i < 4 ? 0.22 : 0.35}>
-                <circle cx="40" cy="36" r="14" />
-                <path d={i < 4 ? BACK : FRONT} />
+              <g fill="var(--antique-gold)" fill-opacity="0.3" stroke="var(--antique-gold)">
+                {[10, 16, 301, 307].map(x => <rect x={x} y="64" width="3" height="96" stroke-width="0.8" vector-effect="non-scaling-stroke" />)}
+                <path d="M6 54h17v4h-17zM8 58h13l-2 6h-9zM297 54h17v4h-17zM299 58h13l-2 6h-9z" stroke-width="0.8" vector-effect="non-scaling-stroke" />
+                <path d="M8 160h13v3h-13zM6 163h17v3h-17zM299 160h13v3h-13zM297 163h17v3h-17z" stroke-width="0.8" vector-effect="non-scaling-stroke" />
               </g>
-            </g>
-          ))}
-        </svg>}
+              <g fill="var(--card-parchment)" stroke="var(--antique-gold)">
+                <rect x="2" y="172" width="316" height="7" stroke-width="1" vector-effect="non-scaling-stroke" />
+                <rect x="14" y="166" width="292" height="6" stroke-width="1" vector-effect="non-scaling-stroke" />
+              </g>
+            </svg>
+          : <svg class="ovl" viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <path d="M6 176V54A154 50 0 0 1 314 54V176ZM24 160V58A136 34 0 0 1 296 58V160Z" fill="var(--antique-gold)" fill-opacity="0.32" fill-rule="evenodd" />
+              <g fill="none" stroke="var(--antique-gold)">
+                <path d="M6 176V54A154 50 0 0 1 314 54V176Z" stroke-width="1.6" vector-effect="non-scaling-stroke" />
+                <path d="M24 160V58A136 34 0 0 1 296 58V160Z" stroke-width="1.2" vector-effect="non-scaling-stroke" />
+                <path d="M15 168V56A145 42 0 0 1 305 56V168Z" stroke-width="3.4" stroke-linecap="round" stroke-dasharray="0 8" vector-effect="non-scaling-stroke" />
+              </g>
+              <g stroke="var(--antique-gold)" stroke-linecap="round" fill="none">
+                <path d={rosette(160, 15, 6.5, 9)} stroke-width="4" vector-effect="non-scaling-stroke" />
+                {[[15, 56], [305, 56], [15, 168], [305, 168]].map(([x, y]) => <path d={rosette(x, y, 4.5, 6.5)} stroke-width="3" vector-effect="non-scaling-stroke" />)}
+              </g>
+            </svg>}
+      </div>
+    ))}
   </div>
   {caption && <figcaption class="g-plate">{caption}</figcaption>}
 </figure>
 
 <style>
-  .group { margin: 0 auto; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 0; }
-  .g-frame {
-    --arch: 50% 50% 4px 4px / 14% 14% 4px 4px;
-    position: relative; width: 100%; aspect-ratio: 16 / 9;
-    padding: 5px; border: 1px solid var(--antique-gold); border-radius: var(--arch);
-    background: var(--card-parchment); box-shadow: 0 6px 18px rgb(24 29 25 / 0.08);
+  .group { margin: 0 auto; width: 100%; display: flex; flex-direction: column; align-items: center; }
+  .g-box { position: relative; width: 100%; aspect-ratio: 16 / 9; }
+  .v { position: absolute; inset: 0; }
+  .v-b { display: none; }
+  :global(html[data-frame="b"]) .v-a { display: none; }
+  :global(html[data-frame="b"]) .v-b { display: block; }
+  .win { position: absolute; overflow: hidden; background: var(--darkest-forest); }
+  .win > :global(.g-img) { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+  .ovl { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+  .win-a {
+    left: 10.625%; width: 78.75%; top: 8.889%; height: 77.78%;
+    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 252 140' preserveAspectRatio='none'><path d='M0 140V60A150 72 0 0 1 126 0A150 72 0 0 1 252 60V140Z'/></svg>") 0 0 / 100% 100% no-repeat;
+            mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 252 140' preserveAspectRatio='none'><path d='M0 140V60A150 72 0 0 1 126 0A150 72 0 0 1 252 60V140Z'/></svg>") 0 0 / 100% 100% no-repeat;
   }
-  .g-frame::before {
-    content: ''; position: absolute; top: -4px; left: 50%; transform: translateX(-50%);
-    width: 7px; height: 7px; border-radius: 50%; background: var(--antique-gold);
-  }
-  .g-frame > :global(.g-img) {
-    display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;
-    border: 1px solid rgb(180 154 104 / 0.7); border-radius: var(--arch); overflow: hidden;
+  .win-b {
+    left: 7.5%; width: 85%; top: 13.33%; height: 75.56%;
+    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 272 136' preserveAspectRatio='none'><path d='M0 136V34A136 34 0 0 1 272 34V136Z'/></svg>") 0 0 / 100% 100% no-repeat;
+            mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 272 136' preserveAspectRatio='none'><path d='M0 136V34A136 34 0 0 1 272 34V136Z'/></svg>") 0 0 / 100% 100% no-repeat;
   }
   .g-plate {
-    margin-top: -1px; padding: 6px 22px; border: 1px solid var(--antique-gold); border-top: 0;
-    background: var(--card-parchment); border-radius: 0 0 4px 4px;
+    margin-top: 6px; padding: 6px 22px; border: 1px solid var(--antique-gold);
+    background: var(--card-parchment); border-radius: 2px;
     font-family: var(--font-display); font-size: 14px; letter-spacing: 0.14em; color: var(--deep-forest);
   }
-  @media (max-width: 520px) { .g-frame { aspect-ratio: 3 / 2; --arch: 50% 50% 4px 4px / 18% 18% 4px 4px; } }
+  @media (max-width: 520px) { .g-box { aspect-ratio: 3 / 2; } }
 </style>
