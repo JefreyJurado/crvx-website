@@ -77,7 +77,7 @@ const group = GROUP_PHOTO?.consented === true ? GROUP_PHOTO : undefined;
   </section>
 
   <section class="section" aria-labelledby="people-h">
-    <div class="container people">
+    <div class:list={["container people", { solo: !group }]}>
       {group && <div><script is:inline>document.documentElement.dataset.frame = new URLSearchParams(location.search).get('frame') === 'b' ? 'b' : 'a';</script><GroupFrame photo={group} /></div>}
       <div class="stack">
         <h2 id="people-h" class="title">The People</h2>
@@ -98,6 +98,9 @@ const group = GROUP_PHOTO?.consented === true ? GROUP_PHOTO : undefined;
   .card--centered p { max-width: 55ch; margin-left: auto; margin-right: auto; }
   .story--reverse { flex-direction: row-reverse; }
   @media (max-width: 860px) { .story--reverse { flex-direction: row; } }
+  /* No group photo yet: centre the People text like the other About sections (Jomar). */
+  .people.solo { justify-content: center; text-align: center; }
+  .people.solo > .stack { align-items: center; flex: 0 1 640px; }
   .story > :global(.story-img) { height: auto; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--border-strong); }
   .todo { color: var(--deep-gold); }
 </style>
