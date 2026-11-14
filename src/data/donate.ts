@@ -64,7 +64,6 @@ export const GIVING_METHODS: GivingMethod[] = [
 export const SPONSOR_ITEMS = [
   { title: 'A new Mass setting', text: 'Scores for a new Mass setting or motets for the feasts of the year.' },
   { title: 'Choir vestments', text: 'Vestments so the choir is fittingly vested for the liturgy.' },
-  { title: 'Travel to a parish', text: 'Transport for the choir to sing at a parish that could not otherwise invite us.' },
 ];
 
 // "In-kind help" list.
