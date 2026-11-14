@@ -5,7 +5,7 @@ import GroupFrame from '../components/GroupFrame.astro';
 import { MEMBERS, DEMO_MEMBERS, VOICES, CHOIR_MASTER, GROUP_PHOTO, SHOW_DEMO } from '../data/members';
 
 const showDemo = SHOW_DEMO;
-// Group photo: only with everyone's consent; otherwise nothing (a sample on previews).
+// Group photo: only with everyone's consent; otherwise a 'Group photo coming soon' placeholder.
 const group = GROUP_PHOTO?.consented === true ? GROUP_PHOTO : undefined;
 
 // Consent filter at BUILD time: non-consented entries never reach the HTML.
@@ -28,7 +28,7 @@ const sections = VOICES.map(voice => ({ voice, people: members.filter(m => m.voi
   <section class="section">
     <div class="container stack lg">
       {members.length === 0 && <p class="intro">Our members will be introduced here, each with their consent.</p>}
-      {(group || showDemo) && <div class="group-wrap"><GroupFrame photo={group} caption="Crvx et Cithara" /></div>}
+      <div class="group-wrap"><GroupFrame photo={group} caption={group ? 'Crvx et Cithara' : 'Group photo coming soon'} /></div>
       <section class="voice" aria-labelledby="v-direction">
         <h2 id="v-direction" class="title voice-h">Music Direction</h2>
         <ul class="direction">
