@@ -14,8 +14,7 @@
 //   2. Import it at the top of this file:
 //        import mariaPhoto from '../assets/images/members/maria.jpg';
 //   3. Add an entry to MEMBERS:
-//        { name: 'Maria Santos', voice: 'Soprano', role: 'Section leader',
-//          bio: 'Has sung with the choir since 2019.', photo: mariaPhoto, consented: true },
+//        { name: 'Maria Santos', voice: 'Soprano', photo: mariaPhoto, consented: true },
 //   An organist uses voice: 'Organist' (more than one is fine).
 import type { ImageMetadata } from 'astro';
 
@@ -26,9 +25,6 @@ export type Part = Voice | 'Organist';
 export interface Member {
   name: string;
   voice: Part;
-  role?: string;
-  /** One line. */
-  bio?: string;
   photo?: ImageMetadata;
   consented: boolean;
 }
@@ -36,23 +32,23 @@ export interface Member {
 export const VOICES: Voice[] = ['Soprano', 'Alto', 'Tenor', 'Bass'];
 
 /** Already public on About Us (PLAN §9, owner-confirmed). */
-export const CHOIR_MASTER = { name: 'Br. Angelo Lorenzo Salvacion', role: 'Choir Master' };
+export const CHOIR_MASTER = { name: 'Br. Angelo Lorenzo Salvacion' };
 
 export const MEMBERS: Member[] = [];
 
 // Fake entries so the owner can see filled cards on PREVIEW deployments only.
 // They never render on production (see src/pages/members.astro).
 export const DEMO_MEMBERS: Member[] = [
-  { name: 'Sample Soprano', voice: 'Soprano', role: 'Section leader', bio: 'A one-line introduction goes here.', consented: true },
+  { name: 'Sample Soprano', voice: 'Soprano', consented: true },
   { name: 'Sample Soprano Two', voice: 'Soprano', consented: true },
-  { name: 'Sample Soprano Three', voice: 'Soprano', bio: 'Another short line about this singer.', consented: true },
-  { name: 'Sample Alto', voice: 'Alto', role: 'Section leader', consented: true },
-  { name: 'Sample Alto Two', voice: 'Alto', bio: 'A one-line introduction goes here.', consented: true },
-  { name: 'Sample Tenor', voice: 'Tenor', bio: 'A one-line introduction goes here.', consented: true },
-  { name: 'Sample Bass', voice: 'Bass', role: 'Section leader', consented: true },
+  { name: 'Sample Soprano Three', voice: 'Soprano', consented: true },
+  { name: 'Sample Alto', voice: 'Alto', consented: true },
+  { name: 'Sample Alto Two', voice: 'Alto', consented: true },
+  { name: 'Sample Tenor', voice: 'Tenor', consented: true },
+  { name: 'Sample Bass', voice: 'Bass', consented: true },
   { name: 'Sample Bass Two', voice: 'Bass', consented: true },
   { name: 'Sample Bass Three', voice: 'Bass', consented: true },
-  { name: 'Sample Bass Four', voice: 'Bass', bio: 'A one-line introduction goes here.', consented: true },
-  { name: 'Sample Organist', voice: 'Organist', bio: 'A one-line introduction goes here.', consented: true },
-  { name: 'Sample Hidden', voice: 'Tenor', bio: 'Not consented: must never appear.', consented: false },
+  { name: 'Sample Bass Four', voice: 'Bass', consented: true },
+  { name: 'Sample Organist', voice: 'Organist', consented: true },
+  { name: 'Sample Hidden', voice: 'Tenor', consented: false },
 ];

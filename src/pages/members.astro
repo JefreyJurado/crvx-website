@@ -40,8 +40,7 @@ const sections = VOICES.map(voice => ({ voice, people: members.filter(m => m.voi
                 ? <Image class="m-photo" src={m.photo} alt={`Portrait of ${m.name}`} widths={[260, 520]} sizes="260px" format="webp" quality={75} />
                 : <Silhouette />}</div>
               <h3 class="m-name">{m.name}</h3>
-              <p class="m-role">{m.role ? `Organist · ${m.role}` : 'Organist'}</p>
-              {m.bio && <p class="m-bio">{m.bio}</p>}
+              <p class="m-role">Organist</p>
             </li>
           ))}
         </ul>
@@ -59,8 +58,7 @@ const sections = VOICES.map(voice => ({ voice, people: members.filter(m => m.voi
                   ? <Image class="m-photo" src={m.photo} alt={`Portrait of ${m.name}`} widths={[240, 480]} sizes="240px" format="webp" quality={75} />
                   : <Silhouette />}</div>
                 <h3 class="m-name">{m.name}</h3>
-                <p class="m-role">{m.role ? `${m.voice} · ${m.role}` : m.voice}</p>
-                {m.bio && <p class="m-bio">{m.bio}</p>}
+                <p class="m-role">{m.voice}</p>
               </li>
             ))}
           </ul>
@@ -101,7 +99,6 @@ const sections = VOICES.map(voice => ({ voice, people: members.filter(m => m.voi
   .m-name { font-family: var(--font-display); font-size: 20px; color: var(--deep-forest); margin-top: 4px; }
   .featured .m-name { font-size: 22px; }
   .m-role { font-size: 13px !important; letter-spacing: 0.12em; text-transform: uppercase; color: var(--deep-gold) !important; }
-  .m-bio { max-width: 32ch; }
   .empty { text-align: center; font-family: var(--font-accent); font-style: italic; font-size: 22px; color: var(--muted-on-parchment); }
 
   .voice { display: flex; flex-direction: column; gap: 24px; }
