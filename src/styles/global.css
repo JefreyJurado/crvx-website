@@ -111,3 +111,6 @@ p { margin: 0; }
 .ph.r43 { aspect-ratio: 4 / 3; }
 .ph.r11 { aspect-ratio: 1 / 1; font-size: 12px; }
 .ph.r32 { aspect-ratio: 3 / 2; }
+
+/* Jomar (mobile QA): no single-word last lines in centred card text. */
+.card--centered p { text-wrap: pretty; }
