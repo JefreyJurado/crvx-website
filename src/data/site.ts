@@ -38,14 +38,13 @@ export const socialLinks = () =>
     .filter(s => s.href);
 
 /** The choir email as a link: only a real address renders (previews show the
- *  placeholder with href '#'). `gmail` picks the Gmail mark over the envelope. */
+ *  placeholder with href '#'). Shown with the Gmail mark. */
 export const emailLink = () => {
   const real = /^[^\s@\[\]]+@[^\s@\[\]]+\.[^\s@\[\]]+$/.test(SITE.email);
   if (!real && !IS_PREVIEW) return null;
   return {
     label: SITE.email,
     href: real ? `mailto:${SITE.email}` : '#',
-    gmail: /@gmail\.com$/i.test(SITE.email),
   };
 };
 

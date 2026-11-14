@@ -2,8 +2,8 @@
 // Contact / social links with icons: the choir email (optional, `email` prop)
 // then Facebook and YouTube. Official marks from Simple Icons 16.37.0 (CC0),
 // inline, unaltered shapes, brand colours with white counter-shapes. A
-// gmail.com address uses the official full-colour Gmail M (owner request);
-// any other address uses a plain single-colour envelope. All icons sit in identical 24x20 slots (each
+// The email always uses the official full-colour Gmail M (owner: the choir
+// uses Gmail). All icons sit in identical 24x20 slots (each
 // mark scaled to fit, centred) so the row reads evenly.
 // Only real links render; previews show placeholders with '#' so the owner can
 // review the layout.
@@ -21,10 +21,10 @@ const GMAIL: [string, string][] = [
   ['--brand-gmail-darkred', 'M52 51v8l20 15V48l-5.6-4.2c-5.94-4.45-14.4-.22-14.4 7.2'],
 ];
 
-type Item = { kind: 'facebook' | 'youtube' | 'gmail' | 'mail'; label: string; href: string; external: boolean };
+type Item = { kind: 'facebook' | 'youtube' | 'gmail'; label: string; href: string; external: boolean };
 const items: Item[] = [];
 const mail = email ? emailLink() : null;
-if (mail) items.push({ kind: mail.gmail ? 'gmail' : 'mail', label: mail.label, href: mail.href, external: false });
+if (mail) items.push({ kind: 'gmail', label: mail.label, href: mail.href, external: false });
 for (const s of socialLinks()) items.push({ kind: s.label === 'Facebook' ? 'facebook' : 'youtube', label: s.label, href: s.href, external: true });
 ---
 {items.length > 0 && (
@@ -36,11 +36,6 @@ for (const s of socialLinks()) items.push({ kind: s.label === 'Facebook' ? 'face
             {it.kind === 'facebook' && <svg class="ic-fb" viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="11.6" fill="var(--brand-mark-white)" /><path fill="var(--brand-facebook)" d={FB} /></svg>}
             {it.kind === 'youtube' && <svg class="ic-yt" viewBox="0 3.545 24 16.91" focusable="false"><path fill="var(--brand-mark-white)" d="M9 8h7.5v8H9z" /><path fill="var(--brand-youtube)" d={YT} /></svg>}
             {it.kind === 'gmail' && <svg class="ic-gmail" viewBox="52 42 88 66" focusable="false">{GMAIL.map(([c, d]) => <path fill={`var(${c})`} d={d} />)}</svg>}
-            {it.kind === 'mail' && (
-              <svg class="ic-mail" viewBox="0 4 24 16" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round">
-                <rect x="1.5" y="5" width="21" height="14" rx="1.5" /><path d="M2.5 6.5 12 13l9.5-6.5" />
-              </svg>
-            )}
           </span>
           <span class="label">{it.label}</span>
         </a>
@@ -62,6 +57,5 @@ for (const s of socialLinks()) items.push({ kind: s.label === 'Facebook' ? 'face
   .slot svg { display: block; }
   .ic-fb { width: 20px; height: 20px; }
   .ic-yt { width: 24px; height: 16.9px; }
-  .ic-mail { width: 24px; height: 17px; }
   .ic-gmail { width: 24px; height: 18px; }
 </style>
