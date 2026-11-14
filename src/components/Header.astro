@@ -24,6 +24,17 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/'
 </header>
 
 <script>
+  // Sticky header: shadow once scrolled, and publish its height so anchor
+  // links (scroll-padding-top) land below it.
+  const header = document.querySelector<HTMLElement>('.site-header');
+  if (header) {
+    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 4);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    const setH = () => document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+    setH();
+    new ResizeObserver(setH).observe(header);
+  }
   const btn = document.querySelector<HTMLButtonElement>('.menu-btn');
   const nav = document.getElementById('main-nav');
   btn?.addEventListener('click', () => {
@@ -34,7 +45,15 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/'
 </script>
 
 <style>
-  .site-header { background: var(--deep-forest); border-bottom: 1px solid var(--border-on-dark); }
+  /* Sticky on every page (owner). Solid Darkest Forest; a soft shadow once the
+     page has scrolled. Stays in flow, so nothing below it moves. */
+  .site-header {
+    position: sticky; top: 0; z-index: 40;
+    background: var(--darkest-forest); border-bottom: 1px solid var(--border-on-dark);
+    transition: box-shadow 0.2s ease;
+  }
+  .site-header.scrolled { box-shadow: 0 4px 14px rgb(24 29 25 / 0.45); }
+  @media (prefers-reduced-motion: reduce) { .site-header { transition: none; } }
   .bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; padding-top: 14px; padding-bottom: 14px; }
   .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; min-width: 0; }
   .crest { flex: none; width: auto; height: 48px; }

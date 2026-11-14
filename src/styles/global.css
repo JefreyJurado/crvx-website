@@ -8,7 +8,7 @@
 @import './tokens.css';
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--header-h, 80px) + 8px); }
 body {
   margin: 0;
   font-family: var(--font-body);
