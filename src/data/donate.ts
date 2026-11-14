@@ -71,6 +71,17 @@ export const GIFTS_FUND = [
 const SHOW_ALL =
   (import.meta.env?.VERCEL_ENV ?? process.env.VERCEL_ENV) === 'preview' || process.env.DONATE_DEMO === '1';
 
+// Guard: an enabled method must not publish placeholders. Outside preview builds,
+// the build fails if an enabled method still has a [ bracketed ] value or a
+// link without an https:// address.
+if (!SHOW_ALL) {
+  for (const m of GIVING_METHODS.filter(m => m.enabled)) {
+    const bad = m.details.filter(d => d.value.includes('[')).map(d => d.label);
+    if (m.link && !m.link.href.startsWith('https://')) bad.push('link');
+    if (bad.length) throw new Error(`donate.ts: ${m.name} is enabled but still has placeholders (${bad.join(', ')}). Fill them in or set enabled: false.`);
+  }
+}
+
 export const VISIBLE_METHODS = GIVING_METHODS.filter(m => m.enabled || SHOW_ALL);
 /** Fail closed: the page is linked (menu, footer, sitemap) only when something can be shown. */
 export const SUPPORT_LIVE = VISIBLE_METHODS.length > 0;
