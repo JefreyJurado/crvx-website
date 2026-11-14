@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { Image } from 'astro:assets';
+import Silhouette from '../components/Silhouette.astro';
 import { MEMBERS, DEMO_MEMBERS, VOICES, CHOIR_MASTER } from '../data/members';
 
 // Demo cards only on Vercel PREVIEW builds or with MEMBERS_DEMO=1 locally.
@@ -14,11 +15,6 @@ const organists = members.filter(m => m.voice === 'Organist');
 const sections = VOICES.map(voice => ({ voice, people: members.filter(m => m.voice === voice) }))
   .filter(s => s.people.length > 0);
 
-const TITLES = /^(br|fr|sr|rev|msgr|mr|mrs|ms|dr)\.?$/i;
-const initials = (name: string) => {
-  const w = name.split(/\s+/).filter(p => !TITLES.test(p));
-  return ((w[0]?.[0] ?? '') + (w.length > 1 ? w[w.length - 1][0] : '')).toUpperCase();
-};
 ---
 <Base title="Our Members" description="The singers of Crvx et Cithara, grouped by voice part, introduced with their consent.">
   <section class="section dark page-head">
@@ -34,7 +30,7 @@ const initials = (name: string) => {
         <h2 id="v-direction" class="title voice-h">Music Direction</h2>
         <ul class="direction">
           <li class="card m-card featured">
-            <div class="monogram" aria-hidden="true">{initials(CHOIR_MASTER.name)}</div>
+            <Silhouette />
             <h3 class="m-name">{CHOIR_MASTER.name}</h3>
             <p class="m-role">{CHOIR_MASTER.role}</p>
           </li>
@@ -42,7 +38,7 @@ const initials = (name: string) => {
             <li class="card m-card featured">
               {m.photo
                 ? <Image class="m-photo" src={m.photo} alt={`Portrait of ${m.name}`} widths={[260, 520]} sizes="260px" format="webp" quality={75} />
-                : <div class="monogram" aria-hidden="true">{initials(m.name)}</div>}
+                : <Silhouette />}
               <h3 class="m-name">{m.name}</h3>
               <p class="m-role">{m.role ? `Organist · ${m.role}` : 'Organist'}</p>
               {m.bio && <p class="m-bio">{m.bio}</p>}
@@ -61,7 +57,7 @@ const initials = (name: string) => {
               <li class="card m-card">
                 {m.photo
                   ? <Image class="m-photo" src={m.photo} alt={`Portrait of ${m.name}`} widths={[240, 480]} sizes="240px" format="webp" quality={75} />
-                  : <div class="monogram" aria-hidden="true">{initials(m.name)}</div>}
+                  : <Silhouette />}
                 <h3 class="m-name">{m.name}</h3>
                 <p class="m-role">{m.role ? `${m.voice} · ${m.role}` : m.voice}</p>
                 {m.bio && <p class="m-bio">{m.bio}</p>}
@@ -83,18 +79,13 @@ const initials = (name: string) => {
   /* Music Direction: Choir Master alone is centred; organists sit beside him, stacking on phones. */
   .direction { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; }
   .featured { flex: 0 1 420px; min-width: 0; padding: 36px 32px; }
-  /* Half-body portraits (owner): 4:5 frame, cropped from the top; the monogram uses the same box so cards line up. */
-  .monogram, .m-card :global(.m-photo) {
-    width: 100%; max-width: 240px; aspect-ratio: 4 / 5; flex: none;
-    border: 1px solid var(--antique-gold);
+  /* Half-body portraits (owner): 4:5 rounded rectangle, thin gold border, cropped from the top.
+     The silhouette placeholder uses the same box so cards line up. */
+  .m-card :global(.silhouette), .m-card :global(.m-photo) {
+    display: block; width: 100%; max-width: 240px; height: auto; aspect-ratio: 4 / 5; flex: none;
+    border: 1px solid var(--antique-gold); border-radius: 6px; overflow: hidden;
   }
-  .featured .monogram, .featured :global(.m-photo) { max-width: 260px; }
-  .featured .monogram { font-size: 48px; }
-  .monogram {
-    display: flex; align-items: center; justify-content: center;
-    background: var(--deep-forest); color: var(--antique-gold);
-    font-family: var(--font-display); font-weight: 600; font-size: 36px; letter-spacing: 0.08em;
-  }
+  .featured :global(.silhouette), .featured :global(.m-photo) { max-width: 260px; }
   .m-card :global(.m-photo) { height: auto; object-fit: cover; object-position: 50% 20%; }
   .m-name { font-family: var(--font-display); font-size: 20px; color: var(--deep-forest); margin-top: 4px; }
   .featured .m-name { font-size: 22px; }
