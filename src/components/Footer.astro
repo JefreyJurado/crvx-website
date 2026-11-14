@@ -1,9 +1,9 @@
 ---
-import { NAV, SITE, socialLinks, emailLink } from '../data/site';
+import { NAV, SITE, socialLinks } from '../data/site';
 import SocialLinks from './SocialLinks.astro';
 const year = new Date().getFullYear();
-// 'Follow the choir' shows only once there is a real email or social link to list.
-const hasFollow = socialLinks().length > 0 || emailLink() !== null;
+// 'Follow the choir' = Facebook + YouTube only; shown once one has a real link.
+const hasFollow = socialLinks().length > 0;
 ---
 <footer class="site-footer">
   <div class="container inner">
@@ -21,7 +21,7 @@ const hasFollow = socialLinks().length > 0 || emailLink() !== null;
       {hasFollow && (
         <div class="follow">
           <span class="h">Follow the choir</span>
-          <SocialLinks class="stacked" email />
+          <SocialLinks class="stacked" />
         </div>
       )}
     </div>
