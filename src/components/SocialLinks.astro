@@ -2,8 +2,8 @@
 // Contact / social links with icons: the choir email (optional, `email` prop)
 // then Facebook and YouTube. Official marks from Simple Icons 16.37.0 (CC0),
 // inline, unaltered shapes, brand colours with white counter-shapes. A
-// gmail.com address uses the Gmail mark (#EA4335); any other address uses a
-// plain single-colour envelope. All icons sit in identical 24x20 slots (each
+// gmail.com address uses the official full-colour Gmail M (owner request);
+// any other address uses a plain single-colour envelope. All icons sit in identical 24x20 slots (each
 // mark scaled to fit, centred) so the row reads evenly.
 // Only real links render; previews show placeholders with '#' so the owner can
 // review the layout.
@@ -12,7 +12,14 @@ interface Props { class?: string; email?: boolean; }
 const { class: cls, email = false } = Astro.props;
 const FB = 'M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z';
 const YT = 'M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z';
-const GMAIL = 'M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z';
+// Official full-colour Gmail M (2020 mark), five segments.
+const GMAIL: [string, string][] = [
+  ['--brand-gmail-blue', 'M58 108h14V74L52 59v43c0 3.32 2.69 6 6 6'],
+  ['--brand-gmail-green', 'M120 108h14c3.32 0 6-2.69 6-6V59l-20 15'],
+  ['--brand-gmail-yellow', 'M120 48v26l20-15v-8c0-7.42-8.47-11.65-14.4-7.2'],
+  ['--brand-gmail-red', 'M72 74V48l24 18 24-18v26L96 92'],
+  ['--brand-gmail-darkred', 'M52 51v8l20 15V48l-5.6-4.2c-5.94-4.45-14.4-.22-14.4 7.2'],
+];
 
 type Item = { kind: 'facebook' | 'youtube' | 'gmail' | 'mail'; label: string; href: string; external: boolean };
 const items: Item[] = [];
@@ -28,7 +35,7 @@ for (const s of socialLinks()) items.push({ kind: s.label === 'Facebook' ? 'face
           <span class="slot" aria-hidden="true">
             {it.kind === 'facebook' && <svg class="ic-fb" viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="11.6" fill="var(--brand-mark-white)" /><path fill="var(--brand-facebook)" d={FB} /></svg>}
             {it.kind === 'youtube' && <svg class="ic-yt" viewBox="0 3.545 24 16.91" focusable="false"><path fill="var(--brand-mark-white)" d="M9 8h7.5v8H9z" /><path fill="var(--brand-youtube)" d={YT} /></svg>}
-            {it.kind === 'gmail' && <svg class="ic-mail" viewBox="0 2.27 24 18.73" focusable="false"><path fill="var(--brand-gmail)" d={GMAIL} /></svg>}
+            {it.kind === 'gmail' && <svg class="ic-gmail" viewBox="52 42 88 66" focusable="false">{GMAIL.map(([c, d]) => <path fill={`var(${c})`} d={d} />)}</svg>}
             {it.kind === 'mail' && (
               <svg class="ic-mail" viewBox="0 4 24 16" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round">
                 <rect x="1.5" y="5" width="21" height="14" rx="1.5" /><path d="M2.5 6.5 12 13l9.5-6.5" />
@@ -56,4 +63,5 @@ for (const s of socialLinks()) items.push({ kind: s.label === 'Facebook' ? 'face
   .ic-fb { width: 20px; height: 20px; }
   .ic-yt { width: 24px; height: 16.9px; }
   .ic-mail { width: 24px; height: 17px; }
+  .ic-gmail { width: 24px; height: 18px; }
 </style>

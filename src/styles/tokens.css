@@ -29,7 +29,11 @@
      on the Facebook / YouTube logos). Never use these anywhere else. */
   --brand-facebook: #0866FF;
   --brand-youtube: #FF0000;
-  --brand-gmail: #EA4335;
+  --brand-gmail-red: #EA4335;
+  --brand-gmail-blue: #4285F4;
+  --brand-gmail-green: #34A853;
+  --brand-gmail-yellow: #FBBC04;
+  --brand-gmail-darkred: #C5221F;
   --brand-mark-white: #FFFFFF;
 
   /* Type */
