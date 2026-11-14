@@ -10,8 +10,6 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
 ---
 <Base description={SITE.description}>
   <!-- Hero -->
-  <!-- Crest treatment variants for the owner: default = A (soft), ?crest=b = B (bold). -->
-  <script is:inline>if (new URLSearchParams(location.search).get('crest') === 'b') document.documentElement.classList.add('crest-b')</script>
   <section class="hero dark">
     <Image class="hero-bg" src={heroImg} alt="" widths={[1100, 1600, 2200, 3000]} sizes="max(104vw, 1100px)" loading="eager" fetchpriority="high" format="webp" quality={70} />
     <div class="container hero-inner">
@@ -161,8 +159,7 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
      the hero top) at every width. The photo fades out at the bottom into the
      Darkest Forest background. */
   /* --crest-y = hero padding-top + half the crest height. */
-  .hero { --pad-top: 96px; --crest-h: 170px; --crest-y: calc(var(--pad-top) + var(--crest-h) / 2); }
-  :global(.crest-b) .hero { --crest-h: 184px; }
+  .hero { --pad-top: 96px; --crest-h: 184px; --crest-y: calc(var(--pad-top) + var(--crest-h) / 2); }
   .hero-bg {
     position: absolute; left: 50%; top: var(--crest-y);
     width: max(104%, 1100px); max-width: none; height: auto;
@@ -180,18 +177,11 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
   .crest-wrap { position: relative; display: inline-flex; }
   .crest-wrap::before {
     content: ''; position: absolute; left: 50%; top: 50%; z-index: -1;
-    width: 170%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%;
-    background: radial-gradient(closest-side, rgb(24 29 25 / 0.72), rgb(24 29 25 / 0.45) 55%, rgb(24 29 25 / 0));
+    width: 200%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%;
+    background: radial-gradient(closest-side, rgb(24 29 25 / 0.88), rgb(24 29 25 / 0.6) 50%, rgb(24 29 25 / 0));
   }
   .hero-crest {
     width: auto; height: var(--crest-h);
-    filter: drop-shadow(0 0 10px rgb(180 154 104 / 0.45));
-  }
-  :global(.crest-b) .crest-wrap::before {
-    width: 200%;
-    background: radial-gradient(closest-side, rgb(24 29 25 / 0.88), rgb(24 29 25 / 0.6) 50%, rgb(24 29 25 / 0));
-  }
-  :global(.crest-b) .hero-crest {
     filter: drop-shadow(0 0 6px rgb(180 154 104 / 0.6)) drop-shadow(0 0 22px rgb(180 154 104 / 0.5));
   }
   /* The motto sits on the bright lantern ring: a Darkest Forest halo keeps
@@ -210,7 +200,7 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
   .ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 10px; }
   @media (max-width: 720px) { .hero-inner { padding-bottom: 52px; } .hero { --pad-top: 64px; } }
   /* Must come after the 720px rule, or it would override --crest-y on phones. */
-  @media (max-width: 480px) { .hero { --crest-h: 136px; } :global(.crest-b) .hero { --crest-h: 146px; } }
+  @media (max-width: 480px) { .hero { --crest-h: 146px; } }
   @media (max-width: 480px) { .ctas .btn { flex: 1 1 100%; } }
 
   .engagements { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 20px; }

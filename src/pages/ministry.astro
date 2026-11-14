@@ -1,8 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import { Image } from 'astro:assets';
-import tlmImg from '../assets/images/ministry-tlm-chair.jpg';
-import noImg from '../assets/images/ministry-no-baldachin.jpg';
+import tlmImg from '../assets/images/ministry-tlm-cupola.jpg';
+import noImg from '../assets/images/ministry-no-sunlit.jpg';
 import { OCCASIONS } from '../data/site';
 
 // Line icons for the occasions (same order as OCCASIONS), 24px grid, 1.5 stroke.
@@ -38,13 +38,13 @@ const ICONS = [
   <section class="section">
     <div class="container row centered-all">
       <article class="card">
-        <Image class="card-img" src={tlmImg} alt="St. Peter's Basilica: the view through Bernini's baldachin to the Altar of the Chair" widths={[400, 700, 1000]} sizes="(max-width: 860px) 100vw, 520px" format="webp" quality={72} />
+        <Image class="card-img" src={tlmImg} style="object-position: 50% 50%" alt="Gilded, frescoed side cupola of St. Peter's Basilica seen from directly below, framed by golden arches" widths={[400, 700, 1000]} sizes="(max-width: 860px) 100vw, 520px" format="webp" quality={72} />
         <h2 class="h3">Traditional Latin Mass</h2>
         <p>Gregorian chant and sacred polyphony sung for the usus antiquior, in continuity with centuries of the Church's liturgical music: the chant Propers of the day and a polyphonic or chant Ordinary.</p>
         <p class="todo">[ Where and how often the choir sings the Traditional Latin Mass: to be supplied by the choir. ]</p>
       </article>
       <article class="card">
-        <Image class="card-img" src={noImg} alt="Bernini's baldachin over the papal altar of St. Peter's Basilica" widths={[400, 700, 1000]} sizes="(max-width: 860px) 100vw, 520px" format="webp" quality={72} />
+        <Image class="card-img" src={noImg} style="object-position: 60% 40%" alt="Sunlight streaming into a gilded corner of St. Peter's Basilica, with a Latin inscription in gold" widths={[400, 700, 1000]} sizes="(max-width: 860px) 100vw, 520px" format="webp" quality={72} />
         <h2 class="h3">Novus Ordo</h2>
         <p>Traditional hymns, chant and liturgical music that elevate the ordinary form of the Mass, in parishes and for special celebrations.</p>
         <p class="todo">[ Where and how often the choir sings the Novus Ordo: to be supplied by the choir. ]</p>
@@ -81,7 +81,7 @@ const ICONS = [
 <style>
   .page-head { padding: 56px 0; }
   .card .h3 { font-family: var(--font-display); font-size: 20px; color: var(--deep-forest); }
-  .card :global(.card-img) { width: calc(100% + 64px); max-width: none; margin: -32px -32px 8px; aspect-ratio: 3 / 2; object-fit: cover; }
+  .card :global(.card-img) { width: calc(100% + 64px); max-width: none; margin: -32px -32px 8px; aspect-ratio: 4 / 3; object-fit: cover; }
   @media (max-width: 480px) { .card :global(.card-img) { width: calc(100% + 48px); margin: -24px -24px 8px; } }
   .todo { color: var(--deep-gold) !important; }
   /* Owner: centre everything on this page; cap paragraph width for reading. */
