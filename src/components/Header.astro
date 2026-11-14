@@ -3,7 +3,7 @@ import { NAV, SITE } from '../data/site';
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
 ---
 <header class="site-header dark">
-  <div class="container bar">
+  <div class:list={["container bar", { many: NAV.length > 6 }]}>
     <a href="/" class="brand" aria-label={`${SITE.name}, home`}>
       <!-- The official crest (source file kept in the docs folder, not in the repo). -->
       <img class="crest" src="/crest/crest-48.png" srcset="/crest/crest-48.png 1x, /crest/crest-96.png 2x" width="39" height="48" alt="" />
@@ -78,6 +78,11 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/'
     display: none; margin-left: auto; min-height: 44px; padding: 0 16px;
     background: transparent; color: var(--parchment); border: 1px solid var(--border-on-dark);
     font: 700 14px var(--font-body); letter-spacing: 0.06em; cursor: pointer;
+  }
+  /* 7 items (with 'Support Us') would wrap just above the menu breakpoint: tighten them there. */
+  @media (min-width: 961px) and (max-width: 1100px) {
+    .many nav ul { column-gap: 2px; }
+    .many nav a { padding-left: 0.6em; padding-right: 0.6em; letter-spacing: 0.03em; }
   }
   @media (max-width: 960px) {
     /* Without JS the menu stays open, so it is always reachable. */

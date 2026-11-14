@@ -2,6 +2,7 @@
 // (PLAN.md §8: the floor is the webmaster). Bracketed values are placeholders
 // for facts the owner still has to send (PLAN.md §9). Never fill them with
 // invented facts.
+import { SUPPORT_LIVE } from './donate';
 
 export const SITE = {
   name: 'Crvx et Cithara',
@@ -34,6 +35,8 @@ export const NAV = [
   { href: '/members', label: 'Members' },
   { href: '/ministry', label: 'Our Ministry' },
   { href: '/gallery', label: 'Gallery' },
+  // 'Support Us' only once a giving method is enabled (see donate.ts).
+  ...(SUPPORT_LIVE ? [{ href: '/support', label: 'Support Us' }] : []),
   { href: '/contact#invite', label: 'Contact' },
 ];
 

@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import { VISIBLE_METHODS, GIFTS_FUND, SUPPORT_LIVE } from '../data/donate';
+
+// Phase 1: static. No payment processing, no forms, no external scripts.
+const methods = VISIBLE_METHODS;
+const isLink = (href: string) => href.startsWith('https://');
+---
+<Base title="Support Us" description="Help Crvx et Cithara bring sacred music to the liturgy." noindex={!SUPPORT_LIVE}>
+  <section class="section dark page-head">
+    <div class="container section-head centered">
+      <p class="eyebrow">Soli Deo Gloria</p>
+      <h1 class="title">Support Us</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container stack lg centered">
+      <div class="stack centered appeal">
+        <h2 class="title">Help us bring sacred music to the liturgy</h2>
+        <p>Crvx et Cithara sings for the glory of God at the Traditional Latin Mass and the Novus Ordo. Your gift, however small, helps us offer the Church music worthy of the sacred liturgy.</p>
+      </div>
+
+      <div class="stack centered">
+        <h2 class="sub">What your gift supports</h2>
+        <ul class="chips">
+          {GIFTS_FUND.map(g => <li>{g}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section card-bg">
+    <div class="container stack lg centered">
+      <h2 class="title">Ways to give</h2>
+      {methods.length === 0
+        ? <p class="soon">Details on how to give will be posted here soon.</p>
+        : <ul class="methods">
+            {methods.map(m => (
+              <li class="box">
+                <h3>{m.name}</h3>
+                {m.hasQr && (m.qr
+                  ? <Image class="qr" src={m.qr} alt={`${m.name} QR code`} widths={[200, 400]} sizes="200px" />
+                  : <div class="qr qr-ph" role="img" aria-label="QR code coming soon">
+                      <span class="fp tl"></span><span class="fp tr"></span><span class="fp bl"></span>
+                      <span class="qr-label">QR code coming soon</span>
+                    </div>)}
+                {m.details.length > 0 && (
+                  <dl>
+                    {m.details.map(d => <div><dt>{d.label}</dt><dd>{d.value}</dd></div>)}
+                  </dl>
+                )}
+                {m.link && (isLink(m.link.href)
+                  ? <a class="btn btn-forest" href={m.link.href} rel="noopener">{m.link.label}</a>
+                  : <p class="ph-link">{m.link.placeholder}</p>)}
+                {m.note && <p class="note">{m.note}</p>}
+              </li>
+            ))}
+          </ul>}
+    </div>
+  </section>
+
+  <section class="section ruled">
+    <div class="container narrow stack centered">
+      <p class="accent-quote">Thank you, and may God reward your generosity.</p>
+      <p class="thanks">After giving, please <a href="/contact">send the choir a message</a> so we can acknowledge your gift.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-head { padding: 56px 0; }
+  .appeal p, .thanks { max-width: 65ch; text-wrap: pretty; }
+  .appeal .title { text-wrap: balance; }
+  .sub { font-family: var(--font-display); font-size: 22px; color: var(--deep-forest); }
+  .soon { font-family: var(--font-accent); font-style: italic; font-size: 22px; color: var(--muted-on-parchment); }
+
+  /* Plain boxes, same as /members frames: one 1px soft-gold border, square corners. */
+  /* 4 / 2 / 1 per row (never a lone box under three), centred when fewer. */
+  .methods {
+    --cols: 4; --gap: 24px;
+    list-style: none; margin: 0; padding: 0; width: 100%;
+    display: flex; flex-wrap: wrap; justify-content: center; gap: var(--gap);
+  }
+  @media (max-width: 1100px) { .methods { --cols: 2; max-width: 640px; } }
+  .box {
+    flex: 0 1 calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols)); min-width: 0;
+    background: var(--parchment); border: 1px solid var(--antique-gold);
+    padding: 28px 24px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center;
+  }
+  .box h3 { font-family: var(--font-display); font-size: 20px; color: var(--deep-forest); }
+  .qr { width: 180px; max-width: 100%; aspect-ratio: 1; height: auto; }
+  /* Neutral QR-shaped placeholder: three finder squares, a label in the middle. */
+  .qr-ph { position: relative; background: var(--card-parchment); border: 1px solid var(--border-strong); display: flex; align-items: center; justify-content: center; }
+  .fp { position: absolute; width: 22%; aspect-ratio: 1; border: 5px solid var(--border-strong); box-sizing: border-box; }
+  .fp.tl { top: 8%; left: 8%; } .fp.tr { top: 8%; right: 8%; } .fp.bl { bottom: 8%; left: 8%; }
+  .qr-label { font-size: 13px; color: var(--deep-gold); padding: 0 28px; line-height: 1.4; }
+  dl { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+  dt { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--deep-gold); }
+  dd { margin: 0; font-size: 15px; color: var(--charcoal); overflow-wrap: anywhere; }
+  .ph-link { font-size: 15px; color: var(--muted-on-parchment); }
+  .note { font-size: 14px; color: var(--muted-on-parchment); }
+  @media (max-width: 520px) { .methods { --cols: 1; } .box { max-width: 360px; } }
+</style>

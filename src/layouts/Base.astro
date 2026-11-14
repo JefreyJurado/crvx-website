@@ -5,8 +5,8 @@ import Footer from '../components/Footer.astro';
 import InviteModal from '../components/InviteModal.astro';
 import { SITE } from '../data/site';
 
-interface Props { title?: string; description?: string; }
-const { title, description = SITE.description } = Astro.props;
+interface Props { title?: string; description?: string; noindex?: boolean; }
+const { title, description = SITE.description, noindex = false } = Astro.props;
 const fullTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · ${SITE.subtitle}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // Crest + name on Deep Forest. A choir photo may replace it later (PLAN §4).
@@ -21,6 +21,7 @@ const ogImage = new URL('/og-image.jpg', Astro.site);
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="icon" href="/icon-512.png" sizes="512x512" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
