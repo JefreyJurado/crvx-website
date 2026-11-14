@@ -1,6 +1,6 @@
 // Image credits. Keep in step with CREDITS.md. Credit lines and licences are
 // taken exactly from the owner-approved candidates sheet (rounds 1 and 3).
-// Unsplash License: no credit required; credited as a courtesy.
+// Unsplash License / CC0 / public domain: credited as a courtesy. CC BY: credit required.
 export const CREDITS = [
   {
     n: 17, usedFor: 'Home hero backdrop', file: 'st-peters-basilica-dome-interior-eSrV4kmi0NA',
@@ -31,17 +31,17 @@ export const CREDITS = [
     modified: 'Resized and cropped to 4:3.',
   },
   {
-    n: 19, usedFor: 'Our Ministry, Traditional Latin Mass', file: 'QtXhVSqzjQ4',
-    credit: 'Photo by Pieter Benedictus on Unsplash', license: 'Unsplash License', required: false,
-    page: 'https://unsplash.com/photos/QtXhVSqzjQ4',
-    licenseUrl: 'https://unsplash.com/license',
+    n: 27, usedFor: 'Our Ministry, Traditional Latin Mass', file: "St._Peter's_Basilica,_Vatican_City_(48466440751).jpg",
+    credit: 'Gary Todd, public domain, via Wikimedia Commons', license: 'Public domain', required: false,
+    page: 'https://commons.wikimedia.org/wiki/File:St._Peter%27s_Basilica,_Vatican_City_(48466440751).jpg',
+    licenseUrl: 'https://creativecommons.org/publicdomain/mark/1.0/',
     modified: 'Resized and cropped to 4:3.',
   },
   {
-    n: 20, usedFor: 'Our Ministry, Novus Ordo', file: 'M3dnMmA3AEY',
-    credit: 'Photo by Gianna B on Unsplash', license: 'Unsplash License', required: false,
-    page: 'https://unsplash.com/photos/M3dnMmA3AEY',
-    licenseUrl: 'https://unsplash.com/license',
+    n: 28, usedFor: 'Our Ministry, Novus Ordo', file: 'Candles_at_the_Altar,_St._Peters_Basilica_(5939090177).jpg',
+    credit: 'Alex Proimos, CC BY 2.0, via Wikimedia Commons', license: 'CC BY 2.0', required: true,
+    page: 'https://commons.wikimedia.org/wiki/File:Candles_at_the_Altar,_St._Peters_Basilica_(5939090177).jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by/2.0',
     modified: 'Resized and cropped to 4:3.',
   },
   {

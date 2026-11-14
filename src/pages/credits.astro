@@ -12,7 +12,7 @@ import { CREDITS } from '../data/credits';
   <section class="section">
     <div class="container narrow stack">
       <div class="prose">
-        <p>The photographs of St. Peter's Basilica are from Unsplash, under the Unsplash License. The chant manuscript is from Wikimedia Commons (CC0). Neither licence requires credit; we give it as a courtesy. The choir's crest belongs to Crvx et Cithara.</p>
+        <p>The photographs of St. Peter's Basilica are from Unsplash (Unsplash License) and Wikimedia Commons. The chant manuscript is from Wikimedia Commons (CC0). CC BY images are credited as their licence requires; the others are credited as a courtesy. The choir's crest belongs to Crvx et Cithara.</p>
       </div>
       <ul class="credits">
         {CREDITS.map(c => (
@@ -20,7 +20,7 @@ import { CREDITS } from '../data/credits';
             <p class="used">{c.usedFor}</p>
             <p>{c.license === 'Unsplash License'
               ? <>Photo by <a href={c.page} rel="noopener">{c.credit.replace(/^Photo by (.*) on Unsplash$/, '$1')}</a> on Unsplash (<a href={c.licenseUrl} rel="noopener license">Unsplash License</a>)</>
-              : <><a href={c.page} rel="noopener">{c.credit.replace(/, (CC[^,]*), via Wikimedia Commons$/, '')}</a>, <a href={c.licenseUrl} rel="noopener license">{c.license}</a>, via Wikimedia Commons</>}</p>
+              : <><a href={c.page} rel="noopener">{c.credit.replace(/, [^,]*, via Wikimedia Commons$/, '')}</a>, <a href={c.licenseUrl} rel="noopener license">{c.license}</a>, via Wikimedia Commons</>}</p>
             <p class="mod">{c.modified}</p>
           </li>
         ))}
