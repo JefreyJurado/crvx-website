@@ -1,39 +1,40 @@
 # Image credits
 
-All images are from Wikimedia Commons unless stated otherwise.
-CC BY and CC BY-SA images are credited as their licenses require.
-CC0 and public-domain images are credited as a courtesy.
+The church photographs are all of St. Peter's Basilica, from Unsplash under the free [Unsplash License](https://unsplash.com/license) (none is a paid Unsplash+ image). The license needs no credit; we credit them as a courtesy.
+The chant manuscript is from Wikimedia Commons (CC0); also credited as a courtesy.
+No CC BY or CC BY-SA images remain on the site.
 The same list is shown on the site at `/credits` (source: `src/data/credits.ts`; keep both in step).
 
-| # | Used for | File | Author / source | License | Link |
-|---|----------|------|-----------------|---------|------|
-| 2 | Home hero backdrop | Interior_of_Baclayon_Church.jpg | Deepak-nsk | CC0 (credit not required) | https://commons.wikimedia.org/wiki/File:Interior_of_Baclayon_Church.jpg |
-| 4 | Section texture (Home, Our Voices) | Manuscript_Leaf,_from_a_Gradual_MET_sf31-134-7bs1.jpg | The Metropolitan Museum of Art | CC0 (credit not required) | https://commons.wikimedia.org/wiki/File:Manuscript_Leaf,_from_a_Gradual_MET_sf31-134-7bs1.jpg |
-| 7 | Home "About" and About Us "Our Story" | Church_of_Saints_Apostles_Peter_and_Paul,_Župrany_-_choir_loft_and_pipe_organ.jpg | Voctor12 | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) | https://commons.wikimedia.org/wiki/File:Church_of_Saints_Apostles_Peter_and_Paul,_%C5%BDuprany_-_choir_loft_and_pipe_organ.jpg |
-| 10 | Our Ministry, Traditional Latin Mass | Holy_Rosary_Church_Indianapolis_19_July_2024_1.jpg | Maximilian775 | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0) | https://commons.wikimedia.org/wiki/File:Holy_Rosary_Church_Indianapolis_19_July_2024_1.jpg |
-| 11 | Our Ministry, Novus Ordo | All_Hallows_Church_Tottenham_Haringey_England_-_nave_altar.jpg | Acabashi | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) | https://commons.wikimedia.org/wiki/File:All_Hallows_Church_Tottenham_Haringey_England_-_nave_altar.jpg |
-| 13 | OG share image | Interior,_Baclayon_church,_Bohol_03.jpg | John Martin PERRY | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) | https://commons.wikimedia.org/wiki/File:Interior,_Baclayon_church,_Bohol_03.jpg |
+| # | Used for | Photographer / source | License | Link |
+|---|----------|-----------------------|---------|------|
+| 17 | Home hero backdrop | Laputa Z | Unsplash License | https://unsplash.com/photos/st-peters-basilica-dome-interior-eSrV4kmi0NA |
+| 4 | Section texture (Home, Our Voices) | The Metropolitan Museum of Art (Manuscript_Leaf,_from_a_Gradual_MET_sf31-134-7bs1.jpg) | CC0 | https://commons.wikimedia.org/wiki/File:Manuscript_Leaf,_from_a_Gradual_MET_sf31-134-7bs1.jpg |
+| 23 | Home "About" and About Us "Our Story" | Sui Xu | Unsplash License | https://unsplash.com/photos/interior-view-of-a-large-ornate-dome-with-windows-uaLYhdeLROY |
+| 25 | Our Ministry, Traditional Latin Mass | Clay Banks | Unsplash License | https://unsplash.com/photos/interior-of-dome-building-VH5T-OGbNDQ |
+| 26 | Our Ministry, Novus Ordo | Chris Ciapala | Unsplash License | https://unsplash.com/photos/interior-of-a-grand-cathedral-with-ornate-dome-and-altar-_SHp6mb1ai4 |
+| 21 | OG share image | The Quiet Atlas | Unsplash License | https://unsplash.com/photos/intricate-dome-interior-of-a-grand-cathedral-imDD-bDpWBE |
 
-Credit lines as displayed:
+Courtesy credit lines as displayed:
 
-- #2: "Deepak-nsk, CC0, via Wikimedia Commons" (courtesy)
-- #4: "The Metropolitan Museum of Art, CC0, via Wikimedia Commons" (courtesy)
-- #7: "Voctor12, CC BY-SA 4.0, via Wikimedia Commons" (required; linked to the file page and the license)
-- #10: "Maximilian775, CC BY 4.0, via Wikimedia Commons" (required; linked to the file page and the license)
-- #11: "Acabashi, CC BY-SA 4.0, via Wikimedia Commons" (required; linked to the file page and the license)
-- #13: "John Martin PERRY, CC BY-SA 4.0, via Wikimedia Commons" (required; linked to the file page and the license). The share card itself carries no credit text; this entry and /credits are the attribution.
+- #17: "Photo by Laputa Z on Unsplash"
+- #4: "The Metropolitan Museum of Art, CC0, via Wikimedia Commons"
+- #23: "Photo by Sui Xu on Unsplash"
+- #25: "Photo by Clay Banks on Unsplash"
+- #26: "Photo by Chris Ciapala on Unsplash"
+- #21: "Photo by The Quiet Atlas on Unsplash". The share card itself carries no credit text.
 
 Modified:
 
-- #2: resized; shown under a dark overlay.
+- #17: resized; shown under a dark overlay, positioned so the crest sits in the dome's lantern.
 - #4: resized; tiled as a faint background texture.
-- #7: resized and cropped to 4:3 (still CC BY-SA 4.0).
-- #10: resized and cropped to 3:2.
-- #11: resized and cropped to 3:2 (still CC BY-SA 4.0).
-- #13: cropped to 1200×630, darkened, with the crest and name added (still CC BY-SA 4.0).
+- #23: resized and cropped to 4:3.
+- #25, #26: resized and cropped to 3:2.
+- #21: cropped to 1200×630, darkened, with the crest and name added.
 
-Every image is also stripped of embedded metadata (EXIF, including GPS).
+Every image is stripped of embedded metadata (EXIF).
+
+Replaced on 2026-11-14 and removed from the site: #2 Baclayon (CC0), #7 Župrany organ (CC BY-SA 4.0), #10 Holy Rosary Indianapolis (CC BY 4.0), #11 All Hallows Tottenham (CC BY-SA 4.0), #13 Baclayon nave (CC BY-SA 4.0).
 
 The crest (`public/crest/`, also on the share card) belongs to Crvx et Cithara. Its source file stays in the choir's docs folder.
 
-Checked: 2026-11-13. Licenses re-checked before launch.
+Checked: 2026-11-14. Licenses re-checked before launch.

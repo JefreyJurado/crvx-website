@@ -1,8 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import { Image } from 'astro:assets';
-import tlmImg from '../assets/images/ministry-tlm.jpg';
-import noImg from '../assets/images/ministry-novus-ordo.jpg';
+import tlmImg from '../assets/images/ministry-tlm-chair.jpg';
+import noImg from '../assets/images/ministry-no-baldachin.jpg';
 import { OCCASIONS } from '../data/site';
 ---
 <Base title="Our Ministry" description="Crvx et Cithara sings at the Traditional Latin Mass and the Novus Ordo, and for ordinations, professions, anniversaries, nuptial Masses, feast days and concerts.">
@@ -26,13 +26,13 @@ import { OCCASIONS } from '../data/site';
   <section class="section">
     <div class="container row">
       <article class="card">
-        <Image class="card-img" src={tlmImg} alt="A high altar facing ad orientem in an empty sanctuary" widths={[400, 700, 1000]} sizes="(max-width: 860px) 100vw, 520px" format="webp" quality={72} />
+        <Image class="card-img" src={tlmImg} alt="St. Peter's Basilica: the view through Bernini's baldachin to the Altar of the Chair" widths={[400, 700, 1000]} sizes="(max-width: 860px) 100vw, 520px" format="webp" quality={72} />
         <h2 class="h3">Traditional Latin Mass</h2>
         <p>Gregorian chant and sacred polyphony sung for the usus antiquior, in continuity with centuries of the Church's liturgical music: the chant Propers of the day and a polyphonic or chant Ordinary.</p>
         <p class="todo">[ Where and how often the choir sings the Traditional Latin Mass: to be supplied by the choir. ]</p>
       </article>
       <article class="card">
-        <Image class="card-img" src={noImg} alt="A freestanding nave altar with six candles in an empty sanctuary" widths={[400, 700, 1000]} sizes="(max-width: 860px) 100vw, 520px" format="webp" quality={72} />
+        <Image class="card-img" src={noImg} alt="Bernini's baldachin over the papal altar of St. Peter's Basilica" widths={[400, 700, 1000]} sizes="(max-width: 860px) 100vw, 520px" format="webp" quality={72} />
         <h2 class="h3">Novus Ordo</h2>
         <p>Traditional hymns, chant and liturgical music that elevate the ordinary form of the Mass, in parishes and for special celebrations.</p>
         <p class="todo">[ Where and how often the choir sings the Novus Ordo: to be supplied by the choir. ]</p>
