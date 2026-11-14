@@ -173,7 +173,7 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
   }
   .hero-inner { position: relative; z-index: 1; padding-top: var(--pad-top); padding-bottom: 72px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 22px; }
   /* Crest stands out from the bright dome: a feathered Darkest Forest halo
-     behind it (the dome stays luminous around it) and a warm gold glow. */
+     behind it (the dome stays luminous around it) and a dark drop-shadow (owner: no light glow). */
   .crest-wrap { position: relative; display: inline-flex; }
   .crest-wrap::before {
     content: ''; position: absolute; left: 50%; top: 50%; z-index: -1;
@@ -182,7 +182,7 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
   }
   .hero-crest {
     width: auto; height: var(--crest-h);
-    filter: drop-shadow(0 0 6px rgb(180 154 104 / 0.6)) drop-shadow(0 0 22px rgb(180 154 104 / 0.5));
+    filter: drop-shadow(0 4px 14px rgb(24 29 25 / 0.75));
   }
   /* The motto sits on the bright lantern ring: a Darkest Forest halo keeps
      the gold at AA contrast (Jomar, PR #4). */
