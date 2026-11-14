@@ -79,7 +79,7 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/'
     background: transparent; color: var(--parchment); border: 1px solid var(--border-on-dark);
     font: 700 14px var(--font-body); letter-spacing: 0.06em; cursor: pointer;
   }
-  @media (max-width: 860px) {
+  @media (max-width: 960px) {
     /* Without JS the menu stays open, so it is always reachable. */
     :global(.js) .menu-btn { display: inline-flex; align-items: center; }
     nav { flex-basis: 100%; margin-left: 0; }
