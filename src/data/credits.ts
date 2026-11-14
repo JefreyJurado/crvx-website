@@ -24,6 +24,13 @@ export const CREDITS = [
     modified: 'Resized and cropped to 4:3.',
   },
   {
+    n: 24, usedFor: 'About Us "Sacred Music as Prayer"', file: 'sunlight-streams-through-the-dome-of-a-grand-basilica-rdbGqcLnU3I',
+    credit: 'Photo by Mario Gogh on Unsplash', license: 'Unsplash License', required: false,
+    page: 'https://unsplash.com/photos/sunlight-streams-through-the-dome-of-a-grand-basilica-rdbGqcLnU3I',
+    licenseUrl: 'https://unsplash.com/license',
+    modified: 'Resized and cropped to 4:3.',
+  },
+  {
     n: 25, usedFor: 'Our Ministry, Traditional Latin Mass', file: 'interior-of-dome-building-VH5T-OGbNDQ',
     credit: 'Photo by Clay Banks on Unsplash', license: 'Unsplash License', required: false,
     page: 'https://unsplash.com/photos/interior-of-dome-building-VH5T-OGbNDQ',

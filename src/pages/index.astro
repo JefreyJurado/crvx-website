@@ -67,8 +67,8 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
     <div class="container stack lg">
       <h2 class="title" style="text-align:center">MISSION &amp; VISION</h2>
       <div class="row">
-        <div class="card-outline-dark"><h3>Our Mission</h3><p>{MISSION}</p></div>
-        <div class="card-outline-dark"><h3>Our Vision</h3><p>{VISION}</p></div>
+        <div class="card-outline-dark card--centered"><h3>Our Mission</h3><p>{MISSION}</p></div>
+        <div class="card-outline-dark card--centered"><h3>Our Vision</h3><p>{VISION}</p></div>
       </div>
     </div>
   </section>
@@ -82,7 +82,7 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
       </div>
       <div class="row">
         {FORMATIONS.map(f => (
-          <div class="card-dark"><h3>{f.name}</h3><p class="voices">{f.voices}</p><p>{f.short}</p></div>
+          <div class="card-dark card--centered"><h3>{f.name}</h3><p class="voices">{f.voices}</p><p>{f.short}</p></div>
         ))}
       </div>
     </div>
@@ -227,6 +227,12 @@ const manuscript = await getImage({ src: manuscriptImg, width: 900, format: 'web
   .about-text p:not(.eyebrow) { font-size: 16px; line-height: 1.8; }
   .about-row > :global(.about-img) { flex: 1 1 380px; min-width: 0; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--border-strong); }
   @media (max-width: 480px) { .about-text, .about-row > :global(.about-img) { flex-basis: 100%; } }
+
+  /* Home only (owner): Mission & Vision and Our Voices cards centred, with the
+     body text capped so centred lines stay readable. The same card classes on
+     About stay left-aligned. */
+  .card--centered { text-align: center; align-items: center; }
+  .card--centered p { max-width: 50ch; }
 
   .textured { position: relative; isolation: isolate; }
   .textured::before {
