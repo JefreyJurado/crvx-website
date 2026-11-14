@@ -13,13 +13,16 @@
 //   3. Add an entry to MEMBERS:
 //        { name: 'Maria Santos', voice: 'Soprano', role: 'Section leader',
 //          bio: 'Has sung with the choir since 2019.', photo: mariaPhoto, consented: true },
+//   An organist uses voice: 'Organist' (more than one is fine).
 import type { ImageMetadata } from 'astro';
 
 export type Voice = 'Soprano' | 'Alto' | 'Tenor' | 'Bass';
+/** 'Organist' entries appear under Music Direction, beside the Choir Master, not in a voice section. */
+export type Part = Voice | 'Organist';
 
 export interface Member {
   name: string;
-  voice: Voice;
+  voice: Part;
   role?: string;
   /** One line. */
   bio?: string;
@@ -47,5 +50,6 @@ export const DEMO_MEMBERS: Member[] = [
   { name: 'Sample Bass Two', voice: 'Bass', consented: true },
   { name: 'Sample Bass Three', voice: 'Bass', consented: true },
   { name: 'Sample Bass Four', voice: 'Bass', bio: 'A one-line introduction goes here.', consented: true },
+  { name: 'Sample Organist', voice: 'Organist', bio: 'A one-line introduction goes here.', consented: true },
   { name: 'Sample Hidden', voice: 'Tenor', bio: 'Not consented: must never appear.', consented: false },
 ];

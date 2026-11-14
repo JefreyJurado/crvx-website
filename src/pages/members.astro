@@ -10,6 +10,7 @@ const showDemo = vercelEnv === 'preview' || process.env.MEMBERS_DEMO === '1';
 
 // Consent filter at BUILD time: non-consented entries never reach the HTML.
 const members = [...MEMBERS, ...(showDemo ? DEMO_MEMBERS : [])].filter(m => m.consented === true);
+const organists = members.filter(m => m.voice === 'Organist');
 const sections = VOICES.map(voice => ({ voice, people: members.filter(m => m.voice === voice) }))
   .filter(s => s.people.length > 0);
 
@@ -29,11 +30,26 @@ const initials = (name: string) => {
 
   <section class="section">
     <div class="container stack lg">
-      <article class="card m-card featured">
-        <div class="monogram" aria-hidden="true">{initials(CHOIR_MASTER.name)}</div>
-        <h2 class="m-name">{CHOIR_MASTER.name}</h2>
-        <p class="m-role">{CHOIR_MASTER.role}</p>
-      </article>
+      <section class="voice" aria-labelledby="v-direction">
+        <h2 id="v-direction" class="title voice-h">Music Direction</h2>
+        <ul class="direction">
+          <li class="card m-card featured">
+            <div class="monogram" aria-hidden="true">{initials(CHOIR_MASTER.name)}</div>
+            <h3 class="m-name">{CHOIR_MASTER.name}</h3>
+            <p class="m-role">{CHOIR_MASTER.role}</p>
+          </li>
+          {organists.map(m => (
+            <li class="card m-card featured">
+              {m.photo
+                ? <Image class="m-photo" src={m.photo} alt={`Portrait of ${m.name}`} widths={[300, 600]} sizes="150px" format="webp" quality={75} />
+                : <div class="monogram" aria-hidden="true">{initials(m.name)}</div>}
+              <h3 class="m-name">{m.name}</h3>
+              <p class="m-role">{m.role ? `Organist · ${m.role}` : 'Organist'}</p>
+              {m.bio && <p class="m-bio">{m.bio}</p>}
+            </li>
+          ))}
+        </ul>
+      </section>
 
       {sections.length === 0 ? (
         <p class="empty">Our members will be introduced here soon, each with their consent.</p>
@@ -64,12 +80,15 @@ const initials = (name: string) => {
     text-align: center; align-items: center;
     box-shadow: 0 6px 18px rgb(24 29 25 / 0.08);
   }
-  .featured { max-width: 420px; width: 100%; margin: 0 auto; padding: 36px 32px; }
+  /* Music Direction: Choir Master alone is centred; organists sit beside him, stacking on phones. */
+  .direction { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; }
+  .featured { flex: 0 1 420px; min-width: 0; padding: 36px 32px; }
   .monogram, .m-card :global(.m-photo) {
     width: 120px; aspect-ratio: 1; border-radius: 50%; flex: none;
     border: 1px solid var(--antique-gold);
   }
-  .featured .monogram { width: 150px; font-size: 44px; }
+  .featured .monogram, .featured :global(.m-photo) { width: 150px; }
+  .featured .monogram { font-size: 44px; }
   .monogram {
     display: flex; align-items: center; justify-content: center;
     background: var(--deep-forest); color: var(--antique-gold);
