@@ -28,6 +28,26 @@ export const SITE = {
 export const FORM_ENDPOINT = 'https://formspree.io/f/TODO_FORM_ID';
 export const FORM_READY = !FORM_ENDPOINT.includes('TODO');
 
+/** Social links to show: real https links only; previews (or SITE_DEMO=1) also
+ *  show the unset ones with href '#' so the owner can review the layout. */
+const IS_PREVIEW =
+  (import.meta.env?.VERCEL_ENV ?? process.env.VERCEL_ENV) === 'preview' || process.env.SITE_DEMO === '1';
+export const socialLinks = () =>
+  SITE.social
+    .map(s => ({ label: s.label, href: s.href.startsWith('https://') ? s.href : IS_PREVIEW ? '#' : '' }))
+    .filter(s => s.href);
+
+/** The choir email as a link: only a real address renders (previews show the
+ *  placeholder with href '#'). Shown with the Gmail mark. */
+export const emailLink = () => {
+  const real = /^[^\s@\[\]]+@[^\s@\[\]]+\.[^\s@\[\]]+$/.test(SITE.email);
+  if (!real && !IS_PREVIEW) return null;
+  return {
+    label: SITE.email,
+    href: real ? `mailto:${SITE.email}` : '#',
+  };
+};
+
 export const NAV = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About Us' },
@@ -35,6 +55,7 @@ export const NAV = [
   { href: '/ministry', label: 'Our Ministry' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/contact#invite', label: 'Contact' },
+  { href: '/support', label: 'Support Us' }, // last (owner)
 ];
 
 // Our Ministry → "Occasions we sing for" (PLAN §4, old site, amendment 2026-11-13).

@@ -1,7 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
 import InviteForm from '../components/InviteForm.astro';
-import { SITE } from '../data/site';
+import { emailLink } from '../data/site';
+import SocialLinks from '../components/SocialLinks.astro';
+import MessageModal from '../components/MessageModal.astro';
+// 'Write to us' = the choir email only; shown once it is a real address.
+const hasDirect = emailLink() !== null;
 ---
 <Base title="Contact" description="Invite Crvx et Cithara to sing at your liturgy, or ask about joining the choir.">
   <section class="section dark page-head">
@@ -20,19 +24,22 @@ import { SITE } from '../data/site';
         <h2 class="visually-hidden">Invitation form</h2>
         <InviteForm prefix="c" />
       </div>
-      <div class="row other">
+      <div id="other-inquiries" class="row other anchor">
         <div class="stack">
           <h2 class="h3">Other inquiries</h2>
-          <p>Would you like to join the choir, or do you have a general question? Use the same form and choose <em>Other, or joining the choir</em>, or write to us directly.</p>
+          <p>Would you like to join the choir, or do you have a general question? Send us a message below{hasDirect && ', or write to us directly'}.</p>
+          <a class="btn btn-forest" href="#other-inquiries" data-open-message data-inquiry="Other">Send us a message</a>
         </div>
-        <div class="stack">
-          <h2 class="h3">Write to us</h2>
-          <p class="todo">{SITE.email}</p>
-          {SITE.social.map(s => s.href ? <a href={s.href} rel="noopener">{s.label}</a> : <p class="todo">{s.placeholder}</p>)}
-        </div>
+        {hasDirect && (
+          <div class="stack">
+            <h2 class="h3">Write to us</h2>
+            <SocialLinks class="center" email social={false} />
+          </div>
+        )}
       </div>
     </div>
   </section>
+  <MessageModal />
 </Base>
 
 <style>
