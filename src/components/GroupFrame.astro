@@ -1,6 +1,5 @@
 ---
-// Wide group-photo frame in the same two candidate designs as NicheFrame
-// (?frame=a Gothic window, default; ?frame=b gilded icon). 16:9, 3:2 on phones:
+// Wide group-photo frame in the same gilded-icon design as NicheFrame. 16:9, 3:2 on phones:
 // the overlay stretches (preserveAspectRatio none) but strokes and dots use
 // non-scaling strokes, so lines stay crisp and dots stay round.
 // Without `photo`, it shows a row of half-body silhouettes (preview demo only).
@@ -22,9 +21,8 @@ const rosette = (cx: number, cy: number, rx: number, ry: number) =>
 ---
 <figure class="group">
   <div class="g-box">
-    {['a', 'b'].map(v => (
-      <div class={`v v-${v}`}>
-        <div class={`win win-${v}`}>
+    <div class="v">
+        <div class="win">
           {photo
             ? <Image class="g-img" src={photo.image} alt={photo.alt} widths={[640, 1000, 1400, 2000]} sizes="(max-width: 1100px) 100vw, 1000px" format="webp" quality={75} />
             : <svg class="g-img" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Sample group photo">
@@ -42,23 +40,7 @@ const rosette = (cx: number, cy: number, rx: number, ry: number) =>
                 ))}
               </svg>}
         </div>
-        {v === 'a'
-          ? <svg class="ovl" viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-              <g fill="none" stroke="var(--antique-gold)" vector-effect="non-scaling-stroke">
-                <path d="M34 156V76A150 72 0 0 1 160 16A150 72 0 0 1 286 76V156" stroke-width="1.2" vector-effect="non-scaling-stroke" />
-                <path d="M26 160V76A158 78 0 0 1 160 8A158 78 0 0 1 294 76V160" stroke-width="2" vector-effect="non-scaling-stroke" />
-              </g>
-              <g fill="var(--antique-gold)" fill-opacity="0.3" stroke="var(--antique-gold)">
-                {[10, 16, 301, 307].map(x => <rect x={x} y="64" width="3" height="96" stroke-width="0.8" vector-effect="non-scaling-stroke" />)}
-                <path d="M6 54h17v4h-17zM8 58h13l-2 6h-9zM297 54h17v4h-17zM299 58h13l-2 6h-9z" stroke-width="0.8" vector-effect="non-scaling-stroke" />
-                <path d="M8 160h13v3h-13zM6 163h17v3h-17zM299 160h13v3h-13zM297 163h17v3h-17z" stroke-width="0.8" vector-effect="non-scaling-stroke" />
-              </g>
-              <g fill="var(--card-parchment)" stroke="var(--antique-gold)">
-                <rect x="2" y="172" width="316" height="7" stroke-width="1" vector-effect="non-scaling-stroke" />
-                <rect x="14" y="166" width="292" height="6" stroke-width="1" vector-effect="non-scaling-stroke" />
-              </g>
-            </svg>
-          : <svg class="ovl" viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <svg class="ovl" viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true" focusable="false">
               <path d="M6 176V54A154 50 0 0 1 314 54V176ZM24 160V58A136 34 0 0 1 296 58V160Z" fill="var(--antique-gold)" fill-opacity="0.32" fill-rule="evenodd" />
               <g fill="none" stroke="var(--antique-gold)">
                 <path d="M6 176V54A154 50 0 0 1 314 54V176Z" stroke-width="1.6" vector-effect="non-scaling-stroke" />
@@ -69,9 +51,8 @@ const rosette = (cx: number, cy: number, rx: number, ry: number) =>
                 <path d={rosette(160, 15, 6.5, 9)} stroke-width="4" vector-effect="non-scaling-stroke" />
                 {[[15, 56], [305, 56], [15, 168], [305, 168]].map(([x, y]) => <path d={rosette(x, y, 4.5, 6.5)} stroke-width="3" vector-effect="non-scaling-stroke" />)}
               </g>
-            </svg>}
+            </svg>
       </div>
-    ))}
   </div>
   {caption && <figcaption class="g-plate">{caption}</figcaption>}
 </figure>
@@ -80,18 +61,10 @@ const rosette = (cx: number, cy: number, rx: number, ry: number) =>
   .group { margin: 0 auto; width: 100%; display: flex; flex-direction: column; align-items: center; }
   .g-box { position: relative; width: 100%; aspect-ratio: 16 / 9; }
   .v { position: absolute; inset: 0; }
-  .v-b { display: none; }
-  :global(html[data-frame="b"]) .v-a { display: none; }
-  :global(html[data-frame="b"]) .v-b { display: block; }
   .win { position: absolute; overflow: hidden; background: var(--darkest-forest); }
   .win > :global(.g-img) { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
   .ovl { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
-  .win-a {
-    left: 10.625%; width: 78.75%; top: 8.889%; height: 77.78%;
-    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 252 140' preserveAspectRatio='none'><path d='M0 140V60A150 72 0 0 1 126 0A150 72 0 0 1 252 60V140Z'/></svg>") 0 0 / 100% 100% no-repeat;
-            mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 252 140' preserveAspectRatio='none'><path d='M0 140V60A150 72 0 0 1 126 0A150 72 0 0 1 252 60V140Z'/></svg>") 0 0 / 100% 100% no-repeat;
-  }
-  .win-b {
+  .win {
     left: 7.5%; width: 85%; top: 13.33%; height: 75.56%;
     -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 272 136' preserveAspectRatio='none'><path d='M0 136V34A136 34 0 0 1 272 34V136Z'/></svg>") 0 0 / 100% 100% no-repeat;
             mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 272 136' preserveAspectRatio='none'><path d='M0 136V34A136 34 0 0 1 272 34V136Z'/></svg>") 0 0 / 100% 100% no-repeat;

@@ -78,7 +78,7 @@ const group = GROUP_PHOTO?.consented === true ? GROUP_PHOTO : undefined;
 
   <section class="section" aria-labelledby="people-h">
     <div class:list={["container people", { solo: !group }]}>
-      {group && <div><script is:inline>document.documentElement.dataset.frame = new URLSearchParams(location.search).get('frame') === 'b' ? 'b' : 'a';</script><GroupFrame photo={group} /></div>}
+      {group && <div><GroupFrame photo={group} /></div>}
       <div class="stack">
         <h2 id="people-h" class="title">The People</h2>
         <p>The choir is led by its Choir Master, <strong>Br. Angelo Lorenzo Salvacion</strong>.</p>

@@ -1,7 +1,7 @@
 ---
-// Liturgical portrait frame for member cards: two candidate designs, shown side by side
-// on the preview via ?frame=a (Gothic window, default) or ?frame=b (gilded icon).
-// Each variant = the photo/silhouette in a masked "window" + an inline SVG overlay.
+// Liturgical portrait frame for member cards (owner's pick: the gilded icon).
+// The photo/silhouette sits in a masked round-arched "window" under an inline SVG overlay:
+// a wide gilt border with beads, a rosette 'glory' at the apex and corner rosettes.
 // The window keeps the photo crop rule (cover, 50% 22%). No cross shapes.
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
@@ -16,48 +16,14 @@ const rosette = (cx: number, cy: number, r: number) =>
     return `M${(cx + r * Math.cos(a)).toFixed(2)} ${(cy + r * Math.sin(a)).toFixed(2)}h0`;
   })].join('');
 
-// Variant A, viewBox 200×250. Window box: x 44–156, y 14–218.
-const A_INNER = 'M44 218V86A64 64 0 0 1 100 22.5A64 64 0 0 1 156 86V218';
-const A_OUTER = 'M36 222V86A72 72 0 0 1 100 14.4A72 72 0 0 1 164 86V222';
-const col = (x: number) => `M${x} 92h4v122h-4zM${x + 6} 92h4v122h-4z`;
-// Variant B, viewBox 200×250. Window box: x 32–168, y 34–222.
+// viewBox 200×250. Window box: x 32–168, y 34–222.
 const B_OUTER = 'M10 244V82A90 72 0 0 1 190 82V244Z';
 const B_INNER = 'M32 222V88A68 54 0 0 1 168 88V222Z';
 const B_MID = 'M21 233V85A79 63 0 0 1 179 85V233Z';
 ---
 <div class="niche">
-  <div class="v v-a">
-    <div class="win win-a">
-      {photo ? <Image class="m-photo" src={photo} alt={alt} widths={[240, 480]} sizes={sizes} format="webp" quality={75} /> : <Silhouette />}
-    </div>
-    <svg class="ovl" viewBox="0 0 200 250" aria-hidden="true" focusable="false">
-      <defs>
-        <mask id="tre-out" maskUnits="userSpaceOnUse" x="0" y="0" width="200" height="250">
-          <rect width="200" height="250" fill="#fff" />
-          <g fill="#000"><circle cx="74" cy="84" r="30" /><circle cx="126" cy="84" r="30" /><circle cx="100" cy="48" r="22" /><rect x="44" y="84" width="112" height="134" /></g>
-        </mask>
-      </defs>
-      <g fill="none" stroke="var(--antique-gold)">
-        <!-- cusped trefoil head (outline of the window, outer half only) -->
-        <g mask="url(#tre-out)" stroke-width="2.4"><circle cx="74" cy="84" r="30" /><circle cx="126" cy="84" r="30" /><circle cx="100" cy="48" r="22" /></g>
-        <path d={A_INNER} stroke-width="1.2" />
-        <path d={A_OUTER} stroke-width="2" />
-      </g>
-      <!-- twin colonnettes with capitals and bases -->
-      <g fill="var(--antique-gold)" fill-opacity="0.3" stroke="var(--antique-gold)" stroke-width="0.8">
-        <path d={col(20)} /><path d={col(170)} />
-        <path d="M16 80h20v4h-20zM18 84h16l-3 8h-10z" /><path d="M164 80h20v4h-20zM166 84h16l-3 8h-10z" />
-        <path d="M18 214h16v4h-16zM16 218h20v4h-20z" /><path d="M166 214h16v4h-16zM164 218h20v4h-20z" />
-      </g>
-      <!-- stepped plinth -->
-      <g fill="var(--card-parchment)" stroke="var(--antique-gold)" stroke-width="1">
-        <rect x="14" y="238" width="172" height="10" /><rect x="22" y="230" width="156" height="8" /><rect x="30" y="222" width="140" height="8" />
-      </g>
-    </svg>
-  </div>
-
-  <div class="v v-b">
-    <div class="win win-b">
+  <div class="v">
+    <div class="win">
       {photo ? <Image class="m-photo" src={photo} alt={alt} widths={[240, 480]} sizes={sizes} format="webp" quality={75} /> : <Silhouette />}
     </div>
     <svg class="ovl" viewBox="0 0 200 250" aria-hidden="true" focusable="false">
@@ -87,20 +53,12 @@ const B_MID = 'M21 233V85A79 63 0 0 1 179 85V233Z';
 <style>
   .niche { position: relative; width: 100%; aspect-ratio: 4 / 5; flex: none; }
   .v { position: absolute; inset: 0; }
-  .v-b { display: none; }
-  :global(html[data-frame="b"]) .v-a { display: none; }
-  :global(html[data-frame="b"]) .v-b { display: block; }
   .win { position: absolute; overflow: hidden; background: var(--darkest-forest); }
   .win > :global(*) { display: block; width: 100%; height: 100%; }
   .win > :global(.m-photo) { object-fit: cover; object-position: 50% 22%; }
   .ovl { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
-  /* Window shapes as masks in the window's own box (scale with it). */
-  .win-a {
-    left: 22%; width: 56%; top: 5.6%; height: 81.6%;
-    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 112 204' preserveAspectRatio='none'><circle cx='30' cy='70' r='30'/><circle cx='82' cy='70' r='30'/><circle cx='56' cy='34' r='22'/><rect y='70' width='112' height='134'/></svg>") 0 0 / 100% 100% no-repeat;
-            mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 112 204' preserveAspectRatio='none'><circle cx='30' cy='70' r='30'/><circle cx='82' cy='70' r='30'/><circle cx='56' cy='34' r='22'/><rect y='70' width='112' height='134'/></svg>") 0 0 / 100% 100% no-repeat;
-  }
-  .win-b {
+  /* Window shape as a mask in the window's own box (scale with it). */
+  .win {
     left: 16%; width: 68%; top: 13.6%; height: 75.2%;
     -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 136 188' preserveAspectRatio='none'><path d='M0 188V54A68 54 0 0 1 136 54V188Z'/></svg>") 0 0 / 100% 100% no-repeat;
             mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 136 188' preserveAspectRatio='none'><path d='M0 188V54A68 54 0 0 1 136 54V188Z'/></svg>") 0 0 / 100% 100% no-repeat;
