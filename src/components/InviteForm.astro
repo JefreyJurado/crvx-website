@@ -73,11 +73,10 @@ const id = (k: string) => `${prefix}-${k}`;
   }
   textarea { resize: vertical; }
   input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--deep-gold); outline-offset: 1px; }
-  button { align-self: flex-start; padding-left: 32px; padding-right: 32px; }
-  .compact button { align-self: center; }
+  /* Owner: the submit button (and its note) are centred wherever the form appears. */
+  button { align-self: center; padding-left: 32px; padding-right: 32px; }
   button:disabled { opacity: 0.6; cursor: not-allowed; }
-  .note { font-size: 13px; color: var(--muted-on-parchment); }
-  .compact .note { text-align: center; }
+  .note { font-size: 13px; color: var(--muted-on-parchment); text-align: center; }
   .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
   @media (max-width: 480px) { .invite-form:not(.compact) { padding: 20px; } button { align-self: stretch; } }
 </style>
