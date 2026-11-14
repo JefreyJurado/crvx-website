@@ -31,7 +31,7 @@ const groups = [
   ))}
 
   <section class="section ruled">
-    <div class="container narrow stack centered" style="text-align:center">
+    <div class="container narrow stack centered">
       <h2 class="group-title">Videos</h2>
       <p class="lead">[ A few YouTube or Facebook videos will appear here when the choir sends the links. ]</p>
     </div>
@@ -40,9 +40,11 @@ const groups = [
 
 <style>
   .page-head { padding: 56px 0; }
-  .group-title { font-family: var(--font-display); font-size: 22px; color: var(--deep-forest); }
+  /* Owner: all Gallery text centred. */
+  .group-title { font-family: var(--font-display); font-size: 22px; color: var(--deep-forest); text-align: center; text-wrap: balance; }
+  .lead { max-width: 65ch; text-wrap: pretty; }
   .grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
   @media (max-width: 860px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   figure { margin: 0; display: flex; flex-direction: column; gap: 8px; }
-  figcaption { font-size: 14px; color: var(--muted-on-parchment); }
+  figcaption { font-size: 14px; color: var(--muted-on-parchment); text-align: center; }
 </style>
