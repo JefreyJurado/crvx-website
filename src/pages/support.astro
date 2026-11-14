@@ -2,7 +2,8 @@
 import Base from '../layouts/Base.astro';
 import { Image } from 'astro:assets';
 import { VISIBLE_METHODS, SPONSOR_ITEMS, IN_KIND } from '../data/donate';
-import { SITE } from '../data/site';
+import { socialLinks } from '../data/site';
+import SocialLinks from '../components/SocialLinks.astro';
 
 // Owner-approved order: opening, invite us (primary), give a gift, sponsor,
 // in-kind, other ways, our promise. Booking honoraria and gifts stay separate.
@@ -13,8 +14,10 @@ const canGive = methods.length > 0;
 // Sections alternate plain / shaded; without 'Give a gift' the later ones shift by one.
 const shade = (n: number) => (canGive ? n : n + 1) % 2 === 0;
 const isLink = (href: string) => href.startsWith('https://');
-// Social links appear only once site.ts has real addresses.
-const social = SITE.social.filter(s => isLink(s.href));
+// Social links appear only once site.ts has real addresses (shown with '#' on previews).
+const hasSocial = socialLinks().length > 0;
+// Non-booking CTAs go to Contact's 'Other inquiries / Write to us', never the invite form.
+const WRITE = '/contact#other-inquiries';
 ---
 <Base title="Support Us" description="Help Crvx et Cithara continue to bring sacred music to the liturgy.">
   <section class="section dark page-head">
@@ -91,7 +94,7 @@ const social = SITE.social.filter(s => isLink(s.href));
         ))}
       </ul>
       <div class="ctas">
-        <a class="btn btn-forest" href="/contact">Message us</a>
+        <a class="btn btn-forest" href={WRITE}>Message us</a>
         {canGive && <a class="btn btn-outline" href="#give">Give a gift</a>}
       </div>
     </div>
@@ -105,7 +108,7 @@ const social = SITE.social.filter(s => isLink(s.href));
       <ul class="chips">
         {IN_KIND.map(i => <li>{i}</li>)}
       </ul>
-      <p class="small"><a href="/contact">Message us</a> if you can offer any of these.</p>
+      <p class="small"><a href={WRITE}>Message us</a> if you can offer any of these.</p>
     </div>
   </section>
 
@@ -116,9 +119,7 @@ const social = SITE.social.filter(s => isLink(s.href));
       <ul class="ways">
         <li>Pray for us and for the members of the choir.</li>
         <li>Attend the Masses and concerts where we sing.</li>
-        {social.length > 0 && (
-          <li>Follow and share us on {social.map((s, i) => <>{i > 0 && (i === social.length - 1 ? ' and ' : ', ')}<a href={s.href} rel="noopener">{s.label}</a></>)}.</li>
-        )}
+        {hasSocial && <li class="follow">Follow and share us:<SocialLinks class="center" /></li>}
         <li>Recommend us to your parish.</li>
       </ul>
     </div>
@@ -129,7 +130,7 @@ const social = SITE.social.filter(s => isLink(s.href));
     <div class="container narrow stack centered">
       <h2 id="s-promise" class="title">Our promise</h2>
       <p class="accent-quote">Our benefactors are remembered in our prayers.</p>
-      <p class="text">A thank-you acknowledgement on request: just <a href="/contact">send us a message</a>.</p>
+      <p class="text">A thank-you acknowledgement on request: just <a href={WRITE}>send us a message</a>.</p>
     </div>
   </section>
 </Base>
@@ -140,6 +141,7 @@ const social = SITE.social.filter(s => isLink(s.href));
   .opening { font-family: var(--font-accent); font-size: 24px; line-height: 1.5; color: var(--deep-forest); max-width: 40ch; text-wrap: balance; }
   .text { max-width: 65ch; text-wrap: pretty; }
   .small { font-size: 15px; color: var(--muted-on-parchment); }
+  .follow { display: flex; flex-direction: column; align-items: center; gap: 4px; }
   .ways { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
   .ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
   .btn-outline { border-color: var(--deep-forest); color: var(--deep-forest); background: transparent; }
