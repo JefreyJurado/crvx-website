@@ -1,6 +1,6 @@
 // Image credits. Keep in step with CREDITS.md. Credit lines and licences are
 // taken exactly from the owner-approved candidates sheet (rounds 1 and 3).
-// Unsplash License / CC0 / public domain: credited as a courtesy. CC BY: credit required.
+// Unsplash License / CC0: credited as a courtesy.
 export const CREDITS = [
   {
     n: 17, usedFor: 'Home hero backdrop', file: 'st-peters-basilica-dome-interior-eSrV4kmi0NA',
@@ -31,17 +31,17 @@ export const CREDITS = [
     modified: 'Resized and cropped to 4:3.',
   },
   {
-    n: 27, usedFor: 'Our Ministry, Traditional Latin Mass', file: "St._Peter's_Basilica,_Vatican_City_(48466440751).jpg",
-    credit: 'Gary Todd, public domain, via Wikimedia Commons', license: 'Public domain', required: false,
-    page: 'https://commons.wikimedia.org/wiki/File:St._Peter%27s_Basilica,_Vatican_City_(48466440751).jpg',
-    licenseUrl: 'https://creativecommons.org/publicdomain/mark/1.0/',
+    n: 29, usedFor: 'Our Ministry, Traditional Latin Mass', file: 'priest-standing-beside-altar-bPMCNdYoSgY',
+    credit: 'Photo by Shalone Cason on Unsplash', license: 'Unsplash License', required: false,
+    page: 'https://unsplash.com/photos/priest-standing-beside-altar-bPMCNdYoSgY',
+    licenseUrl: 'https://unsplash.com/license',
     modified: 'Resized and cropped to 4:3.',
   },
   {
-    n: 28, usedFor: 'Our Ministry, Novus Ordo', file: 'Candles_at_the_Altar,_St._Peters_Basilica_(5939090177).jpg',
-    credit: 'Alex Proimos, CC BY 2.0, via Wikimedia Commons', license: 'CC BY 2.0', required: true,
-    page: 'https://commons.wikimedia.org/wiki/File:Candles_at_the_Altar,_St._Peters_Basilica_(5939090177).jpg',
-    licenseUrl: 'https://creativecommons.org/licenses/by/2.0',
+    n: 30, usedFor: 'Our Ministry, Novus Ordo', file: 'a-person-kneels-at-an-altar-during-a-church-service-TpkUqTAeP9M',
+    credit: 'Photo by ichida sonny on Unsplash', license: 'Unsplash License', required: false,
+    page: 'https://unsplash.com/photos/a-person-kneels-at-an-altar-during-a-church-service-TpkUqTAeP9M',
+    licenseUrl: 'https://unsplash.com/license',
     modified: 'Resized and cropped to 4:3.',
   },
   {
