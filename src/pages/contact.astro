@@ -1,9 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
 import InviteForm from '../components/InviteForm.astro';
-import { SITE } from '../data/site';
+import { socialLinks, emailLink } from '../data/site';
 import SocialLinks from '../components/SocialLinks.astro';
 import MessageModal from '../components/MessageModal.astro';
+// 'Write to us' shows only once there is a real email or social link to list.
+const hasDirect = socialLinks().length > 0 || emailLink() !== null;
 ---
 <Base title="Contact" description="Invite Crvx et Cithara to sing at your liturgy, or ask about joining the choir.">
   <section class="section dark page-head">
@@ -25,14 +27,15 @@ import MessageModal from '../components/MessageModal.astro';
       <div id="other-inquiries" class="row other anchor">
         <div class="stack">
           <h2 class="h3">Other inquiries</h2>
-          <p>Would you like to join the choir, or do you have a general question? Send us a message below, or write to us directly.</p>
+          <p>Would you like to join the choir, or do you have a general question? Send us a message below{hasDirect && ', or write to us directly'}.</p>
           <a class="btn btn-forest" href="#other-inquiries" data-open-message data-inquiry="Other">Send us a message</a>
         </div>
-        <div class="stack">
-          <h2 class="h3">Write to us</h2>
-          <p class="todo">{SITE.email}</p>
-          <SocialLinks class="center" />
-        </div>
+        {hasDirect && (
+          <div class="stack">
+            <h2 class="h3">Write to us</h2>
+            <SocialLinks class="center" email />
+          </div>
+        )}
       </div>
     </div>
   </section>

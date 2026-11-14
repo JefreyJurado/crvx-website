@@ -37,6 +37,18 @@ export const socialLinks = () =>
     .map(s => ({ label: s.label, href: s.href.startsWith('https://') ? s.href : IS_PREVIEW ? '#' : '' }))
     .filter(s => s.href);
 
+/** The choir email as a link: only a real address renders (previews show the
+ *  placeholder with href '#'). `gmail` picks the Gmail mark over the envelope. */
+export const emailLink = () => {
+  const real = /^[^\s@\[\]]+@[^\s@\[\]]+\.[^\s@\[\]]+$/.test(SITE.email);
+  if (!real && !IS_PREVIEW) return null;
+  return {
+    label: SITE.email,
+    href: real ? `mailto:${SITE.email}` : '#',
+    gmail: /@gmail\.com$/i.test(SITE.email),
+  };
+};
+
 export const NAV = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About Us' },
