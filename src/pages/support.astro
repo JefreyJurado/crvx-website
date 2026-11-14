@@ -2,7 +2,6 @@
 import Base from '../layouts/Base.astro';
 import { Image } from 'astro:assets';
 import { VISIBLE_METHODS, SPONSOR_ITEMS, IN_KIND } from '../data/donate';
-import { socialLinks } from '../data/site';
 import SocialLinks from '../components/SocialLinks.astro';
 import MessageModal from '../components/MessageModal.astro';
 
@@ -15,8 +14,6 @@ const canGive = methods.length > 0;
 // Sections alternate plain / shaded; without 'Give a gift' the later ones shift by one.
 const shade = (n: number) => (canGive ? n : n + 1) % 2 === 0;
 const isLink = (href: string) => href.startsWith('https://');
-// Social links appear only once site.ts has real addresses (shown with '#' on previews).
-const hasSocial = socialLinks().length > 0;
 // Non-booking CTAs open the 'Send us a message' popup (MessageModal), never the invite form;
 // without JS they reach Contact's 'Other inquiries / Write to us'.
 const WRITE = '/contact#other-inquiries';
@@ -121,7 +118,7 @@ const WRITE = '/contact#other-inquiries';
       <ul class="ways">
         <li>Pray for us and for the members of the choir.</li>
         <li>Attend the Masses and concerts where we sing.</li>
-        {hasSocial && <li class="follow">Follow and share us:<SocialLinks class="center" /></li>}
+        <li class="follow">Follow and share us:<SocialLinks class="center" /></li>
         <li>Recommend us to your parish.</li>
       </ul>
     </div>

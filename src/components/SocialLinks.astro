@@ -5,8 +5,8 @@
 // The email always uses the official full-colour Gmail M (owner: the choir
 // uses Gmail). All icons sit in identical 24x20 slots (each
 // mark scaled to fit, centred) so the row reads evenly.
-// Only real links render; previews show placeholders with '#' so the owner can
-// review the layout.
+// Icons always render. An item without a real link yet is a plain, non-focusable
+// span (no href) titled 'Link coming soon'; it becomes a link once site.ts has one.
 import { socialLinks, emailLink } from '../data/site';
 // Owner: 'Follow' lists are Facebook + YouTube only; 'Write to us' is the email only.
 interface Props { class?: string; email?: boolean; social?: boolean; }
@@ -22,28 +22,31 @@ const GMAIL: [string, string][] = [
   ['--brand-gmail-darkred', 'M52 51v8l20 15V48l-5.6-4.2c-5.94-4.45-14.4-.22-14.4 7.2'],
 ];
 
-type Item = { kind: 'facebook' | 'youtube' | 'gmail'; label: string; href: string; external: boolean };
+type Item = { kind: 'facebook' | 'youtube' | 'gmail'; label: string; href: string | null; external: boolean };
 const items: Item[] = [];
-const mail = email ? emailLink() : null;
-if (mail) items.push({ kind: 'gmail', label: mail.label, href: mail.href, external: false });
+if (email) { const mail = emailLink(); items.push({ kind: 'gmail', label: mail.label, href: mail.href, external: false }); }
 if (social) for (const s of socialLinks()) items.push({ kind: s.label === 'Facebook' ? 'facebook' : 'youtube', label: s.label, href: s.href, external: true });
 ---
-{items.length > 0 && (
-  <ul class:list={['social', cls]}>
+<ul class:list={['social', cls]}>
     {items.map(it => (
       <li>
-        <a href={it.href} {...(it.external ? { target: '_blank', rel: 'noopener' } : {})}>
+        {(() => { const Tag = it.href ? 'a' : 'span'; return (
+        <Tag
+          class:list={['item', { soon: !it.href }]}
+          {...(it.href ? { href: it.href, ...(it.external ? { target: '_blank', rel: 'noopener' } : {}) } : { title: 'Link coming soon' })}
+        >
           <span class="slot" aria-hidden="true">
             {it.kind === 'facebook' && <svg class="ic-fb" viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="11.6" fill="var(--brand-mark-white)" /><path fill="var(--brand-facebook)" d={FB} /></svg>}
             {it.kind === 'youtube' && <svg class="ic-yt" viewBox="0 3.545 24 16.91" focusable="false"><path fill="var(--brand-mark-white)" d="M9 8h7.5v8H9z" /><path fill="var(--brand-youtube)" d={YT} /></svg>}
             {it.kind === 'gmail' && <svg class="ic-gmail" viewBox="52 42 88 66" focusable="false">{GMAIL.map(([c, d]) => <path fill={`var(${c})`} d={d} />)}</svg>}
           </span>
           <span class="label">{it.label}</span>
-        </a>
+          {!it.href && <span class="visually-hidden"> (link coming soon)</span>}
+        </Tag>
+        ); })()}
       </li>
     ))}
-  </ul>
-)}
+</ul>
 
 <style>
   .social { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 20px; }
@@ -51,8 +54,9 @@ if (social) for (const s of socialLinks()) items.push({ kind: s.label === 'Faceb
   .social.center { justify-content: center; }
   /* Phones: one per line rather than a 2+1 wrap. */
   @media (max-width: 520px) { .social.center { flex-direction: column; align-items: center; gap: 0; } }
-  .social a { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; text-decoration: none; color: inherit; overflow-wrap: anywhere; }
+  .social .item { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; text-decoration: none; color: inherit; overflow-wrap: anywhere; }
   .social a:hover .label { text-decoration: underline; }
+  .social .soon { cursor: default; }
   /* Identical 24x20 slots; each mark scaled to fit and centred. */
   .slot { flex: none; width: 24px; height: 20px; display: inline-flex; align-items: center; justify-content: center; }
   .slot svg { display: block; }

@@ -1,9 +1,7 @@
 ---
-import { NAV, SITE, socialLinks } from '../data/site';
+import { NAV, SITE } from '../data/site';
 import SocialLinks from './SocialLinks.astro';
 const year = new Date().getFullYear();
-// 'Follow the choir' = Facebook + YouTube only; shown once one has a real link.
-const hasFollow = socialLinks().length > 0;
 ---
 <footer class="site-footer">
   <div class="container inner">
@@ -18,12 +16,10 @@ const hasFollow = socialLinks().length > 0;
           {NAV.filter(n => n.href !== '/').map(n => <li><a href={n.href}>{n.label}</a></li>)}
         </ul>
       </nav>
-      {hasFollow && (
-        <div class="follow">
-          <span class="h">Follow the choir</span>
-          <SocialLinks class="stacked" />
-        </div>
-      )}
+      <div class="follow">
+        <span class="h">Follow the choir</span>
+        <SocialLinks class="stacked" />
+      </div>
     </div>
     <p class="legal">© {year} {SITE.name} · {SITE.motto} · <a href="/credits">Image credits</a></p>
   </div>
